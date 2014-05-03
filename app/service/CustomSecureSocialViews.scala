@@ -28,20 +28,54 @@ class CustomSecureSocialViews(application: Application) extends TemplatesPlugin 
   }
 
 
-  def getNotAuthorizedPage[A](implicit request: play.api.mvc.Request[A]): play.api.templates.Html = ???
+  def getNotAuthorizedPage[A](implicit request: play.api.mvc.Request[A]): play.api.templates.Html = {
+    securesocial.views.html.notAuthorized()
+  }
  
-  def getPasswordChangePage[A](implicit request: securesocial.core.SecuredRequest[A],form: play.api.data.Form[securesocial.controllers.PasswordChange.ChangeInfo]): play.api.templates.Html = ???
-  def getResetPasswordPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[(String, String)], token: String): play.api.templates.Html = ???
-  def getSignUpPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[securesocial.controllers.Registration.RegistrationInfo], token: String): play.api.templates.Html = ???
-  def getStartResetPasswordPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[String]): play.api.templates.Html = ???
-  def getStartSignUpPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[String]): play.api.templates.Html = ???
-  def getUnknownEmailNotice()(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = ???
+  def getPasswordChangePage[A](implicit request: securesocial.core.SecuredRequest[A],form: play.api.data.Form[securesocial.controllers.PasswordChange.ChangeInfo]): play.api.templates.Html = {
+    securesocial.views.html.passwordChange(form)
+  }
+  def getResetPasswordPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[(String, String)], token: String): play.api.templates.Html ={
+    securesocial.views.html.Registration.resetPasswordPage(form, token)
+  }
 
-  def getAlreadyRegisteredEmail(user: securesocial.core.Identity)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = ???
-  def getPasswordChangedNoticeEmail(user: securesocial.core.Identity)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = ???
-  def getSendPasswordResetEmail(user: securesocial.core.Identity,token: String)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = ???
-  def getSignUpEmail(token: String)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = ???
-  def getWelcomeEmail(user: securesocial.core.Identity)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = ???
+  def getSignUpPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[securesocial.controllers.Registration.RegistrationInfo], token: String): play.api.templates.Html =
+  {
+    securesocial.views.html.Registration.signUp(form, token)
+  }
+
+  def getStartResetPasswordPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[String]): play.api.templates.Html = {
+    securesocial.views.html.Registration.startResetPassword(form)
+  }
+
+  def getStartSignUpPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[String]): play.api.templates.Html =
+  {
+    securesocial.views.html.Registration.startSignUp(form)
+  }
+
+  def getUnknownEmailNotice()(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = {
+    (None, Some(securesocial.views.html.mails.unknownEmailNotice(request)))
+  }
+
+  def getAlreadyRegisteredEmail(user: securesocial.core.Identity)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = {
+    (None, Some(securesocial.views.html.mails.alreadyRegisteredEmail(user)))
+  }
+
+  def getPasswordChangedNoticeEmail(user: securesocial.core.Identity)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = {
+    (None, Some(securesocial.views.html.mails.passwordChangedNotice(user)))
+  }
+
+  def getSendPasswordResetEmail(user: securesocial.core.Identity,token: String)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = {
+    (None, Some(securesocial.views.html.mails.passwordResetEmail(user, token)))
+  }
+
+  def getSignUpEmail(token: String)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = {
+    (None, Some(securesocial.views.html.mails.signUpEmail(token)))
+  }
+
+  def getWelcomeEmail(user: securesocial.core.Identity)(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = {
+    (None, Some(securesocial.views.html.mails.welcomeEmail(user)))
+  }
 
 
 

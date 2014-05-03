@@ -1,5 +1,7 @@
 @(loginForm: Form[(String,String)], errorMsg: Option[String] = None)(implicit request: RequestHeader, lang: Lang)
 
+@import securesocial.core.IdentityProvider
+
 @main("Login - IdeationLab"){
 
     <div class="container">
@@ -14,15 +16,15 @@
                             <h4><strong>Login to IdeationLab!</strong></h4>
                         </div>
                         <div class="portlet-widgets">
-                            <button class="btn btn-white btn-xs">Sign Up</button>
+                            <a href="@securesocial.core.providers.utils.RoutesHelper.startSignUp()"><button class="btn btn-white btn-xs">Sign Up</button></a>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="portlet-body">
-                        <form accept-charset="UTF-8" role="form">
+                        <form accept-charset="UTF-8" role="form" action="@securesocial.core.providers.utils.RoutesHelper.authenticateByPost("userpass").absoluteURL(IdentityProvider.sslEnabled)" method="POST">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="text">
+                                    <input class="form-control" placeholder="E-mail" name="username" type="text">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
@@ -33,23 +35,24 @@
                                     </label>
                                 </div>
                                 <br>
-                                <a href="index.html" class="btn btn-lg btn-green btn-block">Sign In</a>
+                                <input type="submit" class="btn btn-lg btn-green btn-block" value="Sign In">
                                 <hr>
-                                <a class="btn btn-block btn-social btn-facebook">
+                                <a href="@securesocial.core.providers.utils.RoutesHelper.authenticateByPost("facebook").absoluteURL(IdentityProvider.sslEnabled)" class="btn btn-block btn-social btn-facebook">
                                     <i class="fa fa-facebook"></i> Sign in with Facebook
                                 </a>
-                                <a class="btn btn-block btn-social btn-twitter">
+                                <a href="@securesocial.core.providers.utils.RoutesHelper.authenticateByPost("twitter").absoluteURL(IdentityProvider.sslEnabled)" class="btn btn-block btn-social btn-twitter">
                                     <i class="fa fa-twitter"></i> Sign in with Twitter
                                 </a>
-                                <a class="btn btn-block btn-social btn-google-plus">
+                                <a href="@securesocial.core.providers.utils.RoutesHelper.authenticateByPost("google").absoluteURL(IdentityProvider.sslEnabled)" class="btn btn-block btn-social btn-google-plus">
                                     <i class="fa fa-google-plus"></i> Sign in with Google
                                 </a>
                             </fieldset>
                             <br>
                             <p class="small">
-                                <a href="#">Forgot your password?</a>
+                                <a href="@securesocial.core.providers.utils.RoutesHelper.startResetPassword()">Forgot your password?</a>
                             </p>
                         </form>
+
                     </div>
                 </div>
             </div>
