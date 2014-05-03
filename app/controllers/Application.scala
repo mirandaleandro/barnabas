@@ -13,7 +13,10 @@ object Application extends Controller with securesocial.core.SecureSocial{
 
   def index = SecuredAction { implicit request =>
     Logger.warn("logging from application")
+    Play.current.configuration.getString("your.key")
+
     Ok(views.html.index("Your new application is ready."))
+
   }
 
 }

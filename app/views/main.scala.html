@@ -1,5 +1,7 @@
 @(title: String)(content: Html)(headers:Html)
 
+@import play.api.Play
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Flex Admin - Responsive Admin Theme</title>
+    <title>@title - @Play.current.configuration.getString("application.name")</title>
 
         <!-- GLOBAL STYLES -->
     <link href="@routes.Assets.at("stylesheets/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet">
