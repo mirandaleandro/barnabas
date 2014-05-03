@@ -50,7 +50,7 @@ class CustomSecureSocialViews(application: Application) extends TemplatesPlugin 
 
   def getStartSignUpPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[String]): play.api.templates.Html =
   {
-    securesocial.views.html.Registration.startSignUp(form)
+    views.html.customsecuresocial.startSignUp(form)
   }
 
   def getUnknownEmailNotice()(implicit request: play.api.mvc.RequestHeader): (Option[play.api.templates.Txt], Option[play.api.templates.Html]) = {
