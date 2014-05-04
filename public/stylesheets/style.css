@@ -501,6 +501,11 @@ a:focus {
     border-bottom: 1px solid #142638;
     text-align: center;
 }
+.img-logout,
+.navbar-side .side-user img
+{
+    width: 150px;
+}
 
 .navbar-side .side-user img {
     display: block;
