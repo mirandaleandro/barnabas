@@ -2,7 +2,8 @@
 @import helper._
 @import securesocial.core.IdentityProvider
 @import play.api.Play
-@implicitFieldConstructor = @{ FieldConstructor(securesocial.views.html.inputFieldConstructor.f) }
+@implicitFieldConstructor = @{ FieldConstructor(views.html.barnabasInputTextField.f) }
+
 
 @main("Sign up"){
     <div class="container">
@@ -24,9 +25,13 @@
 
                             <fieldset>
 
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="text">
-                                </div>
+
+                                @helper.inputText(
+                                    startForm("email"),
+                                    'placeholder -> "E-mail",
+                                    'class -> "form-control",
+                                    '_label -> null
+                                )
 
                                 <input type="submit" class="btn btn-lg btn-green btn-block" value="@Messages("securesocial.signup.createAccount")">
 

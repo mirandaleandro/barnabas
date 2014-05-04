@@ -2066,3 +2066,18 @@ input[type="checkbox"]:checked::after,
         margin-left: 0;
     }
 }
+
+.message-container
+{
+    position: fixed;
+    left:0;
+    width: 100%;
+    z-index: 99;
+}
+.message-content
+{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
