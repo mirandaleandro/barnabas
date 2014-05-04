@@ -33,10 +33,10 @@ class CustomSecureSocialViews(application: Application) extends TemplatesPlugin 
   }
  
   def getPasswordChangePage[A](implicit request: securesocial.core.SecuredRequest[A],form: play.api.data.Form[securesocial.controllers.PasswordChange.ChangeInfo]): play.api.templates.Html = {
-    securesocial.views.html.passwordChange(form)
+    views.html.customsecuresocial.passwordChange(form)
   }
   def getResetPasswordPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[(String, String)], token: String): play.api.templates.Html ={
-    securesocial.views.html.Registration.resetPasswordPage(form, token)
+    views.html.customsecuresocial.resetPasswordPage(form, token)
   }
 
   def getSignUpPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[securesocial.controllers.Registration.RegistrationInfo], token: String): play.api.templates.Html =
