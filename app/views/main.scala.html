@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(headers:Html)
+@(title: String)(content: Html)(headers:Html)(pageLevelScripts:Html)
 
 @import play.api.Play
 
@@ -34,17 +34,19 @@
 
 </head>
 <body >
-@content
+
+    @content
 
     <!-- GLOBAL SCRIPTS -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="@routes.Assets.at("javascripts/plugins/bootstrap/bootstrap.min.js")"></script>
     <script src="@routes.Assets.at("javascripts/plugins/slimscroll/jquery.slimscroll.min.js")"></script>
+
         <!-- HISRC Retina Images -->
     <script src="@routes.Assets.at("javascripts/plugins/hisrc/hisrc.js")"></script>
 
         <!-- PAGE LEVEL PLUGIN SCRIPTS -->
-
+        @pageLevelScripts
         <!-- THEME SCRIPTS -->
     <script src="@routes.Assets.at("javascripts/flex.js")"></script>
 

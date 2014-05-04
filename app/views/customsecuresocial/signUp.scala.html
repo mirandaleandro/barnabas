@@ -3,9 +3,9 @@
 @import securesocial.core.IdentityProvider
 @import play.api.Play
 @import helper._
-@implicitFieldConstructor = @{ FieldConstructor(views.html.barnabasInputTextField.f) }
+@implicitFieldConstructor = @{ FieldConstructor(views.html.barnabasTextField.f) }
 
-@main("Login"){
+@main("Sign up"){
 
     <div class="container">
 
@@ -87,4 +87,4 @@
 
 }{
     <link href="@routes.Assets.at("stylesheets/plugins/bootstrap-social/bootstrap-social.css")" rel="stylesheet">
-}
+}{ }
