@@ -41,7 +41,7 @@ class CustomSecureSocialViews(application: Application) extends TemplatesPlugin 
 
   def getSignUpPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[securesocial.controllers.Registration.RegistrationInfo], token: String): play.api.templates.Html =
   {
-    securesocial.views.html.Registration.signUp(form, token)
+    views.html.customsecuresocial.signUp(form, token)
   }
 
   def getStartResetPasswordPage[A](implicit request: play.api.mvc.Request[A],form: play.api.data.Form[String]): play.api.templates.Html = {
