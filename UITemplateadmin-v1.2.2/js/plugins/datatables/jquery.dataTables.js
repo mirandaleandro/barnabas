@@ -11727,7 +11727,7 @@
 					} );
 				};
 				
-				/* Pages calculation */
+				/* pages calculation */
 				if ( oSettings._iDisplayLength === -1 )
 				{
 					iStartButton = 1;
