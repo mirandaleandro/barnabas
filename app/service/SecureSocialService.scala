@@ -10,21 +10,12 @@ package service
 
 import play.api.Logger
 import models.{SecureSocialToken, User}
-
-
-
-/**
- * A Sample In Memory user service in Scala
- *
- * IMPORTANT: This is just a sample and not suitable for a production environment since
- * it stores everything in memory.
- */
 import play.api.Application
 import securesocial.core.{Identity, IdentityId, UserServicePlugin}
 import securesocial.core.providers.Token
+import models.PostgresConnection._
 
-
-class SecureSocialUserService(application: Application) extends UserServicePlugin(application) {
+class SecureSocialService(application: Application) extends UserServicePlugin(application) {
   /**
    * Finds a user that maches the specified id
    *
@@ -72,7 +63,6 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
    * @param token The token to save
    */
   def save(token: Token) = {
-    // implement me
     SecureSocialToken(token)
   }
 

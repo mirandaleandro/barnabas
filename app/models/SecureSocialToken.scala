@@ -2,8 +2,7 @@ package models
 
 import net.fwbrasil.activate.entity.Entity
 import securesocial.core.providers.Token
-import models.PostgresConnection._
-import securesocial.core.providers.Token
+import PostgresConnection._
 import play.Logger
 
 /**

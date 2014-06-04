@@ -26,5 +26,13 @@ import net.fwbrasil.activate.ActivateContext
 
 object PostgresConnection extends ActivateContext
 {
-  override val storage = new TransientMemoryStorage
+ // override val storage = new TransientMemoryStorage
+
+  val storage = new PooledJdbcRelationalStorage {
+    val jdbcDriver = "org.postgresql.Driver"
+    val user = "postgres"
+    val password = "socrates"
+    val url = "jdbc:postgresql://127.0.0.1/barnabas"
+    val dialect = postgresqlDialect
+  }
 }
