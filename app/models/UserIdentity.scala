@@ -30,11 +30,11 @@ class UserIdentity (
 
   def authMethod:AuthenticationMethod = UserAuthenticationMethod.unapply(this.userAuthMethod)
 
-  def oAuth1Info:Option[OAuth1Info] = UserOAuth1Info.unapply(this.userOAuth1Info)
+  def oAuth1Info:Option[OAuth1Info] = this.userOAuth1Info.map(UserOAuth1Info.unapply(_))
 
-  def oAuth2Info:Option[OAuth2Info] = UserOAuth2Info.unapply(this.userOAuth2Info)
+  def oAuth2Info:Option[OAuth2Info] = this.userOAuth2Info.map(UserOAuth2Info.unapply(_))
 
-  def passwordInfo:Option[PasswordInfo] = UserPasswordInfo.unapply(this.userPasswordInfo)
+  def passwordInfo:Option[PasswordInfo] = this.userPasswordInfo.map(UserPasswordInfo.unapply(_))
 
   def equals(that:Any):Boolean =
   {
@@ -64,51 +64,64 @@ class UserIdentity (
 object UserIdentity
 {
 
+
   def apply(user:User, identity:Identity): UserIdentity = transactional{
 
-    val identityId = UserIdentityId(identity.identityId)
-    val authMethod = UserAuthenticationMethod(identity.authMethod)
-    val oAuth1Info = identity.oAuth1Info.map(UserOAuth1Info(_))
-    val oAuth2Info = identity.oAuth2Info.map(UserOAuth2Info(_))
-    val passwordInfo = identity.passwordInfo.map(UserPasswordInfo(_))
+    val userIdentityId: UserIdentityId = UserIdentityId(identity.identityId)
+    val userAuthMethod = UserAuthenticationMethod(identity.authMethod)
+    val userOAuth1Info = identity.oAuth1Info.map(UserOAuth1Info(_))
+    val userOAuth2Info = identity.oAuth2Info.map(UserOAuth2Info(_))
+    val userPasswordInfo = identity.passwordInfo.map(UserPasswordInfo(_))
 
     new UserIdentity(
       user = user,
-      identityId = identityId,
+      userIdentityId = userIdentityId,
       firstName = identity.firstName,
       lastName = identity.lastName,
       fullName = identity.fullName,
       email = identity.email,
       avatarUrl = identity.avatarUrl,
-      authMethod = authMethod,
-      oAuth1Info = oAuth1Info,
-      oAuth2Info = oAuth2Info,
-      passwordInfo = passwordInfo
+      userAuthMethod = userAuthMethod,
+      userOAuth1Info = userOAuth1Info,
+      userOAuth2Info = userOAuth2Info,
+      userPasswordInfo = userPasswordInfo
     )
   }
 
   def findByIdentity(identity:Identity):Option[UserIdentity] = transactional
   {
+    //TODO
     (select[UserIdentity] where(_.identityId :== identity.identityId)).headOption
 
   }
 
-  def findByIdentityId(identityId:String):Option[UserIdentity] =
+  def findByIdentityId(identityId:IdentityId):Option[UserIdentity] =
   {
+    //TODO
     (select[UserIdentity] where(_.identityId :== identityId)).headOption
   }
+
+  def findByEmailAndProvider(email: String, provider: String):Option[UserIdentity] =
+  {
+    //TODO
+
+    None
+  }
+
 
 
 }
 
 
 class UserIdentityId(val userId : scala.Predef.String, val providerId : scala.Predef.String) extends Entity
+
 object UserIdentityId
 {
-  def apply(identityId:IdentityId):UserIdentityId =
+  def apply(identityId:IdentityId): UserIdentityId =
   {
     transactional{
-      new UserIdentityId(identityId.userId,identityId.providerId)
+      val x = new UserIdentityId(identityId.userId,identityId.providerId)
+      x
     }
   }
 
@@ -128,6 +141,9 @@ object UserAuthenticationMethod
     }
   }
 
+  def unapply(userAuthenticationMethod:UserAuthenticationMethod):AuthenticationMethod = {
+    new AuthenticationMethod(userAuthenticationMethod.method)
+  }
 
 }
 
@@ -142,11 +158,15 @@ object UserOAuth1Info
       new UserOAuth1Info(auth.token,auth.secret)
     }
   }
+
+  def unapply(userOAuth1Info:UserOAuth1Info):OAuth1Info = {
+    new OAuth1Info(userOAuth1Info.token,userOAuth1Info.secret)
+  }
 }
 
 
 
-class UserOAuth2Info(val accessToken : scala.Predef.String, val tokenType : scala.Option[scala.Predef.String]) extends Entity
+class UserOAuth2Info(val accessToken:String, val tokenType:Option[String]) extends Entity
 object UserOAuth2Info
 {
   def apply(auth:OAuth2Info):UserOAuth2Info =
@@ -154,6 +174,10 @@ object UserOAuth2Info
     transactional{
       new UserOAuth2Info(auth.accessToken,auth.tokenType)
     }
+  }
+
+  def unapply(userOAuth2Info:UserOAuth2Info):OAuth2Info = {
+    new OAuth2Info(userOAuth2Info.accessToken, userOAuth2Info.tokenType)
   }
 }
 
@@ -167,6 +191,10 @@ object UserPasswordInfo
     transactional{
       new UserPasswordInfo(passInfo.hasher, passInfo.password, passInfo.salt)
     }
+  }
+
+  def unapply(userPasswordInfo:UserPasswordInfo):PasswordInfo = {
+    new PasswordInfo(userPasswordInfo.hasher, userPasswordInfo.password, userPasswordInfo.salt)
   }
 }
 

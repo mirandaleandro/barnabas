@@ -33,7 +33,7 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
    */
   def find(id: IdentityId):Option[Identity] = {
     // implement me
-
+     User.findByIdentityId(id)
   }
 
   /**
@@ -49,6 +49,7 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
   def findByEmailAndProvider(email: String, providerId: String):Option[Identity] =
   {
     // implement me
+      User.findByEmailAndProvider(email, providerId)
   }
 
   /**

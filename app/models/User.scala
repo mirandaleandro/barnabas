@@ -1,12 +1,6 @@
 package models
 
-/**
- * Created with IntelliJ IDEA.
- * User: leo
- * Date: 6/3/14
- * Time: 11:49 AM
- * To change this template use File | Settings | File Templates.
- */
+
 import play.api.Application
 import securesocial.core.{Identity, IdentityId, UserServicePlugin}
 import securesocial.core.providers.Token
@@ -30,11 +24,20 @@ class User extends Entity with Identity
   def oAuth2Info = currentIdentity.oAuth2Info
   def passwordInfo = currentIdentity.passwordInfo
 
-
 }
 
 object User
 {
   def apply() = transactional { new User() }
 
+
+  def findByIdentityId(id: IdentityId): Option[Identity] =
+  {
+      UserIdentity.findByIdentityId(id).map(_.user)
+  }
+
+  def findByEmailAndProvider(email: String, provider: String): Option[Identity] =
+  {
+     UserIdentity.findByEmailAndProvider(email,provider).map(_.user)
+  }
 }
