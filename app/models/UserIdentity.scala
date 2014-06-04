@@ -36,7 +36,7 @@ class UserIdentity (
 
   def passwordInfo:Option[PasswordInfo] = this.userPasswordInfo.map(UserPasswordInfo.unapply(_))
 
-  def equals(that:Any):Boolean =
+  override def equals(that:Any):Boolean =
   {
     if (that.isInstanceOf[Identity])
     {
@@ -45,6 +45,15 @@ class UserIdentity (
     {
       false
     }
+  }
+
+  def setDisplayInfoForIdentity(identity:Identity)
+  {
+    this.firstName = identity.firstName
+    this.lastName = identity.lastName
+    this.fullName = identity.fullName
+    this.email = identity.email
+    this.avatarUrl = identity.avatarUrl
   }
 
 //    var user:User = _
@@ -120,8 +129,7 @@ object UserIdentityId
   def apply(identityId:IdentityId): UserIdentityId =
   {
     transactional{
-      val x = new UserIdentityId(identityId.userId,identityId.providerId)
-      x
+      new UserIdentityId(identityId.userId,identityId.providerId)
     }
   }
 

@@ -24,20 +24,30 @@ class User extends Entity with Identity
   def oAuth2Info = currentIdentity.oAuth2Info
   def passwordInfo = currentIdentity.passwordInfo
 
+  def setInfoForIdentity(identity:Identity)
+  {
+     val userIdentity = UserIdentity.findByIdentity(identity).getOrElse(UserIdentity(this, identity))
+     userIdentity.setDisplayInfoForIdentity(identity)
+  }
+
 }
 
 object User
 {
+
   def apply() = transactional { new User() }
 
 
-  def findByIdentityId(id: IdentityId): Option[Identity] =
+  def findByIdentityId(id: IdentityId): Option[User] =
   {
       UserIdentity.findByIdentityId(id).map(_.user)
   }
 
-  def findByEmailAndProvider(email: String, provider: String): Option[Identity] =
+  def findByEmailAndProvider(email: String, provider: String): Option[User] =
   {
      UserIdentity.findByEmailAndProvider(email,provider).map(_.user)
   }
+
+  def findByIdentity(identity: Identity):Option[User] = ???
+
 }

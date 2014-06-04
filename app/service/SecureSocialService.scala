@@ -9,7 +9,7 @@ package service
  */
 
 import play.api.Logger
-import models.User
+import models.{SecureSocialToken, User}
 
 
 
@@ -32,7 +32,6 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
    * @return an optional user
    */
   def find(id: IdentityId):Option[Identity] = {
-    // implement me
      User.findByIdentityId(id)
   }
 
@@ -48,7 +47,6 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
    */
   def findByEmailAndProvider(email: String, providerId: String):Option[Identity] =
   {
-    // implement me
       User.findByEmailAndProvider(email, providerId)
   }
 
@@ -57,8 +55,11 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
    * This is your chance to save the user information in your backing store.
    * @param user
    */
-  def save(user: Identity) {
-    // implement me
+  def save(user: Identity):Identity =
+  {
+    val sysUser = User.findByIdentity(user).getOrElse(User())
+    sysUser.setInfoForIdentity(user)
+    sysUser
   }
 
   /**
@@ -72,6 +73,7 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
    */
   def save(token: Token) = {
     // implement me
+    SecureSocialToken(token)
   }
 
 
@@ -85,7 +87,7 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
    * @return
    */
   def findToken(token: String): Option[Token] = {
-    // implement me
+    SecureSocialToken.tokenByUuid(token)
   }
 
   /**
@@ -97,7 +99,7 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
    * @param uuid the token id
    */
   def deleteToken(uuid: String) {
-    // implement me
+    SecureSocialToken.deleteToken(uuid)
   }
 
   /**
@@ -108,6 +110,6 @@ class SecureSocialUserService(application: Application) extends UserServicePlugi
    *
    */
   def deleteExpiredTokens() {
-    // implement me
+    SecureSocialToken.deleteExpiredTokens()
   }
 }
