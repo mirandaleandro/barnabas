@@ -26,17 +26,18 @@ import scala.concurrent.Future
 import scala.Some
 import play.api.mvc.SimpleResult
 import play.api.libs.oauth.ServiceInfo
+import models.User
 
 
 /**
  * A request that adds the User for the current call
  */
-case class SecuredRequest[A](user: Identity, request: Request[A]) extends WrappedRequest(request)
+case class SecuredRequest[A](user: User, request: Request[A]) extends WrappedRequest(request)
 
 /**
  * A request that adds the User for the current call
  */
-case class RequestWithUser[A](user: Option[Identity], request: Request[A]) extends WrappedRequest(request)
+case class RequestWithUser[A](user: Option[User], request: Request[A]) extends WrappedRequest(request)
 
 
 /**
@@ -114,7 +115,7 @@ trait SecureSocial extends Controller {
       ) yield {
         touch(authenticator)
         if ( authorize.isEmpty || authorize.get.isAuthorized(user)) {
-          block(SecuredRequest(user, request))
+          block(SecuredRequest(user.asInstanceOf[User], request))
         } else {
           Future.successful {
             if ( ajaxCall ) {
@@ -162,7 +163,7 @@ trait SecureSocial extends Controller {
         touch(authenticator)
         user
       }
-      block(RequestWithUser(user, request))
+      block(RequestWithUser(user.map(_.asInstanceOf[User]), request))
     }
   }
 

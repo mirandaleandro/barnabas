@@ -28,7 +28,6 @@ class User extends Entity with Identity
      val userIdentity = UserIdentity.findByIdentity(identity).getOrElse(UserIdentity(this, identity))
      userIdentity.setDisplayInfoForIdentity(identity)
   }
-
 }
 
 object User
