@@ -2,6 +2,8 @@ package models
 
 import net.fwbrasil.activate.migration.Migration
 import models.PostgresConnection._
+import xml.dtd.SystemID
+import compat.Platform
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +14,7 @@ import models.PostgresConnection._
  */
 
 class CreateSchema extends Migration {
-    def timestamp = 201406011240l
+    def timestamp = Platform.currentTime//201406011240l
 
     def up {
         removeAllEntitiesTables

@@ -23,7 +23,14 @@ class SecureSocialService(application: Application) extends UserServicePlugin(ap
    * @return an optional user
    */
   def find(id: IdentityId):Option[Identity] = {
-     User.findByIdentityId(id)
+    transactional {
+      val user = User.findByIdentityId(id)
+      if (!user.isDefined)
+      {
+        Logger.logger.info("User not defined")
+      }
+      user
+    }
   }
 
   /**

@@ -1,11 +1,10 @@
 package models
 
 
-import play.api.Application
-import securesocial.core.{Identity, IdentityId, UserServicePlugin}
-import securesocial.core.providers.Token
 import models.PostgresConnection._
 import net.fwbrasil.activate.entity.Entity
+import securesocial.core.{IdentityId, Identity}
+import securesocialpersistence.UserIdentity
 
 
 class User extends Entity with Identity

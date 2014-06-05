@@ -25,6 +25,7 @@ import providers.utils.RoutesHelper
 import securesocial.core.LoginEvent
 import securesocial.core.AccessDeniedException
 import scala.Some
+import models.PostgresConnection._
 
 
 /**
@@ -86,25 +87,28 @@ object ProviderController extends Controller
   def authenticateByPost(provider: String) = handleAuth(provider)
 
   private def handleAuth(provider: String) = Action { implicit request =>
-    Registry.providers.get(provider) match {
-      case Some(p) => {
-        try {
-          p.authenticate().fold( result => result , {
-            user => completeAuthentication(user, session)
-          })
-        } catch {
-          case ex: AccessDeniedException => {
-            Redirect(RoutesHelper.login()).flashing("error" -> Messages("securesocial.login.accessDenied"))
-          }
+    transactional{
+      Registry.providers.get(provider) match {
+        case Some(p) => {
+          try {
+            p.authenticate().fold( result => result , {
+              user => completeAuthentication(user, session)
+            })
+          } catch {
+            case ex: AccessDeniedException => {
+              Redirect(RoutesHelper.login()).flashing("error" -> Messages("securesocial.login.accessDenied"))
+            }
 
-          case other: Throwable => {
-            Logger.error("Unable to log user in. An exception was thrown", other)
-            Redirect(RoutesHelper.login()).flashing("error" -> Messages("securesocial.login.errorLoggingIn"))
+            case other: Throwable => {
+              Logger.error("Unable to log user in. An exception was thrown", other)
+              Redirect(RoutesHelper.login()).flashing("error" -> Messages("securesocial.login.errorLoggingIn"))
+            }
           }
         }
+        case _ => NotFound
       }
-      case _ => NotFound
     }
+
   }
 
   def completeAuthentication(user: Identity, session: Session)(implicit request: RequestHeader): SimpleResult = {

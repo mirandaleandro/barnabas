@@ -1,9 +1,11 @@
-package models
+package models.securesocialpersistence
 
+import _root_.securesocial.core.{IdentityId, Identity}
 import securesocial.core._
 import models.PostgresConnection._
 import securesocial.core.OAuth1Info
 import securesocial.core.IdentityId
+import models.User
 
 /**
  * Created with IntelliJ IDEA.
@@ -55,19 +57,6 @@ class UserIdentity (
     this.email = identity.email
     this.avatarUrl = identity.avatarUrl
   }
-
-//    var user:User = _
-//  var identityId : securesocial.core.IdentityId
-//  var firstName : scala.Predef.String
-//  var lastName : scala.Predef.String
-//  var fullName : scala.Predef.String
-//  var email : scala.Option[scala.Predef.String]
-//  var avatarUrl : scala.Option[scala.Predef.String]
-//  var authMethod : securesocial.core.AuthenticationMethod
-//  var oAuth1Info : scala.Option[securesocial.core.OAuth1Info]
-//  var oAuth2Info : scala.Option[securesocial.core.OAuth2Info]
-//  var passwordInfo : scala.Option[securesocial.core.PasswordInfo]
-
 }
 
 object UserIdentity
@@ -82,19 +71,24 @@ object UserIdentity
     val userOAuth2Info = identity.oAuth2Info.map(UserOAuth2Info(_))
     val userPasswordInfo = identity.passwordInfo.map(UserPasswordInfo(_))
 
-    new UserIdentity(
-      user = user,
-      userIdentityId = userIdentityId,
-      firstName = identity.firstName,
-      lastName = identity.lastName,
-      fullName = identity.fullName,
-      email = identity.email,
-      avatarUrl = identity.avatarUrl,
-      userAuthMethod = userAuthMethod,
-      userOAuth1Info = userOAuth1Info,
-      userOAuth2Info = userOAuth2Info,
-      userPasswordInfo = userPasswordInfo
-    )
+    val userIdentity =
+      new UserIdentity(
+        user = user,
+        userIdentityId = userIdentityId,
+        firstName = identity.firstName,
+        lastName = identity.lastName,
+        fullName = identity.fullName,
+        email = identity.email,
+        avatarUrl = identity.avatarUrl,
+        userAuthMethod = userAuthMethod,
+        userOAuth1Info = userOAuth1Info,
+        userOAuth2Info = userOAuth2Info,
+        userPasswordInfo = userPasswordInfo
+      )
+
+    user.currentIdentity = userIdentity
+
+    userIdentity
   }
 
   def findByIdentity(identity:Identity):Option[UserIdentity] = transactional
@@ -103,9 +97,10 @@ object UserIdentity
   }
 
   def findByIdentityId(identityId:IdentityId):Option[UserIdentity] =
-  transactional {
+    UserIdentityId.findByIdentityId(identityId).flatMap{
+      u =>
+      (select[UserIdentity] where( _.userIdentityId :== u )).headOption
 
-    (select[UserIdentity] where(_.identityId.userId :== identityId.userId,_.identityId.providerId :== identityId.providerId )).headOption
   }
 
   def findByEmailAndProvider(email: String, provider: String):Option[UserIdentity] =
@@ -120,21 +115,6 @@ object UserIdentity
 }
 
 
-class UserIdentityId(val userId : scala.Predef.String, val providerId : scala.Predef.String) extends Entity
-
-object UserIdentityId
-{
-  def apply(identityId:IdentityId): UserIdentityId =
-  {
-    transactional{
-      new UserIdentityId(identityId.userId,identityId.providerId)
-    }
-  }
-
-  def unapply(identityId:UserIdentityId):IdentityId = {
-    new IdentityId(identityId.userId,identityId.providerId)
-  }
-}
 
 
 class UserAuthenticationMethod(val method : scala.Predef.String) extends Entity
