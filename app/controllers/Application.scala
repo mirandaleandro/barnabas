@@ -13,12 +13,25 @@ object Application extends Controller with securesocial.core.SecureSocial{
 
   def index = SecuredAction { implicit request =>
 
-    val user = request.user
     Logger.warn("logging from application")
     Play.current.configuration.getString("your.key")
 
     Ok(views.html.index("Your new application is ready."))
 
+  }
+
+  def dashboard = index
+
+  def submitIdeas = SecuredAction { implicit request =>
+    Ok(views.html.pages.submitIdea())
+  }
+
+  def getInspired = SecuredAction { implicit request =>
+    Ok(views.html.pages.getInspired())
+  }
+
+  def evaluateIdeas() = SecuredAction { implicit request =>
+    Ok(views.html.pages.evaluateIdeas())
   }
 
 }
