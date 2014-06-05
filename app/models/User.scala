@@ -48,6 +48,6 @@ object User
      UserIdentity.findByEmailAndProvider(email,provider).map(_.user)
   }
 
-  def findByIdentity(identity: Identity):Option[User] = ???
+  def findByIdentity(identity: Identity):Option[User] = UserIdentity.findByIdentity(identity).map(_.user)
 
 }

@@ -99,15 +99,13 @@ object UserIdentity
 
   def findByIdentity(identity:Identity):Option[UserIdentity] = transactional
   {
-    //TODO
-    (select[UserIdentity] where(_.identityId :== identity.identityId)).headOption
-
+    findByIdentityId(identityId = identity.identityId)
   }
 
   def findByIdentityId(identityId:IdentityId):Option[UserIdentity] =
-  {
-    //TODO
-    (select[UserIdentity] where(_.identityId :== identityId)).headOption
+  transactional {
+
+    (select[UserIdentity] where(_.identityId.userId :== identityId.userId,_.identityId.providerId :== identityId.providerId )).headOption
   }
 
   def findByEmailAndProvider(email: String, provider: String):Option[UserIdentity] =

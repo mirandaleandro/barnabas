@@ -25,10 +25,9 @@ libraryDependencies ++= Seq(
     "com.lowagie" % "itext" % "2.1.7",
     // Add your project dependencies here,
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
-    "com.typesafe" %% "play-plugins-util" % "2.1.0",
-    "com.typesafe" %% "play-plugins-mailer" % "2.1.0",
+    "com.typesafe" %% "play-plugins-util" % "2.2.0",
+    "com.typesafe" %% "play-plugins-mailer" % "2.2.0",
     "org.mindrot" % "jbcrypt" % "0.3m",
-    "ws.securesocial" %% "securesocial" % "2.1.3",
     "net.fwbrasil" %% "activate-play" % activateVersion,
     "net.fwbrasil" %% "activate-jdbc" % activateVersion,
     "net.fwbrasil" %% "activate-core" % activateVersion
