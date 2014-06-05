@@ -11,7 +11,7 @@ import service.UserService
 object Application extends Controller with securesocial.core.SecureSocial{
 
 
-  def index = SecuredAction { implicit request =>
+  def index = Action { implicit request =>
 
     Logger.warn("logging from application")
     Play.current.configuration.getString("your.key")
@@ -22,15 +22,15 @@ object Application extends Controller with securesocial.core.SecureSocial{
 
   def dashboard = index
 
-  def submitIdeas = SecuredAction { implicit request =>
+  def submitIdeas = Action { implicit request =>
     Ok(views.html.pages.submitIdea())
   }
 
-  def getInspired = SecuredAction { implicit request =>
+  def getInspired = Action { implicit request =>
     Ok(views.html.pages.getInspired())
   }
 
-  def evaluateIdeas() = SecuredAction { implicit request =>
+  def evaluateIdeas() = Action { implicit request =>
     Ok(views.html.pages.evaluateIdeas())
   }
 
