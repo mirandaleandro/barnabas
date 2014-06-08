@@ -2149,3 +2149,8 @@ input[type="checkbox"]:checked::after,
 .evaluate-idea .note-editor .note-editable {
     overflow: auto;
 }
+
+.resource-vote.voted a
+{
+    opacity: 0.8;
+}
