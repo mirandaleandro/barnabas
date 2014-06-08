@@ -9,6 +9,8 @@ $(document).ready(function() {
 
         this.createRichTextArea = function (selector, options) {
             $(selector).summernote(options);
+            $(selector).next().find(".note-toolbar").append($(selector +' .appendable-btn-group'));
+
         };
 
         this.setSlider = function()
@@ -22,6 +24,7 @@ $(document).ready(function() {
             });
         }
 
+
     }
 
     window.barnabas = new Barnabas();
@@ -31,6 +34,7 @@ $(document).ready(function() {
     barnabas.createRichTextArea('.additional-feedback-rich-textarea',{height:200});
 
     barnabas.createRichTextArea('.submit-idea-rich-textarea',{height: 400});
+
 
 
 });

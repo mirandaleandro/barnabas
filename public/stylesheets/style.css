@@ -2164,3 +2164,8 @@ input[type="checkbox"]:checked::after,
     background: rgba(0,0,0,0.2);
     padding: 12px;
 }
+
+.evaluate-idea .note-editable .appendable-btn-group
+{
+    display: none;
+}
