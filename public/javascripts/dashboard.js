@@ -1,4 +1,4 @@
-$(document).ready(function() {
-      $('.data-table').dataTable();
-
+$(document).ready(function()
+{
+    barnabas.updateDataTable(".data-table");
 });

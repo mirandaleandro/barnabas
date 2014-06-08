@@ -2086,3 +2086,32 @@ input[type="checkbox"]:checked::after,
     margin-top: 10px;
 }
 
+.topic-checkbox label
+{
+    vertical-align: top;
+    font-weight: normal;
+    cursor: pointer;
+
+}
+
+.topic-checkbox input
+{
+    margin-right: 6px;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.extra-bottom-margin
+{
+    margin-bottom: 20px;
+}
+
+h4{
+    color: #444;
+
+}
+.bottom-line
+{
+    border-bottom: 1px solid #444;
+    padding-bottom: 15px;
+}
