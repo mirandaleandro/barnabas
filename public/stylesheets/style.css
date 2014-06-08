@@ -2114,3 +2114,38 @@ input[type="checkbox"]:checked::after,
     border-bottom: 1px solid #444;
     padding-bottom: 15px;
 }
+
+.idea-portlet
+{
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.vote-slider .ui-slider-handle
+{
+    display:none;
+}
+
+.skinny
+{
+    height: 5px;
+}
+
+.voter-thumb
+{
+    font-size:40px;
+}
+
+.vote-detail
+{
+    font-size: 10px;
+}
+
+.small-ceiling
+{
+    padding-top: 5px;;
+}
+
+.evaluate-idea .note-editor .note-editable {
+    overflow: auto;
+}

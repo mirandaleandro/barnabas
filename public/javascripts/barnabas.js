@@ -11,8 +11,26 @@ $(document).ready(function() {
             $(selector).summernote(options);
         };
 
+        this.setSlider = function()
+        {
+            $(".vote-slider").slider({
+                range: "min",
+                min: 0,
+                max: 100,
+                value: 60,
+                animate: true
+            });
+        }
+
     }
 
     window.barnabas = new Barnabas();
+
+    barnabas.setSlider();
+
+    barnabas.createRichTextArea('.additional-feedback-rich-textarea',{height:200});
+
+    barnabas.createRichTextArea('.submit-idea-rich-textarea',{height: 400});
+
 
 });
