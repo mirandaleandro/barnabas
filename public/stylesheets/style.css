@@ -2154,3 +2154,13 @@ input[type="checkbox"]:checked::after,
 {
     opacity: 0.8;
 }
+
+.page-fixed-menu
+{
+    position: fixed;
+    top: 65px;
+    right: 30px;
+    z-index: 100;
+    background: rgba(0,0,0,0.2);
+    padding: 12px;
+}

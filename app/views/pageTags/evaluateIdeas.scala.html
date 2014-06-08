@@ -6,6 +6,12 @@
 
     <div class="page-content evaluate-idea">
 
+        <div class="page-fixed-menu">
+            <button class="btn btn-default">Flag as inappropriate </button>
+            <button class="btn btn-default">Next(F2)</button>
+        </div>
+
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-title">
@@ -97,6 +103,10 @@
 
             <div class="col-md-12">
                 <h4>Why or Why not? Any additional thoughts (optional)</h4>
+                <div class="btn-group"><button class="btn btn-green btn-sm btn-small" style="
+    color: white;
+    font-weight: 600;
+                                                      "><i class="fa fa-save"></i> Submit Comments</button></div>
                 <div class="additional-feedback-rich-textarea" >Please provide additional feedback.</div>
             </div>
         </div>
@@ -115,43 +125,78 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Description</th>
-                                        <th>Type</th>
-                                        <th>Link</th>
-                                        <th>Popularity</th>
+                                        <th class="col-md-7">Description</th>
+                                        <th class="col-md-2">Type</th>
+                                        <th class="col-md-1">Link</th>
+                                        <th class="col-md-2">Popularity</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Leandro Gomes de Miranda</td>
-                                        <td>Researcher</td>
-                                        <td><a href="ajshbdjasbhda">Link</a></td>
-                                        <td class="resource-vote voted">
+                                    <tr >
+                                        <td class="col-md-7">Leandro Gomes de Miranda</td>
+                                        <td class="col-md-2">Researcher</td>
+                                        <td class="col-md-1"><a href="ajshbdjasbhda">Link</a></td>
+                                        <td class="col-md-2 resource-vote voted">
                                             <span>1,479</span>
                                             <a class="btn btn-xs btn-green"> Unlike</a>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2</td>
-                                        <td>The state of art in tag ontology</td>
-                                        <td>Article</td>
-                                        <td><a href="ajshbdjasbhda">Link</a></td>
-                                        <td>
+                                        <td class="col-md-7">The state of art in tag ontology</td>
+                                        <td class="col-md-2">Article</td>
+                                        <td class="col-md-1"><a href="ajshbdjasbhda">Link</a></td>
+                                        <td class="col-md-2 resource-vote">
                                             <span>19,385</span>
                                             <a class="btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
                                         </td>
 
                                     </tr>
                                     <tr>
-                                        <td>3</td>
-                                        <td>The walking Dead</td>
-                                        <td>Web Page</td>
-                                        <td><a href="ajshbdjasbhda">Link</a></td>
-                                        <td>
+                                        <td class="col-md-7">The walking Dead</td>
+                                        <td class="col-md-2">Web Page</td>
+                                        <td class="col-md-1"><a href="ajshbdjasbhda">Link</a></td>
+                                        <td class="col-md-2 resource-vote">
                                             <span>131</span>
                                             <a class="btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Add New</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="col-md-6">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="Resource description">
+                                            </div>
+                                        </td>
+
+                                        <td class="col-md-2">
+                                            <select class="form-control">
+                                                <option>Researcher</option>
+                                                <option>Article</option>
+                                                <option>Web Page</option>
+                                                <option>Other Documents</option>
+                                                <option>No more creativity =)</option>
+                                            </select>
+                                        </td>
+
+                                        <td class="col-md-3">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="Link(optional)">
+                                            </div>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <a class="btn btn-green"><i class="fa fa-plus"></i> Add</a>
                                         </td>
                                     </tr>
                                 </tbody>
