@@ -2106,9 +2106,8 @@ input[type="checkbox"]:checked::after,
     margin-bottom: 20px;
 }
 
-h4{
+.submit-idea h4{
     color: #444;
-
 }
 .bottom-line
 {
