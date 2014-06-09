@@ -26,10 +26,10 @@ class Idea(var createdBy:User,
   def resources:List[Resource] = ???
   def phase = this.ideaPhase.title
   def feedbackRatio:Float = {
-    if (this.voted == 0)
+    if (this.visited == 0 || this.voted == 0)
       0
     else
-      this.visited/this.voted
+      this.voted/this.visited
   }
 
 
@@ -37,9 +37,11 @@ class Idea(var createdBy:User,
 
 object Idea
 {
-  def apply(createdBy:User, title:String, description:String, ideaPhase:IdeaPhase):Idea =
+  def apply(createdBy:User, title:String, description:String, ideaPhase:IdeaPhase):Idea = Idea(createdBy,title,description,ideaPhase,0)
+
+  def apply(createdBy:User, title:String, description:String, ideaPhase:IdeaPhase, visited:Long = 0):Idea =
   {
-    new Idea(createdBy = createdBy, title = title, description = description, ideaPhase = ideaPhase)
+    new Idea(createdBy = createdBy, title = title, description = description, ideaPhase = ideaPhase, visited = visited)
   }
 
   def ideaFromUser(user:User):List[Idea] = select[Idea] where( _.createdBy :== user )

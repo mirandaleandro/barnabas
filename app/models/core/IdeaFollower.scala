@@ -20,7 +20,11 @@ object IdeaFollower
 {
   def apply(follower:User, idea:Idea):IdeaFollower =
   {
-    new IdeaFollower(follower = follower, idea = idea)
+    val ideaFollower = new IdeaFollower(follower = follower, idea = idea)
+
+    idea.followersCount+=1
+
+    ideaFollower
   }
 
   def ideasFollowedByUser(user:User):List[Idea] = ( select[IdeaFollower] where(_.follower :== user) ).map(_.idea)

@@ -39,7 +39,7 @@ class CreateData extends Migration {
     def up {
        customScript
        {
-         val socialUser1 = SocialUser(IdentityId("mirandaleandro@gmail.com","userpass"),
+         val socialUser = SocialUser(IdentityId("mirandaleandro@gmail.com","userpass"),
            "Azul",
            "Azul Negro Vermelho",
            "Vermelho",
@@ -50,24 +50,76 @@ class CreateData extends Migration {
            None,
            Some(Registry.hashers.currentHasher.hash("socrates")))
 
-         val socialUser2 = SocialUser(IdentityId("mirandaleandro@gmail.com","userpass"),
+         val socialUser1 = SocialUser(IdentityId("user1@gmail.com","userpass"),
            "Luiz",
            "Luiz Inácio Silva",
            "Silva",
-           Some("lulasilva@gmail.com"),
+           Some("user1@gmail.com"),
            Some("http://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Lula_-_foto_oficial05012007_edit.jpg/220px-Lula_-_foto_oficial05012007_edit.jpg"),
            AuthenticationMethod("userPassword"),
            None,
            None,
            Some(Registry.hashers.currentHasher.hash("socrates")))
 
+         val socialUser2 = SocialUser(IdentityId("user2@gmail.com","userpass"),
+           "Dilma",
+           "Dilma Rousseff",
+           "Rousseff",
+           Some("user2@gmail.com"),
+           Some("http://www.agoravocepode.com.br/bloggeoimob/wp-content/uploads/2012/12/DILMA-ROUSSEFF.jpg"),
+           AuthenticationMethod("userPassword"),
+           None,
+           None,
+           Some(Registry.hashers.currentHasher.hash("socrates")))
+
+         val socialUser3 = SocialUser(IdentityId("user3@gmail.com","userpass"),
+           "Vladimir",
+           "Vladimir Putin",
+           "Putin",
+           Some("user3@gmail.com"),
+           Some("http://upload.wikimedia.org/wikipedia/commons/d/d1/Vladimir_Putin_12020.jpg"),
+           AuthenticationMethod("userPassword"),
+           None,
+           None,
+           Some(Registry.hashers.currentHasher.hash("socrates")))
+
+         val socialUser4 = SocialUser(IdentityId("user4@gmail.com","userpass"),
+           "Barack",
+           "Barack Obama",
+           "Obama",
+           Some("user4@gmail.com"),
+           Some("http://media.washingtonpost.com/wp-srv/politics/congress/members/photos/228/O000167.jpg"),
+           AuthenticationMethod("userPassword"),
+           None,
+           None,
+           Some(Registry.hashers.currentHasher.hash("socrates")))
+
+         val socialUser5 = SocialUser(IdentityId("user5@gmail.com","userpass"),
+           "George",
+           "George W. Bush",
+           "Bush",
+           Some("user5@gmail.com"),
+           Some("http://www.voltairenet.org/local/cache-vignettes/L300xH300/auton5238-bf2a7.jpg"),
+           AuthenticationMethod("userPassword"),
+           None,
+           None,
+           Some(Registry.hashers.currentHasher.hash("socrates")))
+
          val user = User()
+         val user1 = User()
          val user2 = User()
+         val user3 = User()
+         val user4 = User()
+         val user5 = User()
 
-         val identity1 = UserIdentity(user,socialUser1)
+         val identity = UserIdentity(user,socialUser)
+         val identity1 = UserIdentity(user1,socialUser1)
          val identity2 = UserIdentity(user2,socialUser2)
-         val template = Template(title=true,description = true,topics = true)
+         val identity3 = UserIdentity(user3,socialUser3)
+         val identity4 = UserIdentity(user4,socialUser4)
+         val identity5 = UserIdentity(user5,socialUser5)
 
+         val template = Template(title=true,description = true,topics = true)
          val discipline = Discipline("Information Systems",user)
          val subDiscipline = SubDiscipline("Distributed Systems", template = template, discipline)
 
@@ -95,13 +147,34 @@ class CreateData extends Migration {
          val ideaPhase3 = IdeaPhase(user,"Article")
 
 
-         val idea = Idea(createdBy = user, "IdeationLab: a collaborative for researches to discuss and obtaing feedback on ideas ","Idea Description", ideaPhase = ideaPhase1)
-         val idea2 = Idea(createdBy = user, "Super Idea Title goes here ","Lorem Ipsum", ideaPhase = ideaPhase2)
-         val idea3 = Idea(createdBy = user, "Super Idea Title goes here ","Lorem Ipsum", ideaPhase = ideaPhase3)
-         val idea4 = Idea(createdBy = user, "Super Idea Title goes here ","Lorem Ipsum", ideaPhase = ideaPhase1)
-         val idea5 = Idea(createdBy = user2, "Super Idea Title goes here ","Lorem Ipsum", ideaPhase = ideaPhase2)
-         val idea6 = Idea(createdBy = user2, "Super Idea Title goes here ","Lorem Ipsum", ideaPhase = ideaPhase3)
-         val idea7 = Idea(createdBy = user2, "Super Idea Title goes here ","Lorem Ipsum", ideaPhase = ideaPhase1)
+         val idea = Idea(createdBy = user, "IdeationLab: a collaborative for researches to discuss and obtaing feedback on ideas ","Idea Description", ideaPhase = ideaPhase1, visited = 10)
+         val idea2 = Idea(createdBy = user, "Super Idea Title goes here 2 ","Lorem Ipsum", ideaPhase = ideaPhase2, visited = 10)
+         val idea3 = Idea(createdBy = user, "Super Idea Title goes here 3","Lorem Ipsum", ideaPhase = ideaPhase3, visited = 10)
+         val idea4 = Idea(createdBy = user, "Super Idea Title goes here 4","Lorem Ipsum", ideaPhase = ideaPhase1, visited = 10)
+         val idea5 = Idea(createdBy = user2, "Super Idea Title goes here 5","Lorem Ipsum", ideaPhase = ideaPhase2)
+         val idea6 = Idea(createdBy = user2, "Super Idea Title goes here 6","Lorem Ipsum", ideaPhase = ideaPhase3)
+         val idea7 = Idea(createdBy = user2, "Super Idea Title goes here 7","Lorem Ipsum", ideaPhase = ideaPhase1)
+
+         val idea8 = Idea(createdBy = user, "Super Idea Title goes here 8 ","Lorem Ipsum", ideaPhase = ideaPhase2)
+         val idea9 = Idea(createdBy = user, "Super Idea Title goes here 9","Lorem Ipsum", ideaPhase = ideaPhase3)
+         val idea10 = Idea(createdBy = user, "Super Idea Title goes here 10","Lorem Ipsum", ideaPhase = ideaPhase1)
+         val idea11 = Idea(createdBy = user2, "Super Idea Title goes here 11","Lorem Ipsum", ideaPhase = ideaPhase2)
+         val idea12 = Idea(createdBy = user2, "Super Idea Title goes here 12","Lorem Ipsum", ideaPhase = ideaPhase3)
+         val idea13 = Idea(createdBy = user2, "Super Idea Title goes here 13","Lorem Ipsum", ideaPhase = ideaPhase1)
+
+         val idea14 = Idea(createdBy = user, "Super Idea Title goes here 14 ","Lorem Ipsum", ideaPhase = ideaPhase2)
+         val idea15 = Idea(createdBy = user, "Super Idea Title goes here 15","Lorem Ipsum", ideaPhase = ideaPhase3)
+         val idea16 = Idea(createdBy = user, "Super Idea Title goes here 16","Lorem Ipsum", ideaPhase = ideaPhase1)
+         val idea17 = Idea(createdBy = user2, "Super Idea Title goes here 17","Lorem Ipsum", ideaPhase = ideaPhase2)
+         val idea18 = Idea(createdBy = user2, "Super Idea Title goes here 18","Lorem Ipsum", ideaPhase = ideaPhase3)
+         val idea19 = Idea(createdBy = user2, "Super Idea Title goes here 19","Lorem Ipsum", ideaPhase = ideaPhase1)
+
+         val idea20 = Idea(createdBy = user, "Super Idea Title goes here 20 ","Lorem Ipsum", ideaPhase = ideaPhase2)
+         val idea21 = Idea(createdBy = user, "Super Idea Title goes here 21","Lorem Ipsum", ideaPhase = ideaPhase3)
+         val idea22 = Idea(createdBy = user, "Super Idea Title goes here 22","Lorem Ipsum", ideaPhase = ideaPhase1)
+         val idea23 = Idea(createdBy = user2, "Super Idea Title goes here 23","Lorem Ipsum", ideaPhase = ideaPhase2)
+         val idea24 = Idea(createdBy = user2, "Super Idea Title goes here 24","Lorem Ipsum", ideaPhase = ideaPhase3)
+         val idea25 = Idea(createdBy = user2, "Super Idea Title goes here 25","Lorem Ipsum", ideaPhase = ideaPhase1)
 
          val ideaResource1 = IdeaResource(suggestedBy = user,idea = idea, resource = resource1)
          val ideaResource2 = IdeaResource(suggestedBy = user,idea = idea, resource = resource2)
@@ -118,7 +191,37 @@ class CreateData extends Migration {
          val ideaResourceEvaluation5 = IdeaResourceEvaluation(evaluator = user2, ideaResource1) 
          val ideaResourceEvaluation6 = IdeaResourceEvaluation(evaluator = user2, ideaResource2) 
          val ideaResourceEvaluation7 = IdeaResourceEvaluation(evaluator = user2, ideaResource3) 
-         val ideaResourceEvaluation8 = IdeaResourceEvaluation(evaluator = user2, ideaResource4) 
+         val ideaResourceEvaluation8 = IdeaResourceEvaluation(evaluator = user2, ideaResource4)
+
+
+         val ideaFollower1 = IdeaFollower(follower = user,idea = idea)
+         val ideaFollower2 = IdeaFollower(follower = user1,idea = idea)
+         val ideaFollower3 = IdeaFollower(follower = user2,idea = idea)
+         val ideaFollower4 = IdeaFollower(follower = user3,idea = idea)
+         val ideaFollower5 = IdeaFollower(follower = user4,idea = idea)
+         val ideaFollower6 = IdeaFollower(follower = user5,idea = idea)
+
+         val ideaFollower7  = IdeaFollower(follower = user,idea = idea12)
+         val ideaFollower8  = IdeaFollower(follower = user1,idea = idea2)
+         val ideaFollower9  = IdeaFollower(follower = user2,idea = idea2)
+         val ideaFollower10 = IdeaFollower(follower = user3,idea = idea2)
+         val ideaFollower11 = IdeaFollower(follower = user4,idea = idea2)
+         val ideaFollower12 = IdeaFollower(follower = user5,idea = idea2)
+
+         val ideaInterestedUser1 = IdeaInterestedUser(interestedUser = user,idea = idea)
+         val ideaInterestedUser2 = IdeaInterestedUser(interestedUser = user1,idea = idea)
+         val ideaInterestedUser3 = IdeaInterestedUser(interestedUser = user2,idea = idea)
+         val ideaInterestedUser4 = IdeaInterestedUser(interestedUser = user3,idea = idea)
+         val ideaInterestedUser5 = IdeaInterestedUser(interestedUser = user4,idea = idea)
+         val ideaInterestedUser6 = IdeaInterestedUser(interestedUser = user5,idea = idea)
+
+         val ideaInterestedUser7  = IdeaInterestedUser(interestedUser = user,idea = idea12)
+         val ideaInterestedUser8  = IdeaInterestedUser(interestedUser = user1,idea = idea2)
+         val ideaInterestedUser9  = IdeaInterestedUser(interestedUser = user2,idea = idea2)
+         val ideaInterestedUser10 = IdeaInterestedUser(interestedUser = user3,idea = idea2)
+         val ideaInterestedUser11 = IdeaInterestedUser(interestedUser = user4,idea = idea2)
+         val ideaInterestedUser12 = IdeaInterestedUser(interestedUser = user5,idea = idea2)
+
 
        }
 

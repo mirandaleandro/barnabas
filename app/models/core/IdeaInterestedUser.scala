@@ -14,3 +14,15 @@ class IdeaInterestedUser(var interestedUser:User, var idea:Idea) extends Entity
 {
 
 }
+
+object IdeaInterestedUser
+{
+  def apply(interestedUser:User, idea:Idea):IdeaInterestedUser =
+  {
+    val ideaInterestedUser = new IdeaInterestedUser(interestedUser = interestedUser, idea = idea)
+
+    idea.collaboratorsCount += 1
+
+    ideaInterestedUser
+  }
+}
