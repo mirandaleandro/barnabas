@@ -164,7 +164,7 @@ object UserOAuth2Info
 
 
 
-class UserPasswordInfo(val hasher : scala.Predef.String, val password : scala.Predef.String, val salt : scala.Option[scala.Predef.String]) extends Entity
+class UserPasswordInfo(val hasher:String, val password:String, val salt:Option[String]) extends Entity
 object UserPasswordInfo
 {
   def apply(passInfo:PasswordInfo):UserPasswordInfo =
