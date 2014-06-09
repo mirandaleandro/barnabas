@@ -13,3 +13,13 @@ import models.User
 class Discipline(var title:String, var createdBy:User) extends Entity{
 
 }
+
+
+object Discipline
+{
+  def apply(title:String, createdBy:User):Discipline =
+  {
+    new Discipline(title = title, createdBy = createdBy)
+
+  }
+}

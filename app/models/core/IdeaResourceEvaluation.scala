@@ -11,3 +11,11 @@ import models.User
 class IdeaResourceEvaluation(var evaluator:User, var ideaResource:IdeaResource) {
 
 }
+
+object IdeaResourceEvaluation
+{
+  def apply(evaluator:User, ideaResource:IdeaResource):IdeaResourceEvaluation =
+  {
+    new IdeaResourceEvaluation(evaluator = evaluator, ideaResource = ideaResource)
+  }
+}

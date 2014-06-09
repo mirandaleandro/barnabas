@@ -15,6 +15,16 @@ import net.fwbrasil.activate.entity.Entity
   likeCounter is not acid, but its a good way to avoid unnecessary expensive queries
  */
 
-class IdeaResource(var suggestedBy:User, var idea:Idea, var resource:Resource, var likeCounter:Long) extends Entity{
+class IdeaResource(var suggestedBy:User, var idea:Idea, var resource:Resource, var likeCounter:Long = 0) extends Entity{
+
+}
+
+object IdeaResource
+{
+
+  def apply(suggestedBy:User, idea:Idea, resource:Resource, likeCounter:Long = 0):IdeaResource =
+  {
+    new IdeaResource(suggestedBy = suggestedBy, idea = idea, resource = resource, likeCounter = likeCounter)
+  }
 
 }

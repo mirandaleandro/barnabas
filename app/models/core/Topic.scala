@@ -19,3 +19,11 @@ class Topic(var createdBy:User, var title:String, var subDiscipline:SubDisciplin
 {
 
 }
+
+object Topic
+{
+  def apply( createdBy:User, title:String, subDiscipline:SubDiscipline, popularity:Long = 0):Topic =
+  {
+    new Topic(createdBy = createdBy, title = title, subDiscipline = subDiscipline, popularity = popularity)
+  }
+}

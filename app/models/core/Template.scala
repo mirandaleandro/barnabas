@@ -7,9 +7,18 @@ import net.fwbrasil.activate.entity.Entity
  * User: leo
  * Date: 6/8/14
  * Time: 2:04 PM
- * To change this template use File | Settings | File Templates.
  */
-class Template extends Entity
+
+//This is still cloudy. Must to be refactored, updated or removed in the future
+class Template(var title:Boolean,var description:Boolean, var topics:Boolean) extends Entity
 {
 
 }
+object Template
+{
+  def apply(title:Boolean, description:Boolean, topics:Boolean):Template =
+  {
+     new Template(title = title, description = description, topics = topics)
+  }
+}
+

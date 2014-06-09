@@ -12,3 +12,11 @@ import net.fwbrasil.activate.entity.Entity
 class SubDiscipline(var title:String, var template:Template, var discipline:Discipline) extends Entity {
 
 }
+
+object SubDiscipline
+{
+  def apply(title:String, template:Template, discipline:Discipline):SubDiscipline =
+  {
+    new SubDiscipline(title = title, template = template, discipline = discipline)
+  }
+}
