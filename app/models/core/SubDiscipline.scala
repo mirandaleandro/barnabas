@@ -9,6 +9,6 @@ import net.fwbrasil.activate.entity.Entity
  * Time: 2:01 PM
  * To change this template use File | Settings | File Templates.
  */
-class SubDiscipline extends Entity {
+class SubDiscipline(var title:String, var template:Template, var discipline:Discipline) extends Entity {
 
 }

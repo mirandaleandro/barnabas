@@ -23,6 +23,8 @@ import Play.current
 import providers.UsernamePasswordProvider
 import providers.utils.RoutesHelper
 import play.Logger
+import models.PostgresConnection._
+import controllers.routes
 
 
 /**
@@ -39,24 +41,29 @@ object LoginPage extends Controller
    * Renders the login page
    * @return
    */
-  def login = Action { implicit request =>
-    val to = ProviderController.landingUrl
-    if ( SecureSocial.currentUser.isDefined ) {
-      // if the user is already logged in just redirect to the app
-      if ( Logger.isDebugEnabled() ) {
-        Logger.debug("User already logged in, skipping login page. Redirecting to %s".format(to))
-      }
-      Redirect( to )
-    } else {
-      import com.typesafe.plugin._
-      if ( SecureSocial.enableRefererAsOriginalUrl ) {
-        SecureSocial.withRefererAsOriginalUrl(Ok(use[TemplatesPlugin].getLoginPage(request, UsernamePasswordProvider.loginForm)))
-      } else {
-        import Play.current
-        Ok(use[TemplatesPlugin].getLoginPage(request, UsernamePasswordProvider.loginForm))
+  def login = Action{
 
-      }
-    }
+   implicit request =>
+     transactional
+     {
+        val to = ProviderController.landingUrl
+        if ( SecureSocial.currentUser.isDefined ) {
+          // if the user is already logged in just redirect to the app
+          if ( Logger.isDebugEnabled() ) {
+            Logger.debug("User already logged in, skipping login page. Redirecting to %s".format(to))
+          }
+          Redirect( to )
+        } else {
+          import com.typesafe.plugin._
+          if ( SecureSocial.enableRefererAsOriginalUrl ) {
+            SecureSocial.withRefererAsOriginalUrl(Ok(use[TemplatesPlugin].getLoginPage(request, UsernamePasswordProvider.loginForm)))
+          } else {
+            import Play.current
+            Ok(use[TemplatesPlugin].getLoginPage(request, UsernamePasswordProvider.loginForm))
+
+          }
+        }
+     }
   }
 
   /**

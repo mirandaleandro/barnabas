@@ -9,11 +9,8 @@ import models.User
  * Date: 6/8/14
  * Time: 1:54 PM
  */
-class Idea extends Entity
+class Idea(var createdBy:User, var title:String, var description:String) extends Entity
 {
-  var title:String = _
-  var description:String = _
-  var creator:User = _
 
   def authors:List[User] = ???
   def followers:List[User] = ???

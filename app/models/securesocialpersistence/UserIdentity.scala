@@ -105,19 +105,14 @@ object UserIdentity
 
   def findByEmailAndProvider(email: String, provider: String):Option[UserIdentity] =
   {
-    //TODO
-
-    None
+    (select[UserIdentity] where( _.email :== email, _.authMethod :== provider )).headOption
   }
-
-
-
 }
 
 
 
 
-class UserAuthenticationMethod(val method : scala.Predef.String) extends Entity
+class UserAuthenticationMethod(val method:String) extends Entity
 object UserAuthenticationMethod
 {
   def apply(authMethod:AuthenticationMethod):UserAuthenticationMethod =

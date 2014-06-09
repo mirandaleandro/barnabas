@@ -28,6 +28,8 @@ import scala.Some
 import models.PostgresConnection._
 
 
+
+
 /**
  * A controller to provide the authentication entry point
  */
@@ -83,8 +85,8 @@ object ProviderController extends Controller
    * @param provider The id of the provider that needs to handle the call
    * @return
    */
-  def authenticate(provider: String) = handleAuth(provider)
-  def authenticateByPost(provider: String) = handleAuth(provider)
+  def authenticate(provider: String) = transactional{ handleAuth(provider) }
+  def authenticateByPost(provider: String) = transactional{ handleAuth(provider) }
 
   private def handleAuth(provider: String) = Action { implicit request =>
     transactional{

@@ -11,7 +11,7 @@ import service.UserService
 object Application extends Controller with securesocial.core.SecureSocial{
 
 
-  def index = Action { implicit request =>
+  def index = SecuredAction { implicit request =>
 
     Logger.warn("logging from application")
     Play.current.configuration.getString("your.key")

@@ -26,3 +26,18 @@ class CreateSchema extends Migration {
 
     }
 }
+
+class CreateData extends Migration {
+    def timestamp = Platform.currentTime//201406011240l
+
+    def up {
+       customScript
+       {
+
+         val user:User = User();
+
+
+       }
+
+    }
+}
