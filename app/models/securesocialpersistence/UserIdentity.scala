@@ -100,7 +100,6 @@ object UserIdentity
     UserIdentityId.findByIdentityId(identityId).flatMap{
       u =>
       (select[UserIdentity] where( _.userIdentityId :== u )).headOption
-
   }
 
   def findByEmailAndProvider(email: String, provider: String):Option[UserIdentity] =

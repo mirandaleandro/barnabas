@@ -7,16 +7,20 @@ import securesocial.core.Identity
 import securesocial.core.{IdentityId, UserService, Identity, Authorization}
 import play.api.{Logger, Play}
 import service.UserService
+import models.PostgresConnection._
 
 object Application extends Controller with securesocial.core.SecureSocial{
 
 
-  def index = SecuredAction { implicit request =>
+  def index = SecuredAction {
+    implicit request =>
+      transactional{
+        implicit val user = request.user
+        Logger.warn("logging from application")
+        Play.current.configuration.getString("your.key")
 
-    Logger.warn("logging from application")
-    Play.current.configuration.getString("your.key")
-
-    Ok(views.html.index("Your new application is ready."))
+        Ok(views.html.index())
+      }
 
   }
 

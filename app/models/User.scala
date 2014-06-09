@@ -1,6 +1,7 @@
 package models
 
 
+import core.{IdeaFollower, Idea}
 import models.PostgresConnection._
 import net.fwbrasil.activate.entity.Entity
 import securesocial.core.{IdentityId, Identity}
@@ -28,6 +29,11 @@ class User extends Entity with Identity
      val userIdentity = UserIdentity.findByIdentity(identity).getOrElse(UserIdentity(this, identity))
      userIdentity.setDisplayInfoForIdentity(identity)
   }
+
+  def ideasCreated:List[Idea] = Idea.ideaFromUser(this)
+
+  def ideasFollowed:List[Idea] = IdeaFollower.ideasFollowedByUser(this)
+
 }
 
 object User

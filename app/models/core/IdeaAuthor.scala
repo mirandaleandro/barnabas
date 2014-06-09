@@ -10,7 +10,7 @@ import models.User
  * Time: 2:06 PM
  * To change this template use File | Settings | File Templates.
  */
-class IdeaAuthor(var author:User, var idea:Idea) extends Entity {
-
+class IdeaAuthor(var author:User, var idea:Idea) extends Entity
+{
 
 }

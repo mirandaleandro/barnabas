@@ -1,0 +1,39 @@
+@(title:String,ideas:List[models.core.Idea])(implicit user:User)
+@import models.User
+
+<div class="portlet portlet-default">
+    <div class="portlet-heading">
+        <div class="portlet-title">
+            <h4>@title</h4>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="portlet-body">
+        <div class="table-responsive">
+            <table class="data-table table table-striped table-bordered table-hover table-green">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Submission Date</th>
+                        <th>Phase</th>
+                        <th>Feedback</th>
+                        <th>Following</th>
+                        <th>Collaborators</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for( idea <- ideas){
+                        <tr>
+                        <td>@idea.title</td>
+                        <td>@idea.creationDateTime</td>
+                        <td>@idea.phase</td>
+                        <td class="center">@idea.feedbackRatio</td>
+                        <td class="center">@idea.followersCount</td>
+                        <td class="center">@idea.collaboratorsCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
