@@ -31,8 +31,6 @@ class Idea(var createdBy:User,
     else
       this.voted/this.visited
   }
-
-
 }
 
 object Idea

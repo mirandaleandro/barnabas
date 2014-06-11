@@ -1,7 +1,7 @@
 package models
 
 
-import core.{IdeaFollower, Idea}
+import core.{SubDiscipline, IdeaFollower, Idea}
 import models.PostgresConnection._
 import net.fwbrasil.activate.entity.Entity
 import securesocial.core.{IdentityId, Identity}
@@ -11,6 +11,8 @@ import securesocialpersistence.UserIdentity
 class User extends Entity with Identity
 {
   var currentIdentity:UserIdentity = _
+  var currentSubDiscipline:Option[SubDiscipline] = _
+
   def identities: List[UserIdentity] = List.empty[UserIdentity]
 
   def identityId  = currentIdentity.identityId

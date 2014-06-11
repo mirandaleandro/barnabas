@@ -24,6 +24,20 @@ $(document).ready(function() {
             });
         }
 
+        this.ideEvaluation = {
+
+            setup: function()
+            {
+                $(document.body).on("click",".voter-thumb",function(){
+                    barnabas.ideEvaluation.displayAdditionalCommentsTextBox();
+                });
+            },
+            displayAdditionalCommentsTextBox: function()
+            {
+                $(".additional-comments").slideDown();
+            }
+        }
+
 
     }
 
@@ -35,6 +49,6 @@ $(document).ready(function() {
 
     barnabas.createRichTextArea('.submit-idea-rich-textarea',{height: 400});
 
-
+    barnabas.ideEvaluation.setup();
 
 });

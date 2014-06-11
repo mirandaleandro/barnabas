@@ -123,6 +123,10 @@ class CreateData extends Migration {
          val discipline = Discipline("Information Systems",user)
          val subDiscipline = SubDiscipline("Distributed Systems", template = template, discipline)
 
+         user.currentSubDiscipline = Some(subDiscipline)
+         user2.currentSubDiscipline = Some(subDiscipline)
+         user3.currentSubDiscipline = Some(subDiscipline)
+
          val topic1 = Topic(user,"topic 1",subDiscipline = subDiscipline)
          val topic2 = Topic(user,"topic 2",subDiscipline = subDiscipline)
          val topic3 = Topic(user,"topic 3",subDiscipline = subDiscipline)

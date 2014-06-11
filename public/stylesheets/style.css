@@ -2134,6 +2134,7 @@ input[type="checkbox"]:checked::after,
 .voter-thumb
 {
     font-size:40px;
+    cursor: pointer;
 }
 
 .vote-detail
@@ -2169,3 +2170,14 @@ input[type="checkbox"]:checked::after,
 {
     display: none;
 }
+
+.popularity
+{
+    text-align: right;
+}
+
+.soft-hide
+{
+    display: none;
+}
+
