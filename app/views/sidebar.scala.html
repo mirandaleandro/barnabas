@@ -1,17 +1,17 @@
-@()
+@()(implicit user:User)
 <!-- begin SIDE NAVIGATION -->
     <nav class="navbar-side" role="navigation">
         <div class="navbar-collapse sidebar-collapse collapse">
             <ul id="side" class="nav navbar-nav side-nav">
                     <!-- begin SIDE NAV USER PANEL -->
                 <li class="side-user hidden-xs">
-                    <img class="img-circle" src="@routes.Assets.at("images/profile-placeholder.png")" alt="">
+                    <img class="img-circle" src="@user.avatarUrl.getOrElse(routes.Assets.at("images/profile-placeholder.png"))" alt="">
                     <p class="welcome">
                         <i class="fa fa-key"></i> Logged in as
                     </p>
                     <p class="name tooltip-sidebar-logout">
-                            Leandro
-                        <span class="last-name">Miranda</span> <a style="color: inherit" class="logout_open" href="#logout" data-toggle="tooltip" data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></a>
+                            @user.firstName
+                        <span class="last-name">@user.lastName</span> <a style="color: inherit" class="logout_open" href="#logout" data-toggle="tooltip" data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></a>
                     </p>
                     <div class="clearfix"></div>
                 </li>

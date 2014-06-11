@@ -40,9 +40,9 @@ class CreateData extends Migration {
        customScript
        {
          val socialUser = SocialUser(IdentityId("mirandaleandro@gmail.com","userpass"),
-           "Azul",
-           "Azul Negro Vermelho",
-           "Vermelho",
+           "Leandro",
+           "Miranda",
+           "Leandro Gomes de Miranda",
            Some("mirandaleandro@gmail.com"),
            Some("http://www.gravatar.com/avatar/da4550c6fcd6d5d4f880755587b995ac?d=404"),
            AuthenticationMethod("userPassword"),
@@ -52,10 +52,10 @@ class CreateData extends Migration {
 
          val socialUser1 = SocialUser(IdentityId("user1@gmail.com","userpass"),
            "Luiz",
-           "Luiz Inácio Silva",
            "Silva",
+           "Luiz Inácio Silva",
            Some("user1@gmail.com"),
-           Some("http://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Lula_-_foto_oficial05012007_edit.jpg/220px-Lula_-_foto_oficial05012007_edit.jpg"),
+           Some("http://www.thewashingtonnote.com/twn_up_fls/Lula2RT.jpg"),
            AuthenticationMethod("userPassword"),
            None,
            None,
@@ -63,8 +63,8 @@ class CreateData extends Migration {
 
          val socialUser2 = SocialUser(IdentityId("user2@gmail.com","userpass"),
            "Dilma",
-           "Dilma Rousseff",
            "Rousseff",
+           "Dilma Rousseff",
            Some("user2@gmail.com"),
            Some("http://www.agoravocepode.com.br/bloggeoimob/wp-content/uploads/2012/12/DILMA-ROUSSEFF.jpg"),
            AuthenticationMethod("userPassword"),
@@ -74,8 +74,8 @@ class CreateData extends Migration {
 
          val socialUser3 = SocialUser(IdentityId("user3@gmail.com","userpass"),
            "Vladimir",
-           "Vladimir Putin",
            "Putin",
+           "Vladimir Putin",
            Some("user3@gmail.com"),
            Some("http://upload.wikimedia.org/wikipedia/commons/d/d1/Vladimir_Putin_12020.jpg"),
            AuthenticationMethod("userPassword"),
@@ -85,8 +85,8 @@ class CreateData extends Migration {
 
          val socialUser4 = SocialUser(IdentityId("user4@gmail.com","userpass"),
            "Barack",
-           "Barack Obama",
            "Obama",
+           "Barack Obama",
            Some("user4@gmail.com"),
            Some("http://media.washingtonpost.com/wp-srv/politics/congress/members/photos/228/O000167.jpg"),
            AuthenticationMethod("userPassword"),
@@ -96,8 +96,8 @@ class CreateData extends Migration {
 
          val socialUser5 = SocialUser(IdentityId("user5@gmail.com","userpass"),
            "George",
-           "George W. Bush",
            "Bush",
+           "George W. Bush",
            Some("user5@gmail.com"),
            Some("http://www.voltairenet.org/local/cache-vignettes/L300xH300/auton5238-bf2a7.jpg"),
            AuthenticationMethod("userPassword"),

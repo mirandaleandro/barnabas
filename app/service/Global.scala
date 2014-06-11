@@ -11,12 +11,13 @@ import play.api._
 import play.api.mvc._
 import play.api.mvc.Results._
 import concurrent.Future
+import securesocial.core.SecuredRequest
 
 object Global extends GlobalSettings {
 
   override def onHandlerNotFound(request: RequestHeader): Future[SimpleResult] = {
     Future.successful(NotFound(
-      views.html.errors.notFound(request)
+      views.html.errors.notFound(request)( request.asInstanceOf[SecuredRequest[Any]].user)
     ))
   }
 

@@ -26,16 +26,25 @@ object Application extends Controller with securesocial.core.SecureSocial{
 
   def dashboard = index
 
-  def submitIdeas = Action { implicit request =>
-    Ok(views.html.pages.submitIdea())
+  def submitIdeas = SecuredAction { implicit request =>
+    transactional{
+      implicit val user = request.user
+      Ok(views.html.pages.submitIdea())
+    }
   }
 
-  def getInspired = Action { implicit request =>
-    Ok(views.html.pages.getInspired())
+  def getInspired = SecuredAction { implicit request =>
+    transactional{
+      implicit val user = request.user
+      Ok(views.html.pages.getInspired())
+    }
   }
 
-  def evaluateIdeas() = Action { implicit request =>
-    Ok(views.html.pages.evaluateIdeas())
+  def evaluateIdeas() = SecuredAction { implicit request =>
+    transactional{
+      implicit val user = request.user
+      Ok(views.html.pages.evaluateIdeas())
+    }
   }
 
 }

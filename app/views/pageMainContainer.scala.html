@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(headers:Html)(pageLevelScripts:Html)
+@(title: String)(content: Html)(headers:Html)(pageLevelScripts:Html)(implicit user:User)
 
 @main(title){
 
@@ -15,7 +15,7 @@
     <!-- Logout Notification Box -->
     <div id="logout">
         <div class="logout-message">
-            <img class="img-circle img-logout" src="@routes.Assets.at("images/profile-placeholder.png")" alt="">
+            <img class="img-circle img-logout" src="@user.avatarUrl.getOrElse(routes.Assets.at("images/profile-placeholder.png"))" alt="">
             <h3>
                 <i class="fa fa-sign-out text-green"></i> Ready to go?
             </h3>
