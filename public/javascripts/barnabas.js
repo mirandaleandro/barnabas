@@ -2,6 +2,7 @@ $(document).ready(function() {
   //  $('.data-table').dataTable();
     var Barnabas =function (){
 
+
        this.updateDataTable = function (selector)
         {
             $(selector).dataTable();
@@ -38,6 +39,44 @@ $(document).ready(function() {
             }
         }
 
+        this.submitIdea = {
+            setup: function()
+            {
+                barnabas.submitIdea.configureTextEditor();
+            },
+            configureTextEditor: function()
+            {
+                var selector = '.submit-idea-rich-textarea';
+
+                $(selector).summernote({
+                    height: 400,
+                    onImageUpload: function(files, editor, welEditable) {
+                        barnabas.sendFile(files[0], editor, welEditable);
+                    }
+                });
+
+                $(selector).next().find(".note-toolbar").append($(selector +' .appendable-btn-group'));
+            }
+        }
+
+        this.sendFile = function (file, editor, welEditable) {
+
+            data = new FormData();
+
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: "/summernote/uploadImage",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    editor.insertImage(welEditable, url);
+                }
+            });
+        }
+
 
     }
 
@@ -47,8 +86,7 @@ $(document).ready(function() {
 
     barnabas.createRichTextArea('.additional-feedback-rich-textarea',{height:200});
 
-    barnabas.createRichTextArea('.submit-idea-rich-textarea',{height: 400});
-
     barnabas.ideEvaluation.setup();
+    barnabas.submitIdea.setup();
 
 });

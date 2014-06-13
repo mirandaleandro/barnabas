@@ -2,6 +2,7 @@ package models.core
 
 import net.fwbrasil.activate.entity.Entity
 import models.User
+import models.PostgresConnection._
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,5 +26,13 @@ object Topic
   def apply( createdBy:User, title:String, subDiscipline:SubDiscipline, popularity:Long = 0):Topic =
   {
     new Topic(createdBy = createdBy, title = title, subDiscipline = subDiscipline, popularity = popularity)
+  }
+
+  def findBySubDiscipline(subDiscipline: SubDiscipline):List[Topic] = {
+
+    query {
+      (topic: Topic) =>
+        where(topic.subDiscipline :== subDiscipline) select (topic) orderBy (topic.popularity desc)
+    }
   }
 }

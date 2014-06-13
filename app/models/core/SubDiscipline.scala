@@ -11,6 +11,8 @@ import net.fwbrasil.activate.entity.Entity
  */
 class SubDiscipline(var title:String, var template:Template, var discipline:Discipline) extends Entity {
 
+  def topics = Topic.findBySubDiscipline(this)
+
 }
 
 object SubDiscipline

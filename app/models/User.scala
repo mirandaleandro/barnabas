@@ -11,7 +11,7 @@ import securesocialpersistence.UserIdentity
 class User extends Entity with Identity
 {
   var currentIdentity:UserIdentity = _
-  var currentSubDiscipline:Option[SubDiscipline] = _
+  var currentSubDiscipline:SubDiscipline = _
 
   def identities: List[UserIdentity] = List.empty[UserIdentity]
 

@@ -1,4 +1,4 @@
-@()
+@()(implicit user:User)
 <div id="wrapper">
 
     <!-- begin MAIN PAGE CONTENT -->
@@ -50,56 +50,13 @@
                     </div>
                     <div class="row checkboxes">
 
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
-                        <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                            <label>
-                                <input type="checkbox" value="">Checkbox 1
-                            </label>
-                        </div>
+                        @for(topic <- user.currentSubDiscipline.topics){
+                            <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
+                                <label>
+                                    <input type="checkbox" value="">@topic.title
+                                </label>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

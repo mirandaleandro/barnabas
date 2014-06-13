@@ -8,6 +8,10 @@ import securesocial.core.{IdentityId, UserService, Identity, Authorization}
 import play.api.{Logger, Play}
 import service.UserService
 import models.PostgresConnection._
+import models.User
+import reflect.io.File
+import util.Random
+import java.io
 
 object Application extends Controller with securesocial.core.SecureSocial{
 
