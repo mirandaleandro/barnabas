@@ -33,8 +33,8 @@ class CreateSchema extends Migration {
     }
 }
 
-class CreateData extends Migration {
-    def timestamp = Platform.currentTime//201406011240l
+class CreateTestData extends Migration {
+    def timestamp = Platform.currentTime +100//201406011240l
 
     def up {
        customScript
@@ -121,7 +121,7 @@ class CreateData extends Migration {
 
          val template = Template(title=true,description = true,topics = true)
          val discipline = Discipline("Information Systems",user)
-         val subDiscipline = SubDiscipline("Distributed Systems", template = template, discipline)
+         val subDiscipline = SubDiscipline("Distributed Systems", template, discipline)
 
          user.currentSubDiscipline = subDiscipline
          user2.currentSubDiscipline = subDiscipline
@@ -149,7 +149,6 @@ class CreateData extends Migration {
          val ideaPhase1 = IdeaPhase(user,"Inception")
          val ideaPhase2 = IdeaPhase(user,"Data Analysis")
          val ideaPhase3 = IdeaPhase(user,"Article")
-
 
          val idea = Idea(createdBy = user, "IdeationLab: a collaborative for researches to discuss and obtaing feedback on ideas ","Idea Description", ideaPhase = ideaPhase1, visited = 10)
          val idea2 = Idea(createdBy = user, "Super Idea Title goes here 2 ","Lorem Ipsum", ideaPhase = ideaPhase2, visited = 10)

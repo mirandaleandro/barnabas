@@ -9,7 +9,7 @@ import net.fwbrasil.activate.entity.Entity
  * Time: 2:01 PM
  * To change this template use File | Settings | File Templates.
  */
-class SubDiscipline(var title:String, var template:Template, var discipline:Discipline) extends Entity {
+class SubDiscipline(var title:String, var template:Template, var discipline:Discipline, var popularity:Long = 0) extends Entity {
 
   def topics = Topic.findBySubDiscipline(this)
 
@@ -17,8 +17,8 @@ class SubDiscipline(var title:String, var template:Template, var discipline:Disc
 
 object SubDiscipline
 {
-  def apply(title:String, template:Template, discipline:Discipline):SubDiscipline =
+  def apply(title:String, template:Template, discipline:Discipline, popularity:Long = 0):SubDiscipline =
   {
-    new SubDiscipline(title = title, template = template, discipline = discipline)
+    new SubDiscipline(title = title, template = template, discipline = discipline, popularity = popularity)
   }
 }

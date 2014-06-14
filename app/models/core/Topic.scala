@@ -35,4 +35,8 @@ object Topic
         where(topic.subDiscipline :== subDiscipline) select (topic) orderBy (topic.popularity desc)
     }
   }
+
+  def findBySubDisciplineAndTitle(subDiscipline: SubDiscipline, title:String):Option[Topic] = (select[Topic] where (_.subDiscipline :== subDiscipline, _.title :== title)).headOption
+
+  def findById(id:String):Option[Topic] = byId[Topic](id)
 }

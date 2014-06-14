@@ -2,6 +2,11 @@ package controllers
 
 import play.api.mvc.{Action, Controller}
 import util.Random
+import play.api.data.Form
+import play.api.data.Forms._
+import models.PostgresConnection._
+import models.core.{SubDiscipline, Topic, IdeaPhase, Idea}
+import models.User
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +19,6 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
 {
   val IMAGE_STORAGE_FOLDER = "public/images/richtext/"
   val IMAGE_ASSETS_FOLDER = "images/richtext/"
-
 
   def richTextImageUpload = Action(parse.multipartFormData) { request =>
     request.body.file("file").map { picture =>
@@ -31,6 +35,51 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
     }.getOrElse {
       BadRequest("UPLOAD FAILED")
     }
+  }
+
+  case class IdeaSubmissionForm(var ideaId:String, var title:String, description:String, topics:List[String])
+
+  val ideaSubmitionForm = Form(
+    mapping(
+      "ideaId" -> text,
+      "title" -> text.verifying("title must be shorter than 140 characters", text => text.length <= 140),
+      "description" -> text.verifying("Description cannot be empty", description => description.length > 0),
+      "topics" -> list(text)
+      )
+      (IdeaSubmissionForm.apply)(IdeaSubmissionForm.unapply)
+  )
+
+  def submitIdea = SecuredAction{
+    implicit request =>
+      ideaSubmitionForm.bindFromRequest.fold(
+        formWithErrors => BadRequest,
+        form => {
+          transactional{
+
+            implicit val user = request.user
+
+            val idea =  Idea.findById(form.ideaId).getOrElse{
+              Idea(createdBy = user,title = form.title, ideaPhase = IdeaPhase.Inception,description = form.description)
+            }
+
+            idea.addSubDiscipline(user.currentSubDiscipline)
+
+//            for(topicTitle <- form.topics)
+//            {
+//              val persistedTopic = Topic.findBySubDisciplineAndTitle(user.currentSubDiscipline, topicTitle).getOrElse{
+//                Topic(createdBy = user, title = topicTitle, subDiscipline = user.currentSubDiscipline )
+//              }
+            for(topicId <- form.topics)
+            {
+               Topic.findById(topicId).map { topic =>
+                 idea.addTopic(topic = topic)
+               }
+            }
+
+           Ok(views.html.pages.submitIdea()).flashing("message" -> "Idea Submitted!")
+          }
+        }
+      )
   }
 
 }

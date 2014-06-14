@@ -34,3 +34,7 @@ GET     /not-authorized             securesocial.controllers.ProviderController.
 
 #image upload from rich text editors
 POST    /summernote/uploadImage     controllers.SubmitIdea.richTextImageUpload
+
+#Forms
+
+POST /forms/submitIdea              controllers.SubmitIdea.submitIdea

@@ -1,4 +1,4 @@
-@()(implicit user:User)
+@(idea:Option[models.core.Idea] = None)(implicit user:User)
 <div id="wrapper">
 
     <!-- begin MAIN PAGE CONTENT -->
@@ -17,59 +17,64 @@
         </div>
 
 
+        <form action="@routes.SubmitIdea.submitIdea" method="POST">
 
-        <div class="row  extra-bottom-margin">
-            <div class="form-group">
-                <div class="col-md-12">
-                    <h4>Give your idea a short description/title</h4>
-                    <input type="text" class="form-control" maxlength="25" id="thresholdMax" placeholder="Start typing..." />
+            <input type="hidden" name="ideaId" value="@idea.getOrElse("")">
+
+            <div class="row  extra-bottom-margin">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4>Give your idea a short description/title</h4>
+                        <input type="text" name="title" class="form-control" maxlength="25" id="thresholdMax" placeholder="Start typing..." />
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row extra-bottom-margin">
-            <div class="form-group">
-                <div class="col-md-12">
-                    <h4>Provide a londer description of your idea(include any diagrams/images that might be helpful)</h4>
-                    <div class="submit-idea-rich-textarea" >Submit Your Ideas here!</div>
+            <div class="row extra-bottom-margin">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4>Provide a londer description of your idea(include any diagrams/images that might be helpful)</h4>
+                        <textarea name="description" class="submit-idea-rich-textarea" >Submit Your Ideas here!</textarea>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row extra-bottom-margin">
-            <div class="form-group">
-                <div class="col-md-12">
-                    <div class="row bottom-line header-options">
-                        <h4 class="col-md-7">Select related topic(s) or area(s) of interest(optional)</h4>
-                        <div class="col-md-5 input-group">
-                            <input type="text" class="form-control" placeholder="search or add">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Add</button>
-                            </span>
+            <div class="row extra-bottom-margin">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="row bottom-line header-options">
+                            <h4 class="col-md-7">Select related topic(s) or area(s) of interest(optional)</h4>
+                            <div class="col-md-5 input-group">
+                                <input type="text" class="form-control" placeholder="search or add">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">Add</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row checkboxes">
+
+                            @for((topic,i) <- user.currentSubDiscipline.topics.zipWithIndex){
+                                <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
+                                    <label>
+                                        <input name="topics[@i]" type="checkbox" value="@topic.id">@topic.title
+                                    </label>
+                                </div>
+                            }
                         </div>
                     </div>
-                    <div class="row checkboxes">
+                </div>
+            </div>
 
-                        @for(topic <- user.currentSubDiscipline.topics){
-                            <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
-                                <label>
-                                    <input type="checkbox" value="">@topic.title
-                                </label>
-                            </div>
-                        }
+            <div class="row extra-bottom-margin">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4 class="bottom-line">Ready to go?</h4>
+                        <button type="submit" class="btn btn-lg btn-default">Submit you idea</button>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row extra-bottom-margin">
-            <div class="form-group">
-                <div class="col-md-12">
-                    <h4 class="bottom-line">Ready to go?</h4>
-                    <button type="submit" class="btn btn-lg btn-default">Submit you idea</button>
-                </div>
-            </div>
-        </div>
+        </form>
 
     </div>
         <!-- /.page-content -->
