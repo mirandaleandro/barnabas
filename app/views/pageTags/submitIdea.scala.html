@@ -17,7 +17,7 @@
         </div>
 
 
-        <form action="@routes.SubmitIdea.submitIdea" method="POST">
+        <form class="submit-idea-form" action="@routes.SubmitIdea.submitIdea" method="POST">
 
             <input type="hidden" name="ideaId" value="@idea.getOrElse("")">
 
@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <h4>Provide a londer description of your idea(include any diagrams/images that might be helpful)</h4>
-                        <textarea name="description" class="submit-idea-rich-textarea" >Submit Your Ideas here!</textarea>
+                        <textarea name="description" class="summernote submit-idea-rich-textarea" >Submit Your Ideas here!</textarea>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <h4 class="bottom-line">Ready to go?</h4>
-                        <button type="submit" class="btn btn-lg btn-default">Submit you idea</button>
+                        <button type="submit" class="btn btn-lg btn-default submit-idea">Submit you idea</button>
                     </div>
                 </div>
             </div>
