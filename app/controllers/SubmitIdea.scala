@@ -64,11 +64,6 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
 
             idea.addSubDiscipline(user.currentSubDiscipline)
 
-//            for(topicTitle <- form.topics)
-//            {
-//              val persistedTopic = Topic.findBySubDisciplineAndTitle(user.currentSubDiscipline, topicTitle).getOrElse{
-//                Topic(createdBy = user, title = topicTitle, subDiscipline = user.currentSubDiscipline )
-//              }
             for(topicId <- form.topics)
             {
                Topic.findById(topicId).map { topic =>
@@ -80,6 +75,20 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
           }
         }
       )
+  }
+
+  case class DisplayTopic(var checked:Boolean, var topic:Topic)
+
+  def ideasToBeDisplayed(user:User, idea:Option[Idea]):List[DisplayTopic] = {
+    var displayTopics: List[DisplayTopic] =  List[DisplayTopic]()
+
+    idea.map{ idea =>
+      displayTopics = displayTopics ++ idea.topics.map( topic =>  DisplayTopic(true,topic ))
+    }
+
+    displayTopics = displayTopics ++ user.currentSubDiscipline.topics.map( topic =>  DisplayTopic(false,topic ))
+
+    displayTopics
   }
 
 }

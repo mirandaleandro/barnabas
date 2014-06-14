@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-title">
-                    <h1>Submit an idea
+                    <h1>@if(idea.isDefined){Edit}else{Submit} an idea
                         <small>Have a feedback on your idea!</small>
                     </h1>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <h4>Give your idea a short description/title</h4>
-                        <input type="text" name="title" class="form-control" maxlength="25" id="thresholdMax" placeholder="Start typing..." />
+                        <input type="text" name="title" class="form-control" maxlength="25" id="thresholdMax" placeholder="Start typing..." value="@idea.map(_.title)" />
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <h4>Provide a londer description of your idea(include any diagrams/images that might be helpful)</h4>
-                        <textarea name="description" class="summernote submit-idea-rich-textarea" >Submit Your Ideas here!</textarea>
+                        <textarea name="description" class="summernote submit-idea-rich-textarea">@idea.map(_.description)</textarea>
                     </div>
                 </div>
             </div>
@@ -52,11 +52,10 @@
                             </div>
                         </div>
                         <div class="row checkboxes">
-
-                            @for((topic,i) <- user.currentSubDiscipline.topics.zipWithIndex){
+                            @for((displayTopic,i) <- SubmitIdea.ideasToBeDisplayed(user, idea).zipWithIndex){
                                 <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
                                     <label>
-                                        <input name="topics[@i]" type="checkbox" value="@topic.id">@topic.title
+                                        <input name="topics[@i]" type="checkbox" value="@displayTopic.topic.id" @if(displayTopic.checked){checked} >@displayTopic.topic.title
                                     </label>
                                 </div>
                             }
@@ -69,7 +68,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <h4 class="bottom-line">Ready to go?</h4>
-                        <button type="submit" class="btn btn-lg btn-default submit-idea">Submit you idea</button>
+                        <button type="submit" class="btn btn-lg btn-default submit-idea">@if(idea.isDefined){Update}else{Submit} your idea</button>
                     </div>
                 </div>
             </div>

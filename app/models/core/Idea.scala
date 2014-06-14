@@ -24,7 +24,7 @@ class Idea(var createdBy:User,
   def followers:List[User] = ???
   def interestedUsers:List[User] = ???
   def resources:List[Resource] = ???
-  def topics:List[Topic] = ???
+  def topics:List[Topic] = IdeaTopic.findByIdea(this).map(_.topic)
   def subDisciplines:List[SubDiscipline] = ???
 
   def phase = this.ideaPhase.title
