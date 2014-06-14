@@ -38,6 +38,9 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
   }
 
   case class IdeaSubmissionForm(var ideaId:String, var title:String, description:String, topics:List[String])
+  {
+    def idea:Option[Idea] = Idea.findById(ideaId)
+  }
 
   val ideaSubmitionForm = Form(
     mapping(
@@ -53,14 +56,17 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
     implicit request =>
       ideaSubmitionForm.bindFromRequest.fold(
         formWithErrors => BadRequest,
-        form => {
+        (form: IdeaSubmissionForm) => {
           transactional{
 
             implicit val user = request.user
 
-            val idea =  Idea.findById(form.ideaId).getOrElse{
-              Idea(createdBy = user,title = form.title, ideaPhase = IdeaPhase.Inception,description = form.description)
-            }
+            val idea =  form.idea.getOrElse{Idea(createdBy = user)}
+
+            idea.title = form.title
+            idea.ideaPhase = IdeaPhase.Inception
+            idea.description = form.description
+
 
             idea.addSubDiscipline(user.currentSubDiscipline)
 
@@ -75,6 +81,20 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
           }
         }
       )
+  }
+
+  def editIdea(ideaId:String) = SecuredAction{ implicit request =>
+    transactional
+    {
+      implicit val user = request.user
+
+      Idea.findById(ideaId).map {
+        idea =>
+          Ok(views.html.pages.submitIdea(Some(idea)))
+      }.getOrElse{
+          NotFound(views.html.errors.notFound(request.request))
+      }
+    }
   }
 
   case class DisplayTopic(var checked:Boolean, var topic:Topic)

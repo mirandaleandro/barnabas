@@ -19,7 +19,7 @@
 
         <form class="submit-idea-form" action="@routes.SubmitIdea.submitIdea" method="POST">
 
-            <input type="hidden" name="ideaId" value="@idea.getOrElse("")">
+            <input type="hidden" name="ideaId" value="@idea.map(_.id)">
 
             <div class="row  extra-bottom-margin">
                 <div class="form-group">

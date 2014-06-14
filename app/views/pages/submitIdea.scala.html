@@ -1,10 +1,10 @@
-@()(implicit user:User)
+@(idea:Option[models.core.Idea] = None)(implicit user:User)
 
 @import views.html._
 
 @pageMainContainer("Submit Ideas"){
 
-    @pageTags.submitIdea()
+    @pageTags.submitIdea(idea = idea)
 
 }{
 

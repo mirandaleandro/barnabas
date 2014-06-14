@@ -27,5 +27,7 @@ object IdeaSubDiscipline
 
   def findBySubDiscipline(subDiscipline:SubDiscipline):List[IdeaSubDiscipline] = select[IdeaSubDiscipline] where (_.subDiscipline :== subDiscipline)
 
+  def findByIdeaAndSubDiscipline(idea:Idea, subDiscipline:SubDiscipline):Option[IdeaSubDiscipline] = (select[IdeaSubDiscipline] where (_.subDiscipline :== subDiscipline, _.idea :== idea)).headOption
+
 }
 

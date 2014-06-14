@@ -20,7 +20,8 @@ import models.core._
  */
 
 class CreateSchema extends Migration {
-    def timestamp = Platform.currentTime//201406011240l
+    def timestamp = 201406011240l
+//    def timestamp = Platform.currentTime
 
     def up {
         removeAllEntitiesTables
@@ -34,7 +35,8 @@ class CreateSchema extends Migration {
 }
 
 class CreateTestData extends Migration {
-    def timestamp = Platform.currentTime +100//201406011240l
+    def timestamp = 201406011241l
+//    def timestamp = Platform.currentTime +100
 
     def up {
        customScript

@@ -17,6 +17,46 @@
 
             <div class="row">
                 <div class="col-lg-12">
+
+
+                    <div class="portlet portlet-default">
+                        <div class="portlet-heading">
+                            <div class="portlet-title">
+                                <h4>My Ideas</h4>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-responsive">
+                                <table class="data-table table table-striped table-bordered table-hover table-green">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Submission Date</th>
+                                            <th>Phase</th>
+                                            <th>Feedback</th>
+                                            <th>Following</th>
+                                            <th>Collaborators</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for( idea <- user.ideasCreated){
+                                            <tr>
+                                            <td>@idea.title</td>
+                                            <td>@idea.creationDateTime</td>
+                                            <td>@idea.phase</td>
+                                            <td class="center">@idea.feedbackRatio</td>
+                                            <td class="center">@idea.followersCount</td>
+                                            <td class="center">@idea.collaboratorsCount</td>
+                                            <td class="center"><a href="@routes.SubmitIdea.editIdea(idea.id).url" class="btn btn-green">Edit</a></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     @views.html.utils.ideasTable("My Ideas", user.ideasCreated)
                 </div>
             </div>

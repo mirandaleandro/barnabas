@@ -42,13 +42,21 @@ class Idea(var createdBy:User,
   }
 
   def addSubDiscipline(subDiscipline:SubDiscipline) {
-    IdeaSubDiscipline( idea = this, subDiscipline = subDiscipline)
+
+    IdeaSubDiscipline.findByIdeaAndSubDiscipline(idea = this, subDiscipline = subDiscipline).getOrElse(
+      IdeaSubDiscipline( idea = this, subDiscipline = subDiscipline)
+    )
     subDiscipline.popularity+=1
   }
 }
 
 object Idea
 {
+  def apply(createdBy:User):Idea =
+  {
+      Idea(createdBy,"","", IdeaPhase.Inception)
+  }
+
   def apply(createdBy:User, title:String, description:String, ideaPhase:IdeaPhase):Idea = Idea(createdBy,title,description,ideaPhase,0)
 
   def apply(createdBy:User, title:String, description:String, ideaPhase:IdeaPhase, visited:Long = 0):Idea =
