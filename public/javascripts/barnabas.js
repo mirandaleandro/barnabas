@@ -59,7 +59,6 @@ $(document).ready(function() {
                 $(selector).next().find(".note-toolbar").append($(selector +' .appendable-btn-group'));
             },
             submitForm: function(e){
-                debugger;
                 e.preventDefault();
 
                 var form = $(".submit-idea-form");
@@ -75,7 +74,7 @@ $(document).ready(function() {
                     data: data,
                     success: function()
                     {
-                        alert("haaa!!! pegadinha do malandro");
+                        barnabas.displayMessage("Idea submitted successfully.","success");
                         barnabas.clearForms(".submit-idea-form");
                     }
                 });
@@ -107,11 +106,27 @@ $(document).ready(function() {
 
             forms.find("input[type=text], textarea").val("");
             forms.find(".summernote").code("");
-
-            //TODO uncheck checkboxes
         }
 
+        this.setup = function()
+        {
+           Messenger.options = {
+               extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+               theme: 'flat'
+           }
+        }
 
+        this.displayMessage = function(message,type){
+            Messenger().post({
+                message: message,
+                type: type,
+                showCloseButton: true
+            });
+        }
+
+        this.displayErrorMessage = function(message){
+            this.displayMessage(message,"error");
+        }
     }
 
     window.barnabas = new Barnabas();
@@ -122,7 +137,11 @@ $(document).ready(function() {
 
     barnabas.ideEvaluation.setup();
     barnabas.submitIdea.setup();
+    barnabas.setup();
 
     console.log("loading barnabas");
+
+
+
 
 });
