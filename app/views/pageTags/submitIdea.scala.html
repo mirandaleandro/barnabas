@@ -45,17 +45,17 @@
                         <div class="row bottom-line header-options">
                             <h4 class="col-md-7">Select related topic(s) or area(s) of interest(optional)</h4>
                             <div class="col-md-5 input-group">
-                                <input type="text" class="form-control" placeholder="search or add">
+                                <input type="text" class="form-control add-topic-input" placeholder="Add more topics...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">Add</button>
+                                    <button class="btn btn-default add-topic-button" type="button">Add</button>
                                 </span>
                             </div>
                         </div>
                         <div class="row checkboxes">
-                            @for((displayTopic,i) <- SubmitIdea.ideasToBeDisplayed(user, idea).zipWithIndex){
+                            @for((displayTopic,i) <- SubmitIdea.topicsToBeDisplayed(user, idea).zipWithIndex){
                                 <div class="topic-checkbox col-xs-12 col-md-4 col-lg-3">
                                     <label>
-                                        <input name="topics[@i]" type="checkbox" value="@displayTopic.topic.id" @if(displayTopic.checked){checked} >@displayTopic.topic.title
+                                        <input name="topics[@i]" type="checkbox" value="@displayTopic.topic.title" @if(displayTopic.checked){checked} >@displayTopic.topic.title
                                     </label>
                                 </div>
                             }

@@ -7,6 +7,7 @@ import play.api.data.Forms._
 import models.PostgresConnection._
 import models.core.{SubDiscipline, Topic, IdeaPhase, Idea}
 import models.User
+import play.api.libs.json.Json
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +20,8 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
 {
   val IMAGE_STORAGE_FOLDER = "public/images/richtext/"
   val IMAGE_ASSETS_FOLDER = "images/richtext/"
+
+  val MAX_TOPICS_DISPLAYED = 8
 
   def richTextImageUpload = Action(parse.multipartFormData) { request =>
     request.body.file("file").map { picture =>
@@ -67,14 +70,21 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
             idea.ideaPhase = IdeaPhase.Inception
             idea.description = form.description
 
-
             idea.addSubDiscipline(user.currentSubDiscipline)
 
-            for(topicId <- form.topics)
+            for(topicTitle <- form.topics)
             {
-               Topic.findById(topicId).map { topic =>
-                 idea.addTopic(topic = topic)
-               }
+              val cleanTitle = topicTitle.trim()
+
+              if( !cleanTitle.isEmpty )
+              {
+                val topic = Topic.findBySubDisciplineAndTitle(user.currentSubDiscipline,cleanTitle).getOrElse{
+                  Topic( createdBy = user, title = cleanTitle, subDiscipline = user.currentSubDiscipline)
+                }
+
+                idea.addTopic(topic = topic)
+              }
+
             }
 
            Ok(views.html.pages.submitIdea()).flashing("message" -> "Idea Submitted!")
@@ -97,9 +107,19 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
     }
   }
 
+  def topics(term:String) = SecuredAction{
+    implicit request =>
+      implicit val user = request.user
+      transactional{
+        val stringTopics = Topic.findBySubDiscipline(user.currentSubDiscipline).map(_.title).filter(_.contains(term))
+
+        Ok(Json.toJson(stringTopics))
+      }
+  }
+
   case class DisplayTopic(var checked:Boolean, var topic:Topic)
 
-  def ideasToBeDisplayed(user:User, idea:Option[Idea]):List[DisplayTopic] = {
+  def topicsToBeDisplayed(user:User, idea:Option[Idea]):List[DisplayTopic] = {
     var displayTopics: List[DisplayTopic] =  List[DisplayTopic]()
 
     idea.map{ idea =>
@@ -113,7 +133,7 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
         !tempTopics.contains(disciplineTopic)
     }.map( topic =>  DisplayTopic(false,topic ))
 
-    displayTopics
+    displayTopics.take(MAX_TOPICS_DISPLAYED)
   }
 
 }

@@ -39,3 +39,4 @@ POST    /summernote/uploadImage     controllers.SubmitIdea.richTextImageUpload
 
 POST /forms/submitIdea              controllers.SubmitIdea.submitIdea
 GET  /edit/:ideaId                  controllers.SubmitIdea.editIdea(ideaId)
+GET  /topicsList                    controllers.SubmitIdea.topics(term)

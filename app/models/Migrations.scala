@@ -20,8 +20,8 @@ import models.core._
  */
 
 class CreateSchema extends Migration {
-    def timestamp = 201406011240l
-//    def timestamp = Platform.currentTime
+//    def timestamp = 201406011240l
+    def timestamp = Platform.currentTime
 
     def up {
         removeAllEntitiesTables
@@ -35,8 +35,8 @@ class CreateSchema extends Migration {
 }
 
 class CreateTestData extends Migration {
-    def timestamp = 201406011241l
-//    def timestamp = Platform.currentTime +100
+//    def timestamp = 201406011241l
+    def timestamp = Platform.currentTime +100
 
     def up {
        customScript
@@ -136,6 +136,11 @@ class CreateTestData extends Migration {
          val topic5 = Topic(user,"topic 5",subDiscipline = subDiscipline, popularity = 5)
          val topic6 = Topic(user,"topic 6",subDiscipline = subDiscipline, popularity = 6)
          val topic7 = Topic(user,"topic 7",subDiscipline = subDiscipline, popularity = 7)
+         val topic8 = Topic(user,"Another topic 1",subDiscipline = subDiscipline, popularity = 7)
+         val topic9 = Topic(user,"Another topic 2",subDiscipline = subDiscipline, popularity = 7)
+         val topic10 = Topic(user,"Another topic 3",subDiscipline = subDiscipline, popularity = 7)
+         val topic11 = Topic(user,"Another topic 4",subDiscipline = subDiscipline, popularity = 7)
+         val topic12 = Topic(user,"Another topic 5",subDiscipline = subDiscipline, popularity = 7)
 
 
          val resourceType1 = ResourceType(createdBy = user, "Researcher")

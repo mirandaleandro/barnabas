@@ -43,7 +43,35 @@ $(document).ready(function() {
             setup: function()
             {
                 barnabas.submitIdea.configureTextEditor();
+
                 $(document.body).on("submit",".submit-idea",barnabas.submitIdea.submitForm)
+
+                $(".add-topic-input").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "/topicsList",
+                            data: request,
+                            success: function (data)
+                            {
+                                var topics = barnabas.submitIdea.topicsInForm().get();
+                                data = data.diff(topics);
+                                response(data);
+                            },
+                            error: function () {
+                                response([]);
+                            }
+                        });},
+
+                    minLength: 1,
+
+                    response: function( event, ui ) { },
+
+                    select: function( event, ui ) {
+                        console.log( ui.item ?
+                            "Selected: " + ui.item.value + " aka " + ui.item.id :
+                            "Nothing selected, input was " + this.value );
+                    }
+                });
             },
             configureTextEditor: function()
             {
@@ -78,6 +106,13 @@ $(document).ready(function() {
                         barnabas.clearForms(".submit-idea-form");
                     }
                 });
+            },
+            addTopic: function()
+            {
+
+            },
+            topicsInForm: function(){
+                return $(".checkboxes input").map(function(){ return $(this).val(); })
             }
 
         }
@@ -110,6 +145,10 @@ $(document).ready(function() {
 
         this.setup = function()
         {
+            Array.prototype.diff = function(a) {
+                return this.filter(function(i) {return a.indexOf(i) < 0;});
+            };
+
            Messenger.options = {
                extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
                theme: 'flat'
