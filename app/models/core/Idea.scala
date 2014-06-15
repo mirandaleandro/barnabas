@@ -36,17 +36,24 @@ class Idea(var createdBy:User,
       this.voted/this.visited
   }
 
-  def addTopic(topic:Topic) {
-    IdeaTopic( idea = this, topic = topic)
-    topic.popularity+=1
+  def addTopic(topic:Topic)
+  {
+    if(!IdeaTopic.findByIdeaAndTopic(idea = this, topic = topic).isDefined)
+    {
+      IdeaTopic( idea = this, topic = topic)
+
+      topic.popularity += 1
+    }
   }
 
   def addSubDiscipline(subDiscipline:SubDiscipline) {
 
-    IdeaSubDiscipline.findByIdeaAndSubDiscipline(idea = this, subDiscipline = subDiscipline).getOrElse(
+    if(!IdeaSubDiscipline.findByIdeaAndSubDiscipline(idea = this, subDiscipline = subDiscipline).isDefined)
+    {
       IdeaSubDiscipline( idea = this, subDiscipline = subDiscipline)
-    )
-    subDiscipline.popularity+=1
+
+      subDiscipline.popularity += 1
+    }
   }
 }
 

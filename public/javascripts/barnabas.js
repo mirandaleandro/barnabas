@@ -46,6 +46,17 @@ $(document).ready(function() {
 
                 $(document.body).on("submit",".submit-idea",barnabas.submitIdea.submitForm)
 
+                $(document.body).on("click",".add-topic-button",function(){
+                     barnabas.submitIdea.addTopic( $(".add-topic-input").val());
+                });
+
+                $(document.body).on("keypress",".add-topic-input",function (e) {
+                    if (e.which == 13) {
+                        $(".add-topic-button").trigger("click");
+                        return false;
+                    }
+                });
+
                 $(".add-topic-input").autocomplete({
                     source: function (request, response) {
                         $.ajax({
@@ -66,10 +77,9 @@ $(document).ready(function() {
 
                     response: function( event, ui ) { },
 
-                    select: function( event, ui ) {
-                        console.log( ui.item ?
-                            "Selected: " + ui.item.value + " aka " + ui.item.id :
-                            "Nothing selected, input was " + this.value );
+                    select: function( event, ui )
+                    {
+                        barnabas.submitIdea.addTopic(ui.item.value);
                     }
                 });
             },
@@ -107,9 +117,19 @@ $(document).ready(function() {
                     }
                 });
             },
-            addTopic: function()
+            addTopic: function(topicValue)
             {
+                var placeholder = $(".topic-checkbox.topic-placeholder");
+                var newCheckbox = placeholder.clone();
+                var checkBoxesCount = $(".topic-checkbox").size();
 
+                $(".checkboxes").append(newCheckbox);
+                newCheckbox.removeClass("topic-placeholder");
+                newCheckbox.find("label").append(topicValue);
+                newCheckbox.find("input").val(topicValue);
+                newCheckbox.find("input").attr("name","topics["+checkBoxesCount+"]");
+
+                $(".add-topic-input").val("");
             },
             topicsInForm: function(){
                 return $(".checkboxes input").map(function(){ return $(this).val(); })
@@ -179,8 +199,5 @@ $(document).ready(function() {
     barnabas.setup();
 
     console.log("loading barnabas");
-
-
-
 
 });

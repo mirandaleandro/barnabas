@@ -21,7 +21,7 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
   val IMAGE_STORAGE_FOLDER = "public/images/richtext/"
   val IMAGE_ASSETS_FOLDER = "images/richtext/"
 
-  val MAX_TOPICS_DISPLAYED = 8
+  val MAX_TOPICS_DISPLAYED = 16
 
   def richTextImageUpload = Action(parse.multipartFormData) { request =>
     request.body.file("file").map { picture =>

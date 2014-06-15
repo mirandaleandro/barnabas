@@ -2176,6 +2176,7 @@ input[type="checkbox"]:checked::after,
     text-align: right;
 }
 
+.topic-placeholder,
 .soft-hide
 {
     display: none;
