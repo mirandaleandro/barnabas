@@ -1,7 +1,7 @@
 package models
 
 
-import core.{SubDiscipline, IdeaFollower, Idea}
+import core.{IdeaUser, SubDiscipline, Idea}
 import models.PostgresConnection._
 import net.fwbrasil.activate.entity.Entity
 import securesocial.core.{IdentityId, Identity}
@@ -34,7 +34,7 @@ class User extends Entity with Identity
 
   def ideasCreated:List[Idea] = Idea.ideaFromUser(this)
 
-  def ideasFollowed:List[Idea] = IdeaFollower.ideasFollowedByUser(this)
+  def ideasFollowed:List[Idea] = IdeaUser.ideasFollowedByUser(this)
 
 }
 

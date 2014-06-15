@@ -4,7 +4,8 @@
 
 # Main pages
 GET     /                           controllers.Application.index
-GET     /evaluate-ideas             controllers.Application.evaluateIdeas
+GET     /evaluate-ideas             controllers.EvaluateIdeas.evaluateIdeas
+GET     /evaluate-ideas/:ideaId     controllers.EvaluateIdeas.evaluateIdeasWithId(ideaId)
 GET     /submit-an-idea             controllers.Application.submitIdeas
 GET     /get-inspired               controllers.Application.getInspired
 

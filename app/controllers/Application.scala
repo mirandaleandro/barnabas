@@ -43,12 +43,4 @@ object Application extends Controller with securesocial.core.SecureSocial{
       Ok(views.html.pages.getInspired())
     }
   }
-
-  def evaluateIdeas() = SecuredAction { implicit request =>
-    transactional{
-      implicit val user = request.user
-      Ok(views.html.pages.evaluateIdeas())
-    }
-  }
-
 }
