@@ -82,6 +82,12 @@ $(document).ready(function() {
                         barnabas.submitIdea.addTopic(ui.item.value);
                     }
                 });
+
+                $('.idea-title').maxlength({
+                    threshold: 100,
+                    warningClass: "label green",
+                    limitReachedClass: "label orange"
+                });
             },
             configureTextEditor: function()
             {
