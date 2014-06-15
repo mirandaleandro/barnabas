@@ -106,7 +106,12 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
       displayTopics = displayTopics ++ idea.topics.map( topic =>  DisplayTopic(true,topic ))
     }
 
-    displayTopics = displayTopics ++ user.currentSubDiscipline.topics.map( topic =>  DisplayTopic(false,topic ))
+    val tempTopics = displayTopics.map(_.topic)
+    displayTopics = displayTopics ++ user.currentSubDiscipline.topics.filter
+    {
+      disciplineTopic =>
+        !tempTopics.contains(disciplineTopic)
+    }.map( topic =>  DisplayTopic(false,topic ))
 
     displayTopics
   }
