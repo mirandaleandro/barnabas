@@ -2151,11 +2151,6 @@ input[type="checkbox"]:checked::after,
     overflow: auto;
 }
 
-.resource-vote.voted a
-{
-    opacity: 0.8;
-}
-
 .page-fixed-menu
 {
     position: fixed;
@@ -2180,5 +2175,25 @@ input[type="checkbox"]:checked::after,
 .soft-hide
 {
     display: none;
+}
+
+.unlike-action
+{
+    opacity: 0.8;
+}
+
+.resource-vote .unlike-action
+{
+    display: none;
+}
+
+.resource-vote.liked .like-action
+{
+   display: none;
+}
+
+.resource-vote.liked .unlike-action
+{
+    display: inline-block;
 }
 

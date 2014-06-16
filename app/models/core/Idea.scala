@@ -23,8 +23,11 @@ class Idea(var createdBy:User,
   def authors:List[User] = ???  //we will probably wish to have coauthoring of ideas. By now we will just use "createdBy"
   def followers:List[User] = ???
   def interestedUsers:List[User] = ???
-  def resources:List[Resource] = ???
+
+  def resources:List[IdeaResource] = IdeaResource.findByIdea(this)
+
   def topics:List[Topic] = IdeaTopic.findByIdea(this).map(_.topic)
+
   def subDisciplines:List[SubDiscipline] = ???
 
   def phase = this.ideaPhase.title
@@ -76,6 +79,13 @@ object Idea
   def ideaAtPhase(ideaPhase:IdeaPhase):List[Idea] = select[Idea] where( _.ideaPhase :== ideaPhase )
 
   def findById(id:String):Option[Idea] = byId[Idea](id)
+
+  def ideaForEvaluation(user:User): Option[Idea] =
+  {
+    val ideasForSubDiscipline: List[Idea] = IdeaSubDiscipline.findBySubDiscipline(subDiscipline = user.currentSubDiscipline).map(_.idea)
+    val ideasEvaluatedByUser: List[Idea] = IdeaUser.findByUser(user = user).map(_.idea)
+    ideasForSubDiscipline.filterNot(ideasEvaluatedByUser.toSet).headOption
+  }
 }
 
 class IdeaPhase(var createdBy:User, var title:String ) extends Entity

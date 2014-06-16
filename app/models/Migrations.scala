@@ -20,8 +20,8 @@ import models.core._
  */
 
 class CreateSchema extends Migration {
-//    def timestamp = 201406011240l
-    def timestamp = Platform.currentTime
+    def timestamp = 201406011240l
+//    def timestamp = Platform.currentTime
 
     def up {
         removeAllEntitiesTables
@@ -35,8 +35,8 @@ class CreateSchema extends Migration {
 }
 
 class CreateTestData extends Migration {
-//    def timestamp = 201406011241l
-    def timestamp = Platform.currentTime +100
+    def timestamp = 201406011241l
+//    def timestamp = Platform.currentTime +100
 
     def up {
        customScript
@@ -128,6 +128,8 @@ class CreateTestData extends Migration {
          user.currentSubDiscipline = subDiscipline
          user2.currentSubDiscipline = subDiscipline
          user3.currentSubDiscipline = subDiscipline
+         user4.currentSubDiscipline = subDiscipline
+         user5.currentSubDiscipline = subDiscipline
 
          val topic1 = Topic(user,"topic 1",subDiscipline = subDiscipline, popularity = 87)
          val topic2 = Topic(user,"topic 2",subDiscipline = subDiscipline, popularity = 54)
@@ -155,8 +157,8 @@ class CreateTestData extends Migration {
          val resourceType3 = ResourceType(createdBy = user, "Web Page")
          val resourceType4 = ResourceType(createdBy = user, "Idea")
 
-         val resource1 = Resource(createdBy = user,title = "Thomas Meservy",Some("httpL//google.com"), resourceType = resourceType1)
-         val resource2 = Resource(createdBy = user,title = "State of Art in Distributed Systems",Some("httpL//google.com"), resourceType = resourceType2)
+         val resource1 = Resource(createdBy = user,title = "Thomas Meservy",Some("http://google.com"), resourceType = resourceType1)
+         val resource2 = Resource(createdBy = user,title = "State of Art in Distributed Systems",Some("http://google.com"), resourceType = resourceType2)
          val resource3 = Resource(createdBy = user,title = "Cuda", None, resourceType = resourceType1)
          val resource4 = Resource(createdBy = user,title = "Thomas Meservy", None, resourceType = resourceType1)
 
@@ -192,6 +194,32 @@ class CreateTestData extends Migration {
          val idea23 = Idea(createdBy = user2, "Super Idea Title goes here 23","Lorem Ipsum", ideaPhase = ideaPhase2)
          val idea24 = Idea(createdBy = user2, "Super Idea Title goes here 24","Lorem Ipsum", ideaPhase = ideaPhase3)
          val idea25 = Idea(createdBy = user2, "Super Idea Title goes here 25","Lorem Ipsum", ideaPhase = ideaPhase1)
+
+         idea.addSubDiscipline(subDiscipline = subDiscipline)
+         idea2.addSubDiscipline(subDiscipline = subDiscipline)
+         idea3.addSubDiscipline(subDiscipline = subDiscipline)
+         idea4.addSubDiscipline(subDiscipline = subDiscipline)
+         idea5.addSubDiscipline(subDiscipline = subDiscipline)
+         idea6.addSubDiscipline(subDiscipline = subDiscipline)
+         idea7.addSubDiscipline(subDiscipline = subDiscipline)
+         idea8.addSubDiscipline(subDiscipline = subDiscipline)
+         idea9.addSubDiscipline(subDiscipline = subDiscipline)
+         idea10.addSubDiscipline(subDiscipline = subDiscipline)
+         idea11.addSubDiscipline(subDiscipline = subDiscipline)
+         idea12.addSubDiscipline(subDiscipline = subDiscipline)
+         idea13.addSubDiscipline(subDiscipline = subDiscipline)
+         idea14.addSubDiscipline(subDiscipline = subDiscipline)
+         idea15.addSubDiscipline(subDiscipline = subDiscipline)
+         idea16.addSubDiscipline(subDiscipline = subDiscipline)
+         idea17.addSubDiscipline(subDiscipline = subDiscipline)
+         idea18.addSubDiscipline(subDiscipline = subDiscipline)
+         idea19.addSubDiscipline(subDiscipline = subDiscipline)
+         idea20.addSubDiscipline(subDiscipline = subDiscipline)
+         idea21.addSubDiscipline(subDiscipline = subDiscipline)
+         idea22.addSubDiscipline(subDiscipline = subDiscipline)
+         idea23.addSubDiscipline(subDiscipline = subDiscipline)
+         idea24.addSubDiscipline(subDiscipline = subDiscipline)
+         idea25.addSubDiscipline(subDiscipline = subDiscipline)
 
          val ideaResource1 = IdeaResource(suggestedBy = user,idea = idea, resource = resource1)
          val ideaResource2 = IdeaResource(suggestedBy = user,idea = idea, resource = resource2)

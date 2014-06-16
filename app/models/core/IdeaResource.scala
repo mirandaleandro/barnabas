@@ -2,6 +2,7 @@ package models.core
 
 import models.User
 import net.fwbrasil.activate.entity.Entity
+import models.PostgresConnection._
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,6 +18,11 @@ import net.fwbrasil.activate.entity.Entity
 
 class IdeaResource(var suggestedBy:User, var idea:Idea, var resource:Resource, var likeCounter:Long = 0) extends Entity{
 
+
+  def likes:Int = IdeaResourceEvaluation.findByIdeaResource(this).size
+
+  def hasUserLiked(user:User):Boolean = IdeaResourceEvaluation.findByUser(user).isDefined
+
 }
 
 object IdeaResource
@@ -26,5 +32,7 @@ object IdeaResource
   {
     new IdeaResource(suggestedBy = suggestedBy, idea = idea, resource = resource, likeCounter = likeCounter)
   }
+
+  def findByIdea(idea:Idea):List[IdeaResource] = select[IdeaResource] where(_.idea :== idea)
 
 }

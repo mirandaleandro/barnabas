@@ -1,10 +1,10 @@
-@()(implicit user:User)
+@(evaluation:models.core.IdeaUser)(implicit user:User)
 
 @import views.html._
 
 @pageMainContainer("Evaluate Ideas"){
 
-    @pageTags.evaluateIdeas()
+    @pageTags.evaluateIdeas(evaluation)
 
 }{
 }{

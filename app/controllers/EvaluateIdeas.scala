@@ -6,7 +6,7 @@ import util.Random
 import play.api.data.Form
 import play.api.data.Forms._
 import models.PostgresConnection._
-import models.core.{SubDiscipline, Topic, IdeaPhase, Idea}
+import models.core._
 import models.User
 import play.api.libs.json.Json
 
@@ -25,20 +25,31 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
     transactional{
       implicit val user = request.user
 
-      //val ideaForEvaluation = Idea.ideaForEvaluate(user = user)
+      val idea = Idea.ideaForEvaluation(user = user)
 
-      //Ok(views.html.pages.evaluateIdeas(idea = ideaForEvaluation))
-      Ok(views.html.pages.evaluateIdeas())
-
+      idea.map { idea =>
+        IdeaUser(idea = idea, user = user)
+        Redirect(routes.EvaluateIdeas.evaluateIdeasWithId(idea.id))
+      }.getOrElse{
+          NotFound
+      }
     }
   }
 
   def evaluateIdeasWithId(ideaId:String) = SecuredAction { implicit request =>
     transactional{
       implicit val user = request.user
-      Ok(views.html.pages.evaluateIdeas())
+
+      Idea.findById(ideaId).map { idea =>
+
+          val ideaUser = IdeaUser.findByIdeaAndUser(idea = idea, user = user).getOrElse(IdeaUser(idea = idea, user = user))
+
+          Ok(views.html.pages.evaluateIdeas(evaluation = ideaUser))
+
+      }.getOrElse{
+        NotFound
+      }
     }
   }
-
 
 }

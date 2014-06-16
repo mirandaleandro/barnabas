@@ -1,4 +1,4 @@
-@()
+@(evaluation:models.core.IdeaUser)(implicit user:User)
 <div id="wrapper">
 
     <!-- begin MAIN PAGE CONTENT -->
@@ -27,7 +27,7 @@
                 <div class="portlet portlet-default">
                     <div class="portlet-heading">
                         <div class="portlet-title">
-                            <h4>Portlet with Label</h4>
+                            <h4>@evaluation.idea.title</h4>
                         </div>
                         <div class="portlet-widgets">
                             <span class="divider"></span>
@@ -37,40 +37,18 @@
                     </div>
                     <div id="defaultPortlet" class="panel-collapse collapse in">
                         <div class="portlet-body idea-portlet">
-                            <p>Portlet class:
-                                <code>.portlet-default</code>. Alternate:
-                                <code>.portlet-dark-blue</code>.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.</p>
-                            <div id="article-body-blocks">
-                                <p>When Josiane Nizomfura was 12, she wanted to get a glimpse of her father, so she sneaked out of school and went to the public trial where her mother was testifying against him for <a href="http://www.theguardian.com/society/rape" title="More from the Guardian on Rape">rape</a>.</p><p>Levine Mukasakufu had never told Josiane the circumstances of her birth. "I couldn't face it, so she found out from the neighbours," she said. Levine – a tiny, delicate woman like a brightly coloured bird in her traditional wrap skirt – is one of the half a million women raped during <a href="http://www.theguardian.com/world/rwanda" title="More from the Guardian on Rwanda">Rwanda</a>'s 1994 genocide, when the country's ethnic Hutus, under orders from their leaders, tried to wipe out the minority Tutsis.</p><p>Then aged 21, Levine and other young women in Kibilizi, 80 miles south of the capital, Kigali, were forced to assemble on the village playing field. The Interahamwe, the Hutu militia that spearheaded the massacres of Tutsis, picked those they wanted, forcing them into the surrounding banana and millet patches to be gang-raped. "Rape was a reward the leaders gave those who killed," said Levine. "This is why I didn't love my daughter – her father was the one who killed my family. I wanted to kill her, too."</p>    <span class="inline wide">
-                                    <img src="http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/6/7/1402177282913/Levine-Mukasakufu-009.jpg" alt="Levine Mukasakufu" width="460" height="276" data-pin-description="Levine Mukasakufu, right, has now made peace with her teenage daughter Josiane Nizumfura, left, having tried for an abortion after being raped in the genocide. Photograph: Stephen Hird/Channel 4 News">
-                                    <span class="caption" style="width: 460px;">
-                                            Levine Mukasakufu, right, has now made peace with her teenage daughter Josiane Nizumfura, left, having tried for an abortion after being raped in the genocide. Photograph: Stephen Hird/Channel 4 News
-                                    </span>
-                                </span>
-                                <p>When Levine discovered that her daughter had watched her testify, she beat her all night long. It was one of many assaults. After failing to abort the baby, she frequently lashed out at Josiane when she was a child. "If she misbehaved at all I would say, 'she's like her father, she's an Interahamwe'. I would chase her away saying, 'this is a Tutsi house, and you don't belong here'," she said.</p><p>This week's Global Summit to End Sexual Violence in Conflict, hosted by the British foreign secretary, William Hague, and actress Angelina Jolie, aims to put victims such as Levine and Josiane at the centre of war crimes investigations. Governments are expected to sign a new protocol for documenting wartime sexual assaults and adopt programmes to educate their soldiers that rape is a war crime rather than an inevitable consequence of conflict.</p><p>Although rape occurs in all wars, it was especially widespread in Rwanda, and the consequences are felt to this day. The International Criminal Tribunal on Rwanda concluded that rape was an integral part of genocide. "Sexual violence was a step in the process of destruction of the Tutsi group … destruction of the spirit, of the will to live, and of life itself," said the verdict on the Hutu leaders who organised the genocide in the Butare region, which includes Kibilizi.</p><p>The UN initially estimated that 5,000 children were born of rape in the 1994 genocide, but the Survivors' Fund – a British charity working in Rwanda – believes the number might be nearer 20,000.</p><p>Unlike genocide orphans, children of rape do not qualify for government assistance and many live in poverty. Aid programmes have tended to concentrate on the plight of the raped women, paying little attention to the children, who have grown up feeling rejected by their mothers and stigmatised by the wider community. In Rwanda, ethnicity comes through the father's line, so Tutsi survivors call the children Interahamwe and "son of a snake", while the relatives of the Hutu rapists often tell the children that their mothers are wicked for testifying against their fathers and putting them in jail.</p><p>Marie Josée Ukeye, a therapist who counsels 22 raped women and 12 children in Kibilizi, says the children have behavioural problems that can only be overcome through years of group therapy. "The adolescent girls are ashamed and often take on the suffering of their mothers, while the boys have explosive fits of temper," she said. A genocide survivor herself, she has been holding twice-weekly meetings with the women and children for seven years, helping them express themselves and overcome their anger and grief.</p>    <span class="inline wide">
-                                    <img src="http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/6/7/1402178055294/Hutu-Interahamwe-militiam-008.jpg" alt="Hutu Interahamwe militiaman" width="460" height="276" data-pin-description="A Hutu Interahamwe militiaman in central Rwanda in June 1994. Photograph: Alexander Joe/AFP/Getty Images">
-                                    <span class="caption" style="width: 460px;">
-                                            A Hutu Interahamwe militiaman in central Rwanda in June 1994. Photograph: Alexander Joe/AFP/Getty Images
-                                    </span>
-                                </span>
-                                <p>In Rwandan custom, a child is given a Christian and a Kinyarwanda name. Epiphane Mukamakombe, who made several attempts to abort, called her son Olivier <em>Utabazi</em>, meaning "he belongs to them". She refused to breastfeed and tried to kill him when he was a baby. Somehow he survived.</p><p>Now 19, Olivier says he understands why his mother was cruel to him, but remains haunted by the father he cannot bring himself to hate.</p><p>"On the one hand I blame him because he raped my mother and did not help her bring me up," he said. "But on the other hand, I do not know if he was really a bad man."</p><p>As a child he was sullen and aggressive. In the last year his mother has scraped together the money for him to study construction. He has dreams of being an engineer and high hopes for a better life, but his attitude to rape is confused. "Maybe they were going to kill my mother, and then my father told her, 'if you let us have sex with you, we won't kill you', so mum had to agree," he said. Rape, he says, is wrong, but he seems more troubled by his own confused identity, saying that he feels embarrassed and angry every time he has to fill in a form where it asks the name of his father.</p><p>For his mother, the last 20 years have been a battle simply to accept Olivier's existence – "I felt he was an Interahamwe," said Epiphane. But over time she realised that, as her entire family had been killed in the genocide, he was all she had. She still fears the relatives of the men who raped her, accusing them of throwing stones at her house and poisoning her cow. Olivier provides some kind of protection, even though he is away at school much of the time. "The love came later, when I realised God gave this child to me and he's the only family I have," she said. "I cannot blame him for how he was born."</p><p>Once a week the women gather to work on each other's small plots of land on the edge of the village. Bent double to gather beans for drying, they laugh as they work, finding comfort in each other's company and the knowledge that they are not alone. As desperately poor subsistence farmers, few can afford to hire labour and, even if they could, they say the labourers may be related to their imprisoned rapists so they do not wish to interact with them. The stigma of rape never goes away, and they say their Hutu neighbours still sometimes call them whores.</p><p>Some women have been driven mad by their suffering and have passed the trauma on to their children. Epiphanie Kanziga was gang-raped more times than she can remember, and gave birth to a daughter, Adeline Uwasi – the name means "her father's". The two live in a one-room house. The mud floor floods in the rain and a battered old bus seat with springs protruding through the plastic serves as a sofa. When Adeline was three, Epiphanie left her in the forest, believing that the genocide was continuing and she needed to be hidden. On another occasion, she beat her around the head with a sharp stick, injuring the child so badly she had to be taken to hospital. Fragile and tearful, Epiphanie now relies on Adeline to look after her during the annual season of commemoration, when Rwandans mark the 100 days of genocide, starting on 7 April.</p><p>Smartly dressed in her royal blue school uniform, Adeline harbours dreams of going to Europe or of getting a job in a bank, but she has fallen behind in school and speaks in monosyllables so soft as to be scarcely audible. Acutely aware of their status as outsiders, she once told her mother it was just as well she had no more children as no one from the community would have brought them gifts in the traditional way when a baby is born. She finds it hard to trust men, seeing them as liars. "I do not think they have love," she said, looking down at her feet.</p><p>Last Thursday outside Kibilizi District Office, where 20 years ago local Hutu leaders and Interahamwe gathered to plan genocide, the villagers were preparing to rebury the bones of those who were slaughtered. More than 3,000 were killed in the area, and every year more bodies are found in mass graves and down latrines. Levine Mukasakufu was in charge, wearing white rubber gloves as she lifted mummified corpses into rough wooden coffins painted white, each decorated with a cross. She pulled back a blue tarpaulin to reveal dozens of bodies, frozen in position at the moment of death, one with hands up as if begging for mercy. A man gently pulled out the remains of a child who must have been about six, knees bent forwards as if she or he had been sleeping.</p>    <span class="inline wide">
-                                    <img src="http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/6/7/1402176692668/Adeline-Uwasi-008.jpg" alt="Adeline Uwasi" width="460" height="276" data-pin-description="Adeline Uwasi was born after her mother was repeatedly raped. Withdrawn and nervous, she is now her mother’s sole carer. Photograph: Stephen Hird / Channel 4 News">
-                                    <span class="caption" style="width: 460px;">
-                                            Adeline Uwasi was born after her mother was repeatedly raped. Withdrawn and nervous, she is now her mother’s sole carer. Photograph: Stephen Hird / Channel 4 News
-                                    </span>
-                                </span>
-                                <p>One of the women broke down and started wailing, but Levine stayed strong, determined that her family members should finally get a decent burial. Unlike the other women, she has gone on to have five more children. Josiane, whom she attacked for going to see her father, has grown into a truculent and outwardly self-confident young woman, twice the size of her mother. They have reached an accommodation, a way of tolerating each other. The days of screaming and fighting are over.</p><p>"Sexual violence is a crime like no other," said Marie Josée. "It touches all aspects of a person's life – mental, physical, social. It destroys everything." However, she believes the children have a chance of forging their own lives if they complete their education. "I have seen what a great misfortune it is to be a child of rape," she said. "But I have also seen that human beings, whatever they have lived through, can make progress and get better."</p><p>Haunted by death and rape, condemned to poverty, the women have little hope of happiness. Only the children have any chance of leaving the past behind.</p><p><em>Lindsey Hilsum's film on Rwanda's children of rape will be broadcast on Channel 4 News at 7pm on Tuesday.</em></p>
-                            </div>
+                           @evaluation.idea.description
                         </div>
                     </div>
                     <div class="portlet-footer">
                         <span>Topics:</span>
                         <span class="divider"></span>
 
-                        <span class="label green">#topic1</span>
-                        <span class="label green">#topic2</span>
-                        <span class="label green">#topic3</span>
+                        @for( topic <- evaluation.idea.topics.take(3)){
+                            <span class="label green">#@topic.title</span>
+                            <span class="label green">#@topic.title</span>
+                            <span class="label green">#@topic.title</span>
+                        }
 
                     </div>
                 </div>
@@ -96,34 +74,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr >
-                                                <td class="col-md-7">Leandro Gomes de Miranda</td>
-                                                <td class="col-md-2">Researcher</td>
-                                                <td class="col-md-1"><a href="ajshbdjasbhda">Link</a></td>
-                                                <td class="col-md-2 resource-vote voted popularity">
-                                                    <span>1,479</span>
-                                                    <a class="btn btn-xs btn-green"> Unlike</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-7">The state of art in tag ontology</td>
-                                                <td class="col-md-2">Article</td>
-                                                <td class="col-md-1"><a href="ajshbdjasbhda">Link</a></td>
-                                                <td class="col-md-2 resource-vote popularity">
-                                                    <span>19,385</span>
-                                                    <a class="btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
-                                                </td>
 
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-7">The walking Dead</td>
-                                                <td class="col-md-2">Web Page</td>
-                                                <td class="col-md-1"><a href="ajshbdjasbhda">Link</a></td>
-                                                <td class="col-md-2 resource-vote popularity">
-                                                    <span>131</span>
-                                                    <a class="btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
-                                                </td>
-                                            </tr>
+                                            @for(ideaResource <- evaluation.idea.resources){
+                                                <tr>
+                                                    <td class="col-md-7">@ideaResource.resource.title</td>
+                                                    <td class="col-md-2">@ideaResource.resource.resourceType.title</td>
+                                                    <td class="col-md-1">@ideaResource.resource.url.map{ url => <a href="@url">Link</a> }.getOrElse{ (No link) }</td>
+                                                    <td class="col-md-2 resource-vote  @if(ideaResource.hasUserLiked(user)){liked} popularity">
+
+                                                        <span>@ideaResource.likes</span>
+
+                                                        <a class="unlike-action btn btn-xs btn-green "> Unlike </a>
+                                                        <a class="like-action btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
+
+                                                    </td>
+                                                </tr>
+                                            }
+
                                         </tbody>
                                     </table>
 
