@@ -27,11 +27,7 @@
                             <td class="col-md-7">@ideaResource.resource.title</td>
                             <td class="col-md-2">@ideaResource.resource.resourceType.title</td>
                             <td class="col-md-1">@ideaResource.resource.url.map{ url => <a href="@url">Link</a> }.getOrElse{ (No link) }</td>
-                            <td class="col-md-2 resource-vote  @if(ideaResource.hasUserLiked(user)){liked} popularity">
-                                <span>@ideaResource.likes</span>
-                                <a class="unlike-action btn btn-xs btn-green "> Unlike </a>
-                                <a class="like-action btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
-                            </td>
+                            @views.html.utils.resourceLike(ideaResource = ideaResource)
                         </tr>
                     }
 

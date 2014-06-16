@@ -53,7 +53,6 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
   }
 
   case class ResourceForm(var evaluationId:String, var description:String, var resourceTypeId:String, var link:Option[String])
-
   val addResourceForm = Form(
     mapping(
       "evaluationId" -> nonEmptyText,
@@ -63,7 +62,6 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
     )
       (ResourceForm.apply)(ResourceForm.unapply)
   )
-
   def addResource() = SecuredAction{  implicit request =>
     transactional{
       implicit val user = request.user
@@ -93,4 +91,55 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
     }
   }
 
+
+  case class LikeResourceForm(var ideaResourceId:String)
+  val likeResourceForm = Form(
+    mapping(
+      "ideaResourceId" -> nonEmptyText
+    )
+      (LikeResourceForm.apply)(LikeResourceForm.unapply)
+  )
+  def likeResource() = SecuredAction{ implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      likeResourceForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(formWithErrors.errorsAsJson),
+        form => {
+
+          IdeaResource.findById(form.ideaResourceId).map { ideaResource =>
+
+            val evaluation = IdeaResourceEvaluation.findByUserAndResource(user = user, ideaResource = ideaResource)
+
+            if(evaluation.isDefined)
+              evaluation.get.delete
+            else
+              IdeaResourceEvaluation(user,ideaResource)
+
+            Ok(views.html.utils.resourceLike(ideaResource = ideaResource))
+
+          }.getOrElse
+          {
+            BadRequest
+          }
+
+        })
+    }
+  }
+
+  def voteIdea() = SecuredAction{ implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      Ok
+    }
+  }
+
+  def createDiscussion() = SecuredAction{ implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      Ok
+    }
+  }
 }

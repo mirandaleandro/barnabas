@@ -25,7 +25,7 @@ $(document).ready(function() {
             });
         }
 
-        this.ideEvaluation = {
+        this.ideaEvaluation = {
 
             setup: function()
             {
@@ -34,8 +34,10 @@ $(document).ready(function() {
                 });
 
                 $(document.body).on("click",".submit-add-resources-button",function(){
-                    barnabas.ideEvaluation.processResourceForm($(".add-resource-form"));
+                    barnabas.ideaEvaluation.processResourceForm($(".add-resource-form"));
                 });
+
+                $(document.body).on("click",".resource-vote a",barnabas.ideaEvaluation.likeResource);
 
                 $(document.body).on("submit",".add-resource-form", function(e){
                     e.preventDefault();
@@ -58,7 +60,34 @@ $(document).ready(function() {
                         barnabas.displayDefaultErrorMessage();
                     }
                 });
+            },
+            likeResource: function(){
+                var clickedButton = $(this);
+                var resourceVote = clickedButton.closest(".resource-vote");
+                var ideaResourceId = resourceVote.data("idea-resource-id");
+
+                var requestParams = {ideaResourceId:ideaResourceId }
+                debugger;
+
+                $.ajax({
+                    data: requestParams,
+                    type: "POST",
+                    url: "/forms/likeResource",
+                    success: function(data)
+                    {
+                        debugger;
+                        $("td[data-idea-resource-id='" + ideaResourceId +"']").replaceWith(data);
+                        barnabas.displayMessage("Thanks for your vote");
+                    },
+                    error: function(data) {
+                        debugger;
+                        barnabas.displayDefaultErrorMessage();
+                    }
+                });
+
             }
+
+
         }
 
         this.submitIdea = {
@@ -226,7 +255,7 @@ $(document).ready(function() {
 
     barnabas.createRichTextArea('.additional-feedback-rich-textarea',{height:200});
 
-    barnabas.ideEvaluation.setup();
+    barnabas.ideaEvaluation.setup();
     barnabas.submitIdea.setup();
     barnabas.setup();
 
