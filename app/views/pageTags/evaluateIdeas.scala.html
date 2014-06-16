@@ -9,7 +9,7 @@
 
         <div class="page-fixed-menu">
             <button class="btn btn-default">Flag as inappropriate </button>
-            <button class="btn btn-default">Next(F2)</button>
+            <a href="@routes.EvaluateIdeas.evaluateIdeas" class="btn btn-default">Next(F2)</a>
         </div>
 
 
@@ -66,28 +66,15 @@
 
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <button class="col-md-4 btn btn-default ">Follow</button>
-                    <button class="col-md-8 btn btn-green">Interested in collaborate</button>
-                </div><div class="row extra-bottom-margin">
 
-                    <div class="col-md-12">
-                        <h4 class="col-md-12">Coolmeter <span class="pull-right">1,987,654</span></h4>
-                        <div class="col-md-12">
-                            <div class="vote-slider slider-default skinny ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 60%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 60%;"></span></div>
-                        </div>
+                    @views.html.utils.follow(evaluation)
+                    @views.html.utils.collaborate(evaluation)
 
-                        <div class="vote-actions">
-                            <div class="fa-hover col-xs-6 text-center small-ceiling">
-                                <p>987,586 like this</p>
-                                <i class="voter-thumb up fa fa-thumbs-o-up"></i>
-                            </div>
-                            <div class="fa-hover col-xs-6 text-center small-ceiling">
-                                <p>487,351 dislike this</p>
-                                <i class="voter-thumb down fa fa-thumbs-down"></i>
-                                <p class="vote-detail">(including you)</p>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                <div class="row extra-bottom-margin">
+
+                    @views.html.utils.votePool(evaluation)
+
 
                     <div class="col-md-12 additional-comments">
                         <h4>Why or Why not? Any additional comments (optional)</h4>

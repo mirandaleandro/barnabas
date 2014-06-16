@@ -14,24 +14,10 @@ $(document).ready(function() {
 
         };
 
-        this.setSlider = function()
-        {
-            $(".vote-slider").slider({
-                range: "min",
-                min: 0,
-                max: 100,
-                value: 60,
-                animate: true
-            });
-        }
-
         this.ideaEvaluation = {
 
             setup: function()
             {
-                $(document.body).on("click",".voter-thumb",function(){
-                    debugger;
-                });
 
                 $(document.body).on("click",".submit-add-resources-button",function(){
                     barnabas.ideaEvaluation.processResourceForm($(".add-resource-form"));
@@ -39,8 +25,31 @@ $(document).ready(function() {
 
                 $(document.body).on("click",".resource-vote a",barnabas.ideaEvaluation.likeResource);
 
+                $(document.body).on("click",".voter-thumb",barnabas.ideaEvaluation.processVote);
+
+                $(document.body).on("click",".collaborate-action button, .follow-action button",barnabas.ideaEvaluation.followOrCollaborate);
+
                 $(document.body).on("submit",".add-resource-form", function(e){
                     e.preventDefault();
+                });
+
+                barnabas.ideaEvaluation.setSlider();
+
+            },
+            followOrCollaborate: function(){
+                var clickedButton = $(this);
+                var actionContainer = clickedButton.closest(".relationship-action");
+                var url = actionContainer.data("link");
+
+                $.ajax({
+                    url:url,
+                    success: function(data)
+                    {
+                        actionContainer.replaceWith(data);
+                    },
+                    error: function(data) {
+                        barnabas.displayDefaultErrorMessage();
+                    }
                 });
 
             },
@@ -85,9 +94,46 @@ $(document).ready(function() {
                     }
                 });
 
+            },
+            processVote: function(){
+                var voteThumb = $(this);
+                var voteThumbContainer = voteThumb.closest(".vote-thumb-container");
+                var votePool = voteThumb.closest(".vote-pool");
+                var url = voteThumb.data("link");
+
+                if(voteThumbContainer.hasClass("vote"))
+                {
+                   barnabas.displayErrorMessage("Error! You can't undo your vote.");
+                }
+                else
+                {
+                    $.ajax({
+                        url:url,
+                        success: function(data)
+                        {
+                            votePool.replaceWith(data);
+                            barnabas.ideaEvaluation.setSlider();
+                        },
+                        error: function(data) {
+                            barnabas.displayDefaultErrorMessage();
+                        }
+                    });
+                }
+            },
+            setSlider: function()
+            {
+                var slider = $(".vote-slider")
+
+                var sliderValue = slider.data("value");
+
+                slider.slider({
+                    range: "min",
+                    min: 0,
+                    max: 100,
+                    value: sliderValue,
+                    animate: true
+                });
             }
-
-
         }
 
         this.submitIdea = {
@@ -250,8 +296,6 @@ $(document).ready(function() {
     }
 
     window.barnabas = new Barnabas();
-
-    barnabas.setSlider();
 
     barnabas.createRichTextArea('.additional-feedback-rich-textarea',{height:200});
 

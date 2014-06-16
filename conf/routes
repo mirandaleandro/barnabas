@@ -3,48 +3,51 @@
 # ~~~~
 
 # Main pages
-GET     /                           controllers.Application.index
+GET     /                                           controllers.Application.index
 
-GET     /evaluate-ideas             controllers.EvaluateIdeas.evaluateIdeas
-GET     /evaluate-ideas/:ideaId     controllers.EvaluateIdeas.evaluateIdeasWithId(ideaId)
+GET     /evaluate-ideas                             controllers.EvaluateIdeas.evaluateIdeas
+GET     /evaluate-ideas/:ideaId                     controllers.EvaluateIdeas.evaluateIdeasWithId(ideaId)
 
-GET     /submit-an-idea             controllers.Application.submitIdeas
-GET     /get-inspired               controllers.Application.getInspired
+GET     /submit-an-idea                             controllers.Application.submitIdeas
+GET     /get-inspired                               controllers.Application.getInspired
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                               controllers.Assets.at(path="/public", file)
 
 # Login page
-GET     /login                      securesocial.controllers.LoginPage.login
-GET     /logout                     securesocial.controllers.LoginPage.logout
+GET     /login                                      securesocial.controllers.LoginPage.login
+GET     /logout                                     securesocial.controllers.LoginPage.logout
 
 # User Registration and password handling
-GET     /signup                     securesocial.controllers.Registration.startSignUp
-POST    /signup                     securesocial.controllers.Registration.handleStartSignUp
-GET     /signup/:token              securesocial.controllers.Registration.signUp(token)
-POST    /signup/:token              securesocial.controllers.Registration.handleSignUp(token)
-GET     /reset                      securesocial.controllers.Registration.startResetPassword
-POST    /reset                      securesocial.controllers.Registration.handleStartResetPassword
-GET     /reset/:token               securesocial.controllers.Registration.resetPassword(token)
-POST    /reset/:token               securesocial.controllers.Registration.handleResetPassword(token)
-GET     /password                   securesocial.controllers.PasswordChange.page
-POST    /password                   securesocial.controllers.PasswordChange.handlePasswordChange
+GET     /signup                                     securesocial.controllers.Registration.startSignUp
+POST    /signup                                     securesocial.controllers.Registration.handleStartSignUp
+GET     /signup/:token                              securesocial.controllers.Registration.signUp(token)
+POST    /signup/:token                              securesocial.controllers.Registration.handleSignUp(token)
+GET     /reset                                      securesocial.controllers.Registration.startResetPassword
+POST    /reset                                      securesocial.controllers.Registration.handleStartResetPassword
+GET     /reset/:token                               securesocial.controllers.Registration.resetPassword(token)
+POST    /reset/:token                               securesocial.controllers.Registration.handleResetPassword(token)
+GET     /password                                   securesocial.controllers.PasswordChange.page
+POST    /password                                   securesocial.controllers.PasswordChange.handlePasswordChange
 
 # Providers entry points
-GET     /authenticate/:provider     securesocial.controllers.ProviderController.authenticate(provider)
-POST    /authenticate/:provider     securesocial.controllers.ProviderController.authenticateByPost(provider)
-GET     /not-authorized             securesocial.controllers.ProviderController.notAuthorized
+GET     /authenticate/:provider                     securesocial.controllers.ProviderController.authenticate(provider)
+POST    /authenticate/:provider                     securesocial.controllers.ProviderController.authenticateByPost(provider)
+GET     /not-authorized                             securesocial.controllers.ProviderController.notAuthorized
 
 #image upload from rich text editors
-POST    /summernote/uploadImage     controllers.SubmitIdea.richTextImageUpload
+POST    /summernote/uploadImage                     controllers.SubmitIdea.richTextImageUpload
 
 #Forms
 
-POST /forms/submitIdea              controllers.SubmitIdea.submitIdea
-POST /forms/addResource             controllers.EvaluateIdeas.addResource
-POST /forms/likeResource            controllers.EvaluateIdeas.likeResource
-POST /forms/voteIdea                controllers.EvaluateIdeas.voteIdea
-POST /forms/createDiscussion        controllers.EvaluateIdeas.createDiscussion
+POST /forms/submitIdea                              controllers.SubmitIdea.submitIdea
+POST /forms/addResource                             controllers.EvaluateIdeas.addResource
+POST /forms/likeResource                            controllers.EvaluateIdeas.likeResource
+POST /forms/createDiscussion                        controllers.EvaluateIdeas.createDiscussion
 
-GET  /edit/:ideaId                  controllers.SubmitIdea.editIdea(ideaId)
-GET  /topicsList                    controllers.SubmitIdea.topics(term)
+GET /forms/voteIdea/:ideaUserId/:vote               controllers.EvaluateIdeas.voteIdea(ideaUserId, vote:Boolean)
+GET /forms/follow/:ideaUserId                       controllers.EvaluateIdeas.follow(ideaUserId)
+GET /forms/collaborate/:ideaUserId                  controllers.EvaluateIdeas.collaborate(ideaUserId)
+
+GET  /edit/:ideaId                                  controllers.SubmitIdea.editIdea(ideaId)
+GET  /topicsList                                    controllers.SubmitIdea.topics(term)

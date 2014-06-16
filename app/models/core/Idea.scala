@@ -16,6 +16,7 @@ class Idea(var createdBy:User,
            var ideaPhase:IdeaPhase,
            var visited:Long = 0,
            var voted:Long = 0,
+           var votedUp:Long = 0,
            var followersCount:Long = 0,
            var collaboratorsCount:Long = 0) extends Entity
 {
@@ -32,11 +33,20 @@ class Idea(var createdBy:User,
 
   def phase = this.ideaPhase.title
 
+  def votedDown = voted - votedUp
+
   def feedbackRatio:Float = {
     if (this.visited == 0 || this.voted == 0)
       0
     else
       this.voted/this.visited
+  }
+
+  def votedUpRatio:Double = {
+    if (this.votedUp == 0 || this.voted == 0)
+      0
+    else
+      this.votedUp.toDouble / this.voted
   }
 
   def addTopic(topic:Topic)

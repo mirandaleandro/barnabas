@@ -1,7 +1,7 @@
 @(ideaResource:models.core.IdeaResource)(implicit user:User)
 
-<td data-idea-resource-id="@ideaResource.id" class="col-md-2 resource-vote  @if(ideaResource.hasUserLiked(user)){liked} popularity">
+<td data-idea-resource-id="@ideaResource.id" class="col-md-2 resource-vote multi-action @if(ideaResource.hasUserLiked(user)){show-first} popularity">
     <span>@ideaResource.likes</span>
-    <a class="unlike-action btn btn-xs btn-green "> Unlike </a>
-    <a class="like-action btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
+    <a class="first unlike-action btn btn-xs btn-green "> Unlike </a>
+    <a class="second like-action btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
 </td>

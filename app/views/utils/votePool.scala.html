@@ -1,0 +1,21 @@
+@(evaluation:models.core.IdeaUser)(implicit user:User)
+
+<div class="vote-pool col-md-12">
+    <h4 class="col-md-12">Coolmeter <span class="pull-right">@evaluation.idea.voted</span></h4>
+    <div class="col-md-12">
+        <div data-value="@{evaluation.idea.votedUpRatio * 100}" class="vote-slider slider-default skinny"></div>
+    </div>
+
+    <div class="vote-actions">
+        <div class="vote-thumb-container @if(evaluation.isLike){vote} fa-hover col-xs-6 text-center small-ceiling">
+            <p>@evaluation.idea.votedUp like this</p>
+            <i data-link="@routes.EvaluateIdeas.voteIdea(evaluation.id,true)" class="voter-thumb up fa fa-thumbs-@if(!evaluation.isLike){o-}up"></i>
+           <p class="vote-detail">(including you)</p>
+        </div>
+        <div class="vote-thumb-container @if(evaluation.isDislike){vote} fa-hover col-xs-6 text-center small-ceiling">
+            <p>@evaluation.idea.votedDown dislike this</p>
+            <i data-link="@routes.EvaluateIdeas.voteIdea(evaluation.id,false)"  class="voter-thumb down fa fa-thumbs-@if(!evaluation.isDislike){o-}down"></i>
+            <p class="vote-detail">(including you)</p>
+        </div>
+    </div>
+</div>

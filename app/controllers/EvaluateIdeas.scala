@@ -44,6 +44,8 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
 
           val ideaUser = IdeaUser.findByIdeaAndUser(idea = idea, user = user).getOrElse(IdeaUser(idea = idea, user = user))
 
+          idea.visited += 1
+
           Ok(views.html.pages.evaluateIdeas(evaluation = ideaUser))
 
       }.getOrElse{
@@ -127,11 +129,16 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
     }
   }
 
-  def voteIdea() = SecuredAction{ implicit request =>
+  def voteIdea(ideaUserId:String,vote:Boolean) = SecuredAction{ implicit request =>
     transactional{
       implicit val user = request.user
 
-      Ok
+      IdeaUser.findById(ideaUserId).map { ideaUser =>
+        ideaUser.setLikeWithBoolean(vote)
+        Ok(views.html.utils.votePool(ideaUser))
+      }.getOrElse {
+        BadRequest
+      }
     }
   }
 
@@ -140,6 +147,42 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
       implicit val user = request.user
 
       Ok
+    }
+  }
+
+  def follow(ideaUserId:String) = SecuredAction{ implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      IdeaUser.findById(ideaUserId).map { ideaUser =>
+
+        ideaUser.toggleFollow()
+
+        Ok(views.html.utils.follow(ideaUser))
+
+      }.getOrElse{
+
+        BadRequest
+
+      }
+    }
+  }
+
+  def collaborate(ideaUserId:String) = SecuredAction{ implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      IdeaUser.findById(ideaUserId).map { ideaUser =>
+
+        ideaUser.toggleCollaborate()
+
+        Ok(views.html.utils.collaborate(ideaUser))
+
+      }.getOrElse{
+
+        BadRequest
+
+      }
     }
   }
 }

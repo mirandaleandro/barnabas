@@ -18,16 +18,44 @@ class IdeaUser(var user:User, var idea:Idea, var like:Option[Boolean] = None, va
   var interestedInCollaborate:Boolean = false
   var author:Boolean = false
 
-  def likeIdea(){ this.like = Some(true) }
+  def likeIdea()
+  {
+    if (!like.isDefined)
+      this.idea.voted += 1
 
-  def unlikeIdea(){ this.like = Some(false)}
+    this.idea.votedUp += 1
+
+    this.like = Some(true)
+
+  }
+
+  def unlikeIdea()
+  {
+    if (!like.isDefined)
+      this.idea.voted += 1
+    else
+      this.idea.votedUp -= 1
+
+    this.like = Some(false)
+  }
+
+  def setLikeWithBoolean(like:Boolean) {
+    if (like)
+      this.likeIdea()
+    else
+      this.unlikeIdea()
+  }
 
   def followIdea(){ this.follow = true}
   def unfollowIdea(){ this.follow = false}
+  def toggleFollow(){ this.follow = !this.follow}
 
   def interestedInCollaborateWithIdea(){ this.interestedInCollaborate = true}
   def uninterestedInCollaborateWithIdea(){ this.interestedInCollaborate = false}
+  def toggleCollaborate(){ this.interestedInCollaborate = !this.interestedInCollaborate}
 
+  def isLike:Boolean = this.like.isDefined && this.like.get
+  def isDislike:Boolean = this.like.isDefined && !this.like.get
 }
 
 object IdeaUser

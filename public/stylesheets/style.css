@@ -2197,3 +2197,29 @@ input[type="checkbox"]:checked::after,
     display: inline-block;
 }
 
+
+.multi-action .first
+{
+    display: none;
+}
+
+.multi-action.show-first .first
+{
+    display: inline-block;
+}
+
+.multi-action.show-first .second
+{
+   display: none;
+}
+
+.vote-detail
+{
+    display: none;
+}
+
+.vote .vote-detail
+{
+    display: block;
+}
+
