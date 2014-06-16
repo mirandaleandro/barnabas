@@ -33,6 +33,8 @@ object IdeaResource
     new IdeaResource(suggestedBy = suggestedBy, idea = idea, resource = resource, likeCounter = likeCounter)
   }
 
+  def findByIdeaAndResource(idea: Idea, resource: Resource) = (select[IdeaResource] where(_.idea :== idea, _.resource :== resource)).headOption
+
   def findByIdea(idea:Idea):List[IdeaResource] = select[IdeaResource] where(_.idea :== idea)
 
 }

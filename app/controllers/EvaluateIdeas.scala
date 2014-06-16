@@ -52,4 +52,46 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
     }
   }
 
+  case class ResourceForm(var evaluationId:String, var resourceId:String, var description:String, var resourceTypeId:String, var link:Option[String])
+
+  val addResourceForm = Form(
+    mapping(
+      "evaluationId" -> nonEmptyText,
+      "resourceId" -> nonEmptyText,
+      "description" -> nonEmptyText,
+      "resourceTypeId" -> nonEmptyText.verifying("ResourceType Must exist", id => transactional{ResourceType.findById(id).isDefined }),
+      "link" -> optional(text)
+    )
+      (ResourceForm.apply)(ResourceForm.unapply)
+  )
+
+  def addResource() = SecuredAction{  implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      addResourceForm.bindFromRequest.fold(
+        (formWithErrors: Form[ResourceForm]) => BadRequest(formWithErrors.errorsAsJson),
+        form => {
+
+          val evaluation: Option[IdeaUser] = IdeaUser.findById(form.evaluationId)
+
+          evaluation.map{ evaluation =>
+
+            val resource = Resource.findById(form.resourceId).getOrElse{
+              Resource(createdBy = user, title = form.description, url = form.link, resourceType = ResourceType.findById(form.resourceTypeId).get )
+            }
+
+            evaluation.idea.addResource(resource = resource, suggestedBy = user)
+
+            Ok(views.html.utils.resourcesTable(evaluation))
+
+          }.getOrElse{
+
+            BadRequest
+
+          }
+        })
+    }
+  }
+
 }

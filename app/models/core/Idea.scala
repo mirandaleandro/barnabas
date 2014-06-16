@@ -58,6 +58,14 @@ class Idea(var createdBy:User,
       subDiscipline.popularity += 1
     }
   }
+
+  def addResource(resource:Resource, suggestedBy:User) {
+
+    if(!IdeaResource.findByIdeaAndResource(idea = this, resource = resource).isDefined)
+    {
+      IdeaResource( idea = this, suggestedBy = suggestedBy, resource = resource)
+    }
+  }
 }
 
 object Idea

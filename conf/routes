@@ -4,8 +4,10 @@
 
 # Main pages
 GET     /                           controllers.Application.index
+
 GET     /evaluate-ideas             controllers.EvaluateIdeas.evaluateIdeas
 GET     /evaluate-ideas/:ideaId     controllers.EvaluateIdeas.evaluateIdeasWithId(ideaId)
+
 GET     /submit-an-idea             controllers.Application.submitIdeas
 GET     /get-inspired               controllers.Application.getInspired
 
@@ -39,5 +41,7 @@ POST    /summernote/uploadImage     controllers.SubmitIdea.richTextImageUpload
 #Forms
 
 POST /forms/submitIdea              controllers.SubmitIdea.submitIdea
+POST /forms/addResource             controllers.EvaluateIdeas.addResource
+
 GET  /edit/:ideaId                  controllers.SubmitIdea.editIdea(ideaId)
 GET  /topicsList                    controllers.SubmitIdea.topics(term)

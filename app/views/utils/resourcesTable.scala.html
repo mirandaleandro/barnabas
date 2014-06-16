@@ -1,0 +1,92 @@
+@(evaluation:models.core.IdeaUser)(implicit user:User)
+@import core.ResourceType
+
+
+<div class="portlet portlet-green">
+    <div class="portlet-heading">
+        <div class="portlet-title">
+            <h4>Suggest resource(s) (e.g article,researcher, URL)</h4>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="portlet-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-md-7">Description</th>
+                        <th class="col-md-2">Type</th>
+                        <th class="col-md-1">Link</th>
+                        <th class="col-md-2 popularity">Popularity</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for(ideaResource <- evaluation.idea.resources){
+                        <tr>
+                        <td class="col-md-7">@ideaResource.resource.title</td>
+                        <td class="col-md-2">@ideaResource.resource.resourceType.title</td>
+                        <td class="col-md-1">@ideaResource.resource.url.map{ url => <a href="@url">Link</a> }.getOrElse{ (No link) }</td>
+                        <td class="col-md-2 resource-vote  @if(ideaResource.hasUserLiked(user)){liked} popularity">
+
+                        <span>@ideaResource.likes</span>
+
+                        <a class="unlike-action btn btn-xs btn-green "> Unlike </a>
+                        <a class="like-action btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
+
+                        </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Add New</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <form class="resource-form" action="@routes.EvaluateIdeas.addResource" method="POST">
+
+                    <input class="evaluation-id" type="hidden" name="evaluationId" value="@evaluation.id">
+                    <input class="resource-id" type="hidden" name="resourceId" value="@evaluation.id">
+
+                    <tbody>
+                        <tr>
+                            <td class="col-md-6">
+                                <div class="form-group">
+                                    <input name="description" class="form-control" type="text" placeholder="Resource description">
+                                </div>
+                            </td>
+
+                            <td class="col-md-2">
+                                <select name="resourceType" class="form-control">
+
+                                    @for( resourceType <- ResourceType.findAll){
+                                        <option value="@resourceType.id">@resourceType.title</option>
+                                    }
+
+                                </select>
+                            </td>
+
+                            <td class="col-md-3">
+                                <div class="form-group">
+                                    <input name="link" class="form-control" type="text" placeholder="Link(optional)">
+                                </div>
+                            </td>
+                            <td class="col-md-1 popularity">
+                                <button type="submit" class="btn btn-green"><i class="fa fa-plus"></i> Add</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </form>
+
+            </table>
+        </div>
+    </div>
+</div>

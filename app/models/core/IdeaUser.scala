@@ -32,14 +32,15 @@ class IdeaUser(var user:User, var idea:Idea, var like:Option[Boolean] = None, va
 
 object IdeaUser
 {
-
-
   def apply(user:User, idea:Idea, like:Option[Boolean] = None, discussion:Option[IdeaDiscussion] = None):IdeaUser =
   {
     Logger.info("IdeaUser user:"+user.fullName + " idea: "+idea.title)
 
     new IdeaUser(user = user, idea = idea, like = like, discussion = discussion)
   }
+
+
+  def findById(id:String) = byId[IdeaUser](id)
 
   def ideasFollowedByUser(user: User): List[Idea] = (select[IdeaUser] where(_.user :== user)).map(_.idea)
 

@@ -1,4 +1,5 @@
 @(evaluation:models.core.IdeaUser)(implicit user:User)
+@import core.ResourceType
 <div id="wrapper">
 
     <!-- begin MAIN PAGE CONTENT -->
@@ -55,86 +56,9 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="portlet portlet-green">
-                            <div class="portlet-heading">
-                                <div class="portlet-title">
-                                    <h4>Suggest resource(s) (e.g article,researcher, URL)</h4>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="portlet-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th class="col-md-7">Description</th>
-                                                <th class="col-md-2">Type</th>
-                                                <th class="col-md-1">Link</th>
-                                                <th class="col-md-2 popularity">Popularity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            @for(ideaResource <- evaluation.idea.resources){
-                                                <tr>
-                                                    <td class="col-md-7">@ideaResource.resource.title</td>
-                                                    <td class="col-md-2">@ideaResource.resource.resourceType.title</td>
-                                                    <td class="col-md-1">@ideaResource.resource.url.map{ url => <a href="@url">Link</a> }.getOrElse{ (No link) }</td>
-                                                    <td class="col-md-2 resource-vote  @if(ideaResource.hasUserLiked(user)){liked} popularity">
-
-                                                        <span>@ideaResource.likes</span>
-
-                                                        <a class="unlike-action btn btn-xs btn-green "> Unlike </a>
-                                                        <a class="like-action btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
-
-                                                    </td>
-                                                </tr>
-                                            }
-
-                                        </tbody>
-                                    </table>
-
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Add New</th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="col-md-6">
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Resource description">
-                                                    </div>
-                                                </td>
-
-                                                <td class="col-md-2">
-                                                    <select class="form-control">
-                                                        <option>Researcher</option>
-                                                        <option>Article</option>
-                                                        <option>Web Page</option>
-                                                        <option>Other Documents</option>
-                                                        <option>No more creativity =)</option>
-                                                    </select>
-                                                </td>
-
-                                                <td class="col-md-3">
-                                                    <div class="form-group">
-                                                        <input class="form-control" type="text" placeholder="Link(optional)">
-                                                    </div>
-                                                </td>
-                                                <td class="col-md-1 popularity">
-                                                    <a class="btn btn-green"><i class="fa fa-plus"></i> Add</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        @*Resources*@
+                        @views.html.utils.resourcesTable(evaluation)
+                        @*End Resources*@
                     </div>
                 </div>
 
