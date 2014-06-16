@@ -32,10 +32,35 @@ $(document).ready(function() {
                 $(document.body).on("click",".voter-thumb",function(){
                     barnabas.ideEvaluation.displayAdditionalCommentsTextBox();
                 });
+
+
+                $(document.body).on("submit",".add-resource-form",barnabas.ideEvaluation.processResourceForm);
+
+
             },
             displayAdditionalCommentsTextBox: function()
             {
                 $(".additional-comments").slideDown();
+            },
+            processResourceForm: function(e){
+                e.preventDefault();
+
+                var form = $(this);
+
+                debugger;
+                $.ajax({
+                    type:"POST",
+                    url: "/forms/addResource",
+                    data: form.serialize(),
+                    success: function (data)
+                    {
+                        debugger;
+                    },
+                    error: function (data)
+                    {
+                        debugger;
+                    }
+                });
             }
         }
 

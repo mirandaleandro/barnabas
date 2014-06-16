@@ -52,14 +52,13 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
     }
   }
 
-  case class ResourceForm(var evaluationId:String, var resourceId:String, var description:String, var resourceTypeId:String, var link:Option[String])
+  case class ResourceForm(var evaluationId:String, var description:String, var resourceTypeId:String, var link:Option[String])
 
   val addResourceForm = Form(
     mapping(
       "evaluationId" -> nonEmptyText,
-      "resourceId" -> nonEmptyText,
       "description" -> nonEmptyText,
-      "resourceTypeId" -> nonEmptyText.verifying("ResourceType Must exist", id => transactional{ResourceType.findById(id).isDefined }),
+      "resourceTypeId" -> nonEmptyText.verifying("ResourceType does not exist", id => transactional{ResourceType.findById(id).isDefined }),
       "link" -> optional(text)
     )
       (ResourceForm.apply)(ResourceForm.unapply)
@@ -77,8 +76,10 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
 
           evaluation.map{ evaluation =>
 
-            val resource = Resource.findById(form.resourceId).getOrElse{
-              Resource(createdBy = user, title = form.description, url = form.link, resourceType = ResourceType.findById(form.resourceTypeId).get )
+            val resourceType = ResourceType.findById(form.resourceTypeId).get
+
+            val resource = Resource.findBy(title = form.description, url = form.link, resourceType = resourceType ) .getOrElse{
+              Resource(createdBy = user, title = form.description, url = form.link, resourceType = resourceType)
             }
 
             evaluation.idea.addResource(resource = resource, suggestedBy = user)
@@ -86,9 +87,7 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
             Ok(views.html.utils.resourcesTable(evaluation))
 
           }.getOrElse{
-
             BadRequest
-
           }
         })
     }

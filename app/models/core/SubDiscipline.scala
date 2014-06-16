@@ -1,6 +1,6 @@
 package models.core
 
-import net.fwbrasil.activate.entity.Entity
+import models.PostgresConnection._
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,8 +17,12 @@ class SubDiscipline(var title:String, var template:Template, var discipline:Disc
 
 object SubDiscipline
 {
+
   def apply(title:String, template:Template, discipline:Discipline, popularity:Long = 0):SubDiscipline =
   {
     new SubDiscipline(title = title, template = template, discipline = discipline, popularity = popularity)
   }
+
+  def defaultSubDiscipline: SubDiscipline = all[SubDiscipline].head
+
 }

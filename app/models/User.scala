@@ -10,6 +10,7 @@ import securesocialpersistence.UserIdentity
 
 class User extends Entity with Identity
 {
+
   var currentIdentity:UserIdentity = _
   var currentSubDiscipline:SubDiscipline = _
 
@@ -36,12 +37,26 @@ class User extends Entity with Identity
 
   def ideasFollowed:List[Idea] = IdeaUser.ideasFollowedByUser(this)
 
+  def setSubDisciplineIfEmpty() = {
+
+    if (this.currentSubDiscipline == null)
+    {
+      this.currentSubDiscipline = SubDiscipline.defaultSubDiscipline
+    }
+  }
+
+
 }
 
 object User
 {
 
-  def apply() = transactional { new User() }
+  def apply() = transactional {
+    val user =  new User()
+
+
+    user
+  }
 
 
   def findByIdentityId(id: IdentityId): Option[User] =

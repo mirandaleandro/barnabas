@@ -24,17 +24,14 @@
 
                     @for(ideaResource <- evaluation.idea.resources){
                         <tr>
-                        <td class="col-md-7">@ideaResource.resource.title</td>
-                        <td class="col-md-2">@ideaResource.resource.resourceType.title</td>
-                        <td class="col-md-1">@ideaResource.resource.url.map{ url => <a href="@url">Link</a> }.getOrElse{ (No link) }</td>
-                        <td class="col-md-2 resource-vote  @if(ideaResource.hasUserLiked(user)){liked} popularity">
-
-                        <span>@ideaResource.likes</span>
-
-                        <a class="unlike-action btn btn-xs btn-green "> Unlike </a>
-                        <a class="like-action btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
-
-                        </td>
+                            <td class="col-md-7">@ideaResource.resource.title</td>
+                            <td class="col-md-2">@ideaResource.resource.resourceType.title</td>
+                            <td class="col-md-1">@ideaResource.resource.url.map{ url => <a href="@url">Link</a> }.getOrElse{ (No link) }</td>
+                            <td class="col-md-2 resource-vote  @if(ideaResource.hasUserLiked(user)){liked} popularity">
+                                <span>@ideaResource.likes</span>
+                                <a class="unlike-action btn btn-xs btn-green "> Unlike </a>
+                                <a class="like-action btn btn-xs btn-green"><i class="fa fa-thumbs-up"></i> Like</a>
+                            </td>
                         </tr>
                     }
 
@@ -51,10 +48,9 @@
                     </tr>
                 </thead>
 
-                <form class="resource-form" action="@routes.EvaluateIdeas.addResource" method="POST">
+                <form class="add-resource-form" action="@routes.EvaluateIdeas.addResource" method="POST">
 
                     <input class="evaluation-id" type="hidden" name="evaluationId" value="@evaluation.id">
-                    <input class="resource-id" type="hidden" name="resourceId" value="@evaluation.id">
 
                     <tbody>
                         <tr>
@@ -65,7 +61,7 @@
                             </td>
 
                             <td class="col-md-2">
-                                <select name="resourceType" class="form-control">
+                                <select name="resourceTypeId" class="form-control">
 
                                     @for( resourceType <- ResourceType.findAll){
                                         <option value="@resourceType.id">@resourceType.title</option>

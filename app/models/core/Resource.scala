@@ -26,6 +26,11 @@ object Resource
 
   def findById(id: String) = byId[Resource](id)
 
+  def findBy(title: String, url:Option[String], resourceType:ResourceType): Option[Resource] =
+  {
+    ( select[Resource] where(_.title :== title, _.url :== url, _.resourceType :== resourceType) ).headOption
+  }
+
 }
 
 class ResourceType(var createdBy:User, var title:String ) extends Entity

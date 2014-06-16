@@ -57,6 +57,7 @@ class SecureSocialService(application: Application) extends UserServicePlugin(ap
   {
     val sysUser = User.findByIdentity(user).getOrElse(User())
     sysUser.setInfoForIdentity(user)
+    sysUser.setSubDisciplineIfEmpty()
     sysUser
   }
 
