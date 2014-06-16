@@ -18,10 +18,9 @@ import models.PostgresConnection._
 
 class IdeaResource(var suggestedBy:User, var idea:Idea, var resource:Resource, var likeCounter:Long = 0) extends Entity{
 
-
   def likes:Int = IdeaResourceEvaluation.findByIdeaResource(this).size
 
-  def hasUserLiked(user:User):Boolean = IdeaResourceEvaluation.findByUser(user).isDefined
+  def hasUserLiked(user:User):Boolean = IdeaResourceEvaluation.findByUserAndResource(user, this).isDefined
 
 }
 

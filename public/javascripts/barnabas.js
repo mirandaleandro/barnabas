@@ -3,7 +3,7 @@ $(document).ready(function() {
     var Barnabas =function (){
 
 
-       this.updateDataTable = function (selector)
+        this.updateDataTable = function (selector)
         {
             $(selector).dataTable();
         };
@@ -30,35 +30,32 @@ $(document).ready(function() {
             setup: function()
             {
                 $(document.body).on("click",".voter-thumb",function(){
-                    barnabas.ideEvaluation.displayAdditionalCommentsTextBox();
+                    debugger;
                 });
 
+                $(document.body).on("click",".submit-add-resources-button",function(){
+                    barnabas.ideEvaluation.processResourceForm($(".add-resource-form"));
+                });
 
-                $(document.body).on("submit",".add-resource-form",barnabas.ideEvaluation.processResourceForm);
-
+                $(document.body).on("submit",".add-resource-form", function(e){
+                    e.preventDefault();
+                });
 
             },
-            displayAdditionalCommentsTextBox: function()
-            {
-                $(".additional-comments").slideDown();
-            },
-            processResourceForm: function(e){
-                e.preventDefault();
+            processResourceForm: function(form){
 
-                var form = $(this);
-
-                debugger;
                 $.ajax({
                     type:"POST",
                     url: "/forms/addResource",
                     data: form.serialize(),
                     success: function (data)
                     {
-                        debugger;
+                        $(".ideas-table").replaceWith(data);
+                        barnabas.displayMessage("The resource was added successfully","success");
                     },
                     error: function (data)
                     {
-                        debugger;
+                        barnabas.displayDefaultErrorMessage();
                     }
                 });
             }
@@ -216,6 +213,10 @@ $(document).ready(function() {
 
         this.displayErrorMessage = function(message){
             this.displayMessage(message,"error");
+        }
+
+        this.displayDefaultErrorMessage = function(){
+            barnabas.displayErrorMessage("Oh snap! We could not process your resource addition request. If the problem persists, please contact the administrator");
         }
     }
 

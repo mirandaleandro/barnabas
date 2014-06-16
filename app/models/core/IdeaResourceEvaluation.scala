@@ -22,5 +22,5 @@ object IdeaResourceEvaluation
 
   def findByIdeaResource(ideaResource:IdeaResource):List[IdeaResourceEvaluation] = select[IdeaResourceEvaluation] where(_.ideaResource :== ideaResource)
 
-  def findByUser(user: User):Option[IdeaResourceEvaluation] =  (select[IdeaResourceEvaluation] where(_.evaluator :== user)).headOption
+  def findByUserAndResource(user: User, ideaResource:IdeaResource):Option[IdeaResourceEvaluation] =  (select[IdeaResourceEvaluation] where(_.evaluator :== user, _.ideaResource :== ideaResource)).headOption
 }
