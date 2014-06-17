@@ -2223,3 +2223,8 @@ input[type="checkbox"]:checked::after,
     display: block;
 }
 
+.follow-action
+{
+    margin-bottom: 5px;
+}
+

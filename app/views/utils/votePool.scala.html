@@ -1,7 +1,8 @@
 @(evaluation:models.core.IdeaUser)(implicit user:User)
 
+
 <div class="vote-pool col-md-12">
-    <h4 class="col-md-12">Coolmeter <span class="pull-right">@evaluation.idea.voted</span></h4>
+    <h4 class="col-md-12">Good Idea? <span class="pull-right">@evaluation.idea.voted</span></h4>
     <div class="col-md-12">
         <div data-value="@{evaluation.idea.votedUpRatio * 100}" class="vote-slider slider-default skinny"></div>
     </div>
@@ -19,3 +20,4 @@
         </div>
     </div>
 </div>
+

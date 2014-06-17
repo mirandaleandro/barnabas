@@ -15,6 +15,7 @@ import java.io
 
 object Application extends Controller with securesocial.core.SecureSocial{
 
+  val defaultDateFormat = new java.text.SimpleDateFormat("dd/MMM/yy")
 
   def index = SecuredAction {
     implicit request =>

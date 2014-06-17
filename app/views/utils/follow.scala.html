@@ -1,6 +1,6 @@
 @(evaluation:models.core.IdeaUser)(implicit user:User)
 
 <div data-link="@routes.EvaluateIdeas.follow(evaluation.id)" class="relationship-action follow-action multi-action @if(!evaluation.follow){show-first}">
-    <button class="first col-md-4 btn btn-default ">Follow</button>
-    <button class="second col-md-4 btn btn-default ">Unfollow</button>
+    <button class="follow-action first col-xs-12 btn btn-default ">Follow</button>
+    <button class="follow-action second col-xs-12 btn btn-default ">Unfollow</button>
 </div>

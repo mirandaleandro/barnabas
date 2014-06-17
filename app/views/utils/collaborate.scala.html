@@ -1,6 +1,6 @@
 @(evaluation:models.core.IdeaUser)(implicit user:User)
 
 <div data-link="@routes.EvaluateIdeas.collaborate(evaluation.id)" class="relationship-action collaborate-action multi-action @if(!evaluation.interestedInCollaborate){show-first}">
-    <button class="first col-md-8 btn btn-green">Interested in collaborate</button>
-    <button class="second col-md-8 btn btn-green">Stop Collaborating</button>
+    <button class="first col-xs-12 btn btn-green">Interested in collaborate</button>
+    <button class="second col-xs-12 btn btn-green">Stop Collaborating</button>
 </div>

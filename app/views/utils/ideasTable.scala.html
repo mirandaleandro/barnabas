@@ -25,7 +25,7 @@
                     @for( idea <- ideas){
                         <tr>
                         <td>@idea.title</td>
-                        <td>@idea.creationDateTime</td>
+                        <td>@Application.defaultDateFormat.format(idea.creationDate)</td>
                         <td>@idea.phase</td>
                         <td class="center">@idea.feedbackRatio</td>
                         <td class="center">@idea.followersCount</td>

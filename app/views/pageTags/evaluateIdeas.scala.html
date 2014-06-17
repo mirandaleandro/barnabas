@@ -65,18 +65,16 @@
             </div>
 
             <div class="col-md-4">
-                <div class="col-md-12">
 
-                    @views.html.utils.follow(evaluation)
-                    @views.html.utils.collaborate(evaluation)
-
-                </div>
                 <div class="row extra-bottom-margin">
 
-                    @views.html.utils.votePool(evaluation)
+                    <div class="row extra-bottom-margin">
+                        @views.html.utils.votePool(evaluation)
+                    </div>
 
+                    <div class="row extra-bottom-margin">
 
-                    <div class="col-md-12 additional-comments">
+                        <div class="col-md-12 additional-comments">
                         <h4>Why or Why not? Any additional comments (optional)</h4>
 
                         <div class="additional-feedback-rich-textarea" style="display: none;">Please provide additional feedback.
@@ -87,8 +85,16 @@
                             <div class="appendable-btn-group btn-group">
                                 <button class="btn btn-dark-blue btn-sm btn-small"><i class="fa fa-save"></i> Submit Comments Anonymously</button>
                             </div>
-
+                        </div>
                     </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <h4>Interests?</h4>
+
+                    @views.html.utils.follow(evaluation)
+                    @views.html.utils.collaborate(evaluation)
                 </div>
 
             </div>
