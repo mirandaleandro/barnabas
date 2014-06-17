@@ -17,6 +17,7 @@ class IdeaUser(var user:User, var idea:Idea, var like:Option[Boolean] = None, va
   var follow:Boolean = false
   var interestedInCollaborate:Boolean = false
   var author:Boolean = false
+  var ideaDiscussion:Option[IdeaDiscussion] = _
 
   def likeIdea()
   {

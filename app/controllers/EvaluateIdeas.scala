@@ -142,11 +142,39 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
     }
   }
 
+
+  case class IdeaDiscussionForm(var ideaUserId:String, description:String, anonymous:Boolean,parentDiscussionId:Option[String])
+  val ideaDiscussionForm = Form(
+    mapping(
+      "ideaUserId" -> nonEmptyText,
+      "description" -> nonEmptyText,
+      "anonymous" -> boolean,
+      "parentDiscussionId" -> optional(text)
+    )
+      (IdeaDiscussionForm.apply)(IdeaDiscussionForm.unapply)
+  )
   def createDiscussion() = SecuredAction{ implicit request =>
     transactional{
       implicit val user = request.user
+        ideaDiscussionForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(formWithErrors.errorsAsJson),
+        form => {
 
-      Ok
+          val parentDiscussion: Option[IdeaDiscussion] = form.parentDiscussionId.flatMap( IdeaDiscussion.findById(_) )
+
+          IdeaUser.findById(form.ideaUserId).map { ideaUser =>
+
+            val discussion = ideaUser.ideaDiscussion.getOrElse(IdeaDiscussion(createdBy = user))
+            discussion.description = form.description
+            discussion.parentDiscussion = parentDiscussion
+            discussion.isAnonymous = form.anonymous
+
+            Ok
+
+            }.getOrElse{
+            BadRequest
+          }
+        })
     }
   }
 

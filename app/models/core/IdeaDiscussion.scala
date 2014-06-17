@@ -20,6 +20,13 @@ class IdeaDiscussion(var createdBy:User,
 
 object IdeaDiscussion
 {
+  def findById(id: String) = byId[IdeaDiscussion](id)
+
+  def apply(createdBy:User):IdeaDiscussion =
+  {
+    new IdeaDiscussion(createdBy = createdBy, description = "")
+  }
+
   def apply(createdBy:User, description:String,  parentDiscussion:Option[IdeaDiscussion] = None, isAnonymous:Boolean = false, likes:Long = 0):IdeaDiscussion =
   {
       new IdeaDiscussion(createdBy = createdBy, description = description, parentDiscussion = parentDiscussion, isAnonymous = isAnonymous, likes = likes)

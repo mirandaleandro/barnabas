@@ -9,8 +9,14 @@ $(document).ready(function() {
         };
 
         this.createRichTextArea = function (selector, options) {
-            $(selector).summernote(options);
-            $(selector).next().find(".note-toolbar").append($(selector +' .appendable-btn-group'));
+
+            var summerText = $(selector);
+
+            summerText.summernote(options);
+
+            var buttons = summerText.closest(".summernote").find(".appendable-btn-group");
+
+            summerText.next().find(".note-toolbar").append(buttons);
 
         };
 
@@ -190,14 +196,14 @@ $(document).ready(function() {
             {
                 var selector = '.submit-idea-rich-textarea';
 
-                $(selector).summernote({
+                barnabas.createRichTextArea(selector,
+                {
                     height: 400,
                     onImageUpload: function(files, editor, welEditable) {
                         barnabas.sendFile(files[0], editor, welEditable);
                     }
                 });
 
-                $(selector).next().find(".note-toolbar").append($(selector +' .appendable-btn-group'));
             },
             submitForm: function(e){
                 e.preventDefault();
