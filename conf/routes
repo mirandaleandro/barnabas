@@ -43,7 +43,7 @@ POST    /summernote/uploadImage                     controllers.SubmitIdea.richT
 POST /forms/submitIdea                              controllers.SubmitIdea.submitIdea
 POST /forms/addResource                             controllers.EvaluateIdeas.addResource
 POST /forms/likeResource                            controllers.EvaluateIdeas.likeResource
-POST /forms/createDiscussion                        controllers.EvaluateIdeas.createDiscussion
+POST /forms/updateDiscussion                        controllers.EvaluateIdeas.updateDiscussion
 
 GET /forms/voteIdea/:ideaUserId/:vote               controllers.EvaluateIdeas.voteIdea(ideaUserId, vote:Boolean)
 GET /forms/follow/:ideaUserId                       controllers.EvaluateIdeas.follow(ideaUserId)

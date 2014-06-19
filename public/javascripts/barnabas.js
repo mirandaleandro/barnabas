@@ -35,11 +35,44 @@ $(document).ready(function() {
 
                 $(document.body).on("click",".collaborate-action button, .follow-action button",barnabas.ideaEvaluation.followOrCollaborate);
 
+                $(document.body).on("submit",".submit-discussion-form", function(e){
+                    e.preventDefault();
+                });
+                $(document.body).on("click",".submit-discussion", function(){
+                    var clickedButton = $(this);
+                    var form = clickedButton.closest("form");
+                    var anonymous = form.find(".anonymous-input");
+                    anonymous.val(clickedButton.data("anonymous"));
+                              debugger;
+                    barnabas.ideaEvaluation.submitDiscussion($(".submit-discussion-form"));
+
+                });
+
                 $(document.body).on("submit",".add-resource-form", function(e){
                     e.preventDefault();
                 });
 
                 barnabas.ideaEvaluation.setSlider();
+
+            },
+            submitDiscussion: function(form){
+                var summernoteTextarea = $('.additional-feedback-rich-textarea');
+                summernoteTextarea.html(summernoteTextarea.code());
+
+                $.ajax({
+                    type:"POST",
+                    url: "/forms/updateDiscussion",
+                    data: form.serialize(),
+                    success: function (data)
+                    {
+                        barnabas.displayMessage("The comment was updated successfully","success");
+                    },
+                    error: function (data)
+                    {
+                        debugger;
+                        barnabas.displayDefaultErrorMessage();
+                    }
+                });
 
             },
             followOrCollaborate: function(){
@@ -82,7 +115,6 @@ $(document).ready(function() {
                 var ideaResourceId = resourceVote.data("idea-resource-id");
 
                 var requestParams = {ideaResourceId:ideaResourceId }
-                debugger;
 
                 $.ajax({
                     data: requestParams,
@@ -90,12 +122,10 @@ $(document).ready(function() {
                     url: "/forms/likeResource",
                     success: function(data)
                     {
-                        debugger;
                         $("td[data-idea-resource-id='" + ideaResourceId +"']").replaceWith(data);
                         barnabas.displayMessage("Thanks for your vote");
                     },
                     error: function(data) {
-                        debugger;
                         barnabas.displayDefaultErrorMessage();
                     }
                 });
@@ -297,7 +327,7 @@ $(document).ready(function() {
         }
 
         this.displayDefaultErrorMessage = function(){
-            barnabas.displayErrorMessage("Oh snap! We could not process your resource addition request. If the problem persists, please contact the administrator");
+            barnabas.displayErrorMessage("Oh snap! We could not process your request. If the problem persists, please contact the administrator");
         }
     }
 

@@ -72,46 +72,44 @@
                         @views.html.utils.votePool(evaluation)
                     </div>
 
-                    <div class="row extra-bottom-margin">
 
-                        <div class="col-md-12 additional-comments">
+                    <div class="extra-bottom-margin col-md-12 additional-comments">
                         <h4>Why or Why not? Any additional comments (optional)</h4>
-                        <form class="submit-discussion" action="@routes.EvaluateIdeas.createDiscussion" method="POST">
+                        <form class="submit-discussion-form" action="@routes.EvaluateIdeas.updateDiscussion" method="POST">
 
-                        <div class="summernote">
-                            <textarea class="additional-feedback-rich-textarea">Please provide additional feedback.
+                            <input type="hidden" name="ideaUserId" value="@evaluation.id">
 
-                            </textarea>
-                            <div class="appendable-btn-group btn-group">
-                                <button class="btn btn-green btn-sm btn-small"><i class="fa fa-save"></i> Submit Comments</button>
+                            <input class="anonymous-input" type="hidden" name="anonymous" value="false">
+
+                            <div class="summernote">
+                                <textarea name="description" class="additional-feedback-rich-textarea">
+                                        @evaluation.ideaDiscussion.map(_.description)
+                                </textarea>
+                                <div class="appendable-btn-group btn-group">
+                                    <button type="submit" data-anonymous="false" class="submit-discussion btn btn-green btn-sm btn-small">
+                                        <i class="fa fa-save"></i> Submit Comments</button>
+                                </div>
+                                <div class="appendable-btn-group btn-group">
+                                    <button type="submit" data-anonymous="true" class="submit-discussion btn btn-dark-blue btn-sm btn-small">
+                                        <i class="fa fa-save"></i> Submit Comments Anonymously</button>
+                                </div>
                             </div>
-                            <div class="appendable-btn-group btn-group">
-                                <button class="btn btn-dark-blue btn-sm btn-small"><i class="fa fa-save"></i> Submit Comments Anonymously</button>
-                            </div>
-                        </div>
 
                         </form>
 
                     </div>
+
+                    <div class="col-md-12">
+                        <h4>Interests?</h4>
+
+                        @views.html.utils.follow(evaluation)
+                        @views.html.utils.collaborate(evaluation)
+                    </div>
+
                 </div>
-
-
-                <div class="col-md-12">
-                    <h4>Interests?</h4>
-
-                    @views.html.utils.follow(evaluation)
-                    @views.html.utils.collaborate(evaluation)
-                </div>
-
             </div>
         </div>
-
-
     </div>
-        <!-- /.page-content -->
-</div>
-    <!-- /#page-wrapper -->
-    <!-- end MAIN PAGE CONTENT -->
 
 </div>
-<!-- /#wrapper -->
+</div>

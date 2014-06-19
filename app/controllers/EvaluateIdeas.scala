@@ -153,7 +153,7 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
     )
       (IdeaDiscussionForm.apply)(IdeaDiscussionForm.unapply)
   )
-  def createDiscussion() = SecuredAction{ implicit request =>
+  def updateDiscussion() = SecuredAction{ implicit request =>
     transactional{
       implicit val user = request.user
         ideaDiscussionForm.bindFromRequest.fold(
@@ -169,6 +169,7 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
             discussion.parentDiscussion = parentDiscussion
             discussion.isAnonymous = form.anonymous
 
+            ideaUser.ideaDiscussion = Some(discussion)
             Ok
 
             }.getOrElse{
