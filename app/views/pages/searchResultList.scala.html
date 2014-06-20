@@ -1,9 +1,9 @@
-@(searchResults:List[models.core.Interfaces.Searchable] = List.empty[models.core.Interfaces.Searchable], currentPageIndex:Int, lastPageIndex:Int, numberOfResults:Int, query:String)(implicit user:User)
+@(searchResults:List[models.core.Interfaces.Searchable] = List.empty[models.core.Interfaces.Searchable], currentPageIndex:Int, lastPageIndex:Int, numberOfResults:Int, query:String)(implicit user:User, request:RequestHeader)
 @import views.html._
 
 @pageMainContainer("Search Results"){
 
-    @pageTags.searchResultList(searchResults, currentPageIndex,lastPageIndex, numberOfResults,query)
+    @pageTags.searchResultList(searchResults, currentPageIndex, lastPageIndex, numberOfResults, query)
 
 }{
 }{

@@ -17,9 +17,10 @@ object Search extends Controller with securesocial.core.SecureSocial
 {
   val ITEMS_PER_PAGE = 10
 
-  def search(query:String, page:Int) = SecuredAction{  implicit request =>
+  def search(query:String, page:Int) = SecuredAction{  implicit securedRequest =>
     transactional{
-      implicit val user = request.user
+      implicit val user = securedRequest.user
+      implicit val request = securedRequest.request
 
       try
       {
@@ -27,10 +28,10 @@ object Search extends Controller with securesocial.core.SecureSocial
 
         val ideas: List[Idea] = pagination.page(page-1)
 
-        Ok(views.html.pages.searchResultList(searchResults = ideas,currentPageIndex = page,lastPageIndex = pagination.numberOfPages, numberOfResults =  pagination.numberOfResults,query = query))
+        Ok(views.html.pages.searchResultList(searchResults = ideas,currentPageIndex = page,lastPageIndex = pagination.numberOfPages, numberOfResults =  pagination.numberOfResults, query = query))
 
       }catch{
-        case e:Exception => NotFound(views.html.errors.notFound(request.request))
+        case e:Exception => NotFound(views.html.errors.notFound(request))
       }
 
     }

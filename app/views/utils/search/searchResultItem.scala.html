@@ -1,8 +1,12 @@
-@(searchResult:core.Interfaces.Searchable)
+@(searchResult:core.Interfaces.Searchable, url:Option[String])(implicit user:User, request:RequestHeader)
+@import models.core.Idea
 
 <div class="search-item">
-    <span class="sr-name"><a href="#">@searchResult.searchTitle</a></span>
+
+    <span class="sr-name"><a href="@url">@searchResult.searchTitle</a></span>
     <br>
-    <span class="text-green">http://www.themes.startbootstrap.com/flex<strong>admin</strong>  <i class="fa fa-caret-down"></i></span>
+
+    <span class="text-green">@url<i class="fa fa-caret-down"></i></span>
     <br>@searchResult.searchDescription
+
 </div>
