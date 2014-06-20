@@ -27,9 +27,10 @@ object Search extends Controller with securesocial.core.SecureSocial
 
         val ideas: List[Idea] = pagination.page(page-1)
 
-        Ok(views.html.pages.searchResultList(searchResults = ideas,currentPageIndex = page,lastPageIndex = pagination.numberOfPages-1,query = query))
+        Ok(views.html.pages.searchResultList(searchResults = ideas,currentPageIndex = page,lastPageIndex = pagination.numberOfPages,query = query))
+
       }catch{
-        case e:Exception => NotFound
+        case e:Exception => NotFound(views.html.errors.notFound(request.request))
       }
 
     }

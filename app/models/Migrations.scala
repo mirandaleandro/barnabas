@@ -18,10 +18,35 @@ import models.core._
  * Time: 1:57 PM
  * To change this template use File | Settings | File Templates.
  */
+/*
+[error] a.a.ActorSystemImpl - Uncaught error from thread [play-akka.actor.default-dispatcher-2] shutting down JVM since 'akka.jvm-exit-on-fatal-error' is enabled
+java.lang.ExceptionInInitializerError: null
+	at models.SecureSocialToken$.deleteExpiredTokens(SecureSocialToken.scala:72) ~[classes/:na]
+	at service.SecureSocialService.deleteExpiredTokens(SecureSocialService.scala:111) ~[classes/:na]
+	at securesocial.core.UserServicePlugin$$anonfun$onStart$1.apply$mcV$sp(UserService.scala:133) ~[classes/:na]
+	at akka.actor.Scheduler$$anon$9.run(Scheduler.scala:80) ~[akka-actor_2.10.jar:2.2.0]
+	at akka.actor.LightArrayRevolverScheduler$$anon$3$$anon$2.run(Scheduler.scala:241) ~[akka-actor_2.10.jar:2.2.0]
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:42) ~[akka-actor_2.10.jar:2.2.0]
+Caused by: net.fwbrasil.activate.storage.relational.JdbcStatementException: Statement exception: INSERT INTO "Idea" ("collaboratorsCount", "createdBy", "description", "followersCount", "id", "ideaPhase", "title", "visited", "voted", "votedUp")  VALUES (:collaboratorsCount, :createdBy, :description, :followersCount, :id, :ideaPhase, :title, :visited, :voted, :votedUp). Next exception: Some(ERROR: value too long for type character varying(1000))
+	at net.fwbrasil.activate.storage.relational.JdbcRelationalStorage$class.execute(JdbcRelationalStorage.scala:162) ~[activate-jdbc_2.10-1.4.4.jar:1.4.4]
+	at models.PostgresConnection$$anon$1.execute(PostgresConnection.scala:31) ~[classes/:na]
+	at net.fwbrasil.activate.storage.relational.JdbcRelationalStorage$$anonfun$executeStatements$1$$anonfun$apply$3.apply(JdbcRelationalStorage.scala:101) ~[activate-jdbc_2.10-1.4.4.jar:1.4.4]
+	at net.fwbrasil.activate.storage.relational.JdbcRelationalStorage$$anonfun$executeStatements$1$$anonfun$apply$3.apply(JdbcRelationalStorage.scala:100) ~[activate-jdbc_2.10-1.4.4.jar:1.4.4]
+	at scala.collection.immutable.List.foreach(List.scala:318) ~[scala-library.jar:na]
+	at net.fwbrasil.activate.storage.relational.JdbcRelationalStorage$$anonfun$executeStatements$1.apply(JdbcRelationalStorage.scala:100) ~[activate-jdbc_2.10-1.4.4.jar:1.4.4]
+Caused by: org.postgresql.util.PSQLException: ERROR: value too long for type character varying(1000)
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2102) ~[postgresql-9.1-901.jdbc4.jar:na]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1835) ~[postgresql-9.1-901.jdbc4.jar:na]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:257) ~[postgresql-9.1-901.jdbc4.jar:na]
+	at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:500) ~[postgresql-9.1-901.jdbc4.jar:na]
+	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:388) ~[postgresql-9.1-901.jdbc4.jar:na]
+	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeUpdate(AbstractJdbc2Statement.java:334) ~[postgresql-9.1-901.jdbc4.jar:na]
+
+*/
 
 class CreateSchema extends Migration {
-    def timestamp = 201406011240l
-//    def timestamp = Platform.currentTime
+//    def timestamp = 201406011240l
+    def timestamp = Platform.currentTime
 
     def up {
         removeAllEntitiesTables
@@ -31,16 +56,22 @@ class CreateSchema extends Migration {
         createTableForAllEntities.ifNotExists
         createInexistentColumnsForAllEntities
 
+        table[Idea]
+          .modifyColumnType(_.customColumn[String]("description", "TEXT"))
+          .ifExists
     }
 }
 
 class CreateTestData extends Migration {
-    def timestamp = 201406011241l
-//    def timestamp = Platform.currentTime +100
+//    def timestamp = 201406011241l
+    def timestamp = Platform.currentTime +100
 
     def up {
        customScript
        {
+         val worldCupArticle = "<div class=\"flexible-content\">\n        \n    \n<div id=\"mainblock\" data-id=\"ef8ac86a-3291-46ff-8590-5eac77459b2b\" class=\"block\">\n\n    <div class=\"block-elements\">\n                \n\t\t<figure class=\"element element-image\" data-media-id=\"gu-fc-1b94e0c4-171d-4795-8f6c-631e0bc01b33\">\n\t\t    <img src=\"http://static.guim.co.uk/sys-images/Sport/Pix/columnists/2014/6/20/1403220499598/Greece-captain-Giorgos-Ka-009.jpg\" alt=\"Greece captain Giorgos Karagounis tangles with Japan's Yoshito Okubo and Jose Holebas during the gro\" width=\"460\" height=\"276\" class=\"gu-image\">\n\t\t    \t\t        <figcaption>Greece captain Giorgos Karagounis tangles with Japan's Yoshito Okubo and Jose Holebas during the group C match in Natal. Photograph: Frank Augstein/AP</figcaption>\n\t\t    \t\t</figure>\n\t            </div>\n\n</div>\n\n\n    <div class=\"flexible-content-body\" data-display-hint=\"\">\n                \n\t<p>Fernando Santos called it a game of two halves, the Greece manager arguing\nthat his plan to defeat Japan had been fatally undermined when his captain,\nKostas Katsouranis, was sent off just before the interval. As a hypothesis it\nsounded rather plausible, but the evidence of this game did not bear him out.\nHis team had looked no more likely to score with 10 men than they did with 11.\nAnd neither had their opponents. </p><p>It was not for want of trying. After losing their respective opening games,\nGreece and Japan each came into this match knowing that their prospects of\nprogressing from Group C had already taken a serious blow. Only a victory here\nwould allow either side to keep their destiny in their own hands. </p><p>Both set out to win the game, albeit in very different ways. For Greece, the\nplan was to pack the midfield, sit back, and hit aggressively on the counter.\nJapan, by contrast, aimed to retain possession and outmanoeuvre their\nopponents. Either approach could have worked in theory. But in practice, each\nrelied on having forwards who understood what to do in the final third. </p><p>The pattern of the game was set early on. Japan moved the ball around\ndiligently but without any great sense of urgency – a squadron of cautious\ndrivers following Alberto Zaccheroni’s tactical satnav. But the coach’s plan to\nattack Greece down the flanks was not working. Players kept running into dead\nends. Even Zaccheroni himself would concede after the game that his team\n“needed another idea” for how to break down their opponents. </p><p>Greece would attack with great gusto on the rare occasions when they had the\nball, but those were too few and far between. Their enthusiasm could also spill\nover. A team seeing so little possession could ill afford to throw it away on\nlong-range pot-shots as they sometimes did here. </p><p>Katsouranis’s dismissal in the 38th minute was needless. Already on a yellow\ncard, he dived into a challenge on Makoto Hasebe in the middle of the park and\narrived late enough to warrant his second caution. He left berating the referee,\nbut truthfully had no one but himself to blame. </p><p>His team had already lost one member of their starting XI by that stage,\nKostas Mitroglou requesting to come off after an awkward aerial collision with\nHasebe. Fulham’s oft-injured striker had been drafted into the team to give\nGreece more purpose up front after their limp showing against Colombia, but he\nlasted just 35 minutes before being substituted by the man he replaced in the\nline-up, Theofanis Gekas.</p><p>Katsouranis’s dismissal necessitated another change as Giorgos Karagounis\nrelieved Giannis Fetfatzidis to restore some balance in the middle of the park.\nBut despite these changes, Greece actually ended the half the stronger, Vasilis\nTorosidis drawing a sharp save from Eiji Kawashima with his shot from the edge\nof the box, before heading another opportunity over from close range.</p><p>Japan’s best chances of the first-half had arrived much earlier, Yuya Osako\ngoing close twice in three minutes. After drawing a save from Orestis Karnezis\ndown to the goalkeeper’s right, he then curled a more venomous effort wide of\nthe post on the far side. Soon afterwards, Keisuke Honda whipped a free-kick\ntowards the top right corner of the goal, only to be denied once more by\nKarnezis.</p><p>Japan would see plenty more possession to start the second-half, but\nachieved little with it. It was telling that the 57th-minute introduction of\nShinji Kagawa – who had been left out of the starting XI after a flat\nperformance during his team’s 2-1 defeat to Ivory Coast – should produce one of\nthe largest cheers of the night from the sizeable Japanese contingent in Natal.</p><p>No sooner had he entered the field, however, than Greece summoned their best\nchance of the game, Gekas powering a header towards the bottom left corner of\nthe net from near the penalty spot. Only a fine reflex stop from Kawashima kept\nthe scores level.</p><p>Japan would waste an even better opportunity moments later. In the 68th\nminute Atsuto Uchida ran onto a long ball into the box and swiftly played it\nsquare along the edge of the six-yard area. Yoshito Okubo arrived on the far\nside with an open goal at his mercy, but screwed his shot high and wide.</p><p>There were further chances at both ends. Uchida thrashed wide of the post\nfrom five yards for Japan, and Okubo stung Karnezis’s palms from distance.\nGreece launched another counter, with Jose Holebas testing Kawashima. But who\nknows how long it would have taken these two misfiring sides to produce a goal?\nNinety minutes had proved quite insufficient.</p><p>Asked what his team would need to do differently in its final game against\nIvory Coast, Santos replied with the obvious. “We have to win,” he said. “A\ndraw is no good. Ivory Coast has three points, we only have one. The only\nsolution is to win. We cannot go there and thing ‘well, maybe, what will\nhappen’. No, we have to go there and win.”</p><p>Even that would not necessarily be enough, if Japan were also to beat\nColombia – whose place in the last-16 was secured by this result. But Santos\ncannot afford to think beyond his own team right now. In eight World Cup finals\nappearances, split across three tournaments, Greece have scored only two goals.\nIt is reasonable to say, at this stage, that their deficiencies go beyond a\nsimple sending off.</p>\n        </div>\n\n\n    </div>"
+
+
          val socialUser = SocialUser(IdentityId("mirandaleandro@gmail.com","userpass"),
            "Leandro",
            "Miranda",
@@ -194,6 +225,7 @@ class CreateTestData extends Migration {
          val idea23 = Idea(createdBy = user2, "Super Idea Title goes here 23","Lorem Ipsum", ideaPhase = ideaPhase2)
          val idea24 = Idea(createdBy = user2, "Super Idea Title goes here 24","Lorem Ipsum", ideaPhase = ideaPhase3)
          val idea25 = Idea(createdBy = user2, "Super Idea Title goes here 25","Lorem Ipsum", ideaPhase = ideaPhase1)
+         val idea26 = Idea(createdBy = user2, "World cup Idea",worldCupArticle, ideaPhase = ideaPhase2)
 
          idea.addSubDiscipline(subDiscipline = subDiscipline)
          idea2.addSubDiscipline(subDiscipline = subDiscipline)

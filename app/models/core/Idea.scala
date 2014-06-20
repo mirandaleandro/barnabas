@@ -82,7 +82,10 @@ class Idea(var createdBy:User,
 
   def searchTitle =  title
 
-  def searchDescription:String = description.replaceAll("""<(?!\/?a(?=>|\s.*>))\/?.*?>""", "")
+  def searchDescription:String = {
+    val escapedDescription = description.replaceAll("""<(?!\/?a(?=>|\s.*>))\/?.*?>""", "")
+    escapedDescription.substring(0,Math.min(escapedDescription.length, 300 ))
+  }
 
 }
 
