@@ -15,7 +15,7 @@ import net.fwbrasil.activate.statement.query.PaginationNavigator
  */
 object Search extends Controller with securesocial.core.SecureSocial
 {
-  val ITEMS_PER_PAGE = 5
+  val ITEMS_PER_PAGE = 10
 
   def search(query:String, page:Int) = SecuredAction{  implicit request =>
     transactional{
@@ -27,7 +27,7 @@ object Search extends Controller with securesocial.core.SecureSocial
 
         val ideas: List[Idea] = pagination.page(page-1)
 
-        Ok(views.html.pages.searchResultList(searchResults = ideas,currentPageIndex = page,lastPageIndex = pagination.numberOfPages,query = query))
+        Ok(views.html.pages.searchResultList(searchResults = ideas,currentPageIndex = page,lastPageIndex = pagination.numberOfPages, numberOfResults =  pagination.numberOfResults,query = query))
 
       }catch{
         case e:Exception => NotFound(views.html.errors.notFound(request.request))
