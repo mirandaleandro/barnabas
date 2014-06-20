@@ -17,9 +17,22 @@ class User extends Entity with Identity
   def identities: List[UserIdentity] = List.empty[UserIdentity]
 
   def identityId  = currentIdentity.identityId
-  def firstName = currentIdentity.firstName
-  def lastName = currentIdentity.lastName
-  def fullName = currentIdentity.fullName
+
+  def firstName: String = {
+    if(currentIdentity.firstName.isEmpty)
+      currentIdentity.fullName.split(" ").head
+    else
+      currentIdentity.firstName
+  }
+
+  def lastName: String ={
+    if(currentIdentity.lastName.isEmpty)
+      currentIdentity.fullName.split(" ").last
+    else
+      currentIdentity.lastName
+  }
+
+  def fullName: String = currentIdentity.fullName
   def email = currentIdentity.email
   def avatarUrl = currentIdentity.avatarUrl
   def authMethod = currentIdentity.authMethod
