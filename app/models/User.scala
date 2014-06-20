@@ -13,6 +13,9 @@ class User extends Entity with Identity
 
   var currentIdentity:UserIdentity = _
   var currentSubDiscipline:SubDiscipline = _
+  var affiliation:Option[String] = _
+  var contributions:Int = 0
+  var evaluations:Int = 0
 
   def identities: List[UserIdentity] = List.empty[UserIdentity]
 
@@ -71,6 +74,7 @@ object User
     user
   }
 
+  def findAll: List[User] = all[User]
 
   def findByIdentityId(id: IdentityId): Option[User] =
   {

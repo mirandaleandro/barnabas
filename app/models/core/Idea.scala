@@ -91,17 +91,11 @@ class Idea(var createdBy:User,
 
 object Idea
 {
-//  def search(query: String):List[Idea] =
-//  {
-//    select[Idea] where( idea => (idea.title like query) :|| (idea.description like query) )
-//  }
-//
+
   def search(query:String, itemsPerPage:Int ) = paginatedQuery {
     (entity: Idea) =>
       where(entity.title like "*"+query+"*") select (entity) orderBy (entity.title)
     }.navigator(itemsPerPage)
-
-
 
   def apply(createdBy:User):Idea =
   {
@@ -118,6 +112,8 @@ object Idea
   def ideaFromUser(user:User):List[Idea] = select[Idea] where( _.createdBy :== user )
 
   def ideaAtPhase(ideaPhase:IdeaPhase):List[Idea] = select[Idea] where( _.ideaPhase :== ideaPhase )
+
+  def findAll = all[Idea]
 
   def findById(id:String):Option[Idea] = byId[Idea](id)
 

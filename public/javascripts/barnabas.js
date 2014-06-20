@@ -20,6 +20,33 @@ $(document).ready(function() {
 
         };
 
+        this.dashboard = {
+            setup: function(){
+            }
+        }
+
+        this.getInspired = {
+            setup:function(){
+                barnabas.getInspired.setupTagCloud();
+                barnabas.getInspired.setupTables();
+            },
+            setupTagCloud: function(){
+
+                var topics = $('.topics-tagcloud a');
+
+                if(topics.size() > 0){
+
+                    topics.tagcloud({
+                        size: {start: 11, end: 28, unit: 'pt'},
+                        color: {start: '#F39C12', end: '#34495E'}
+                    });
+                }
+            },
+            setupTables: function(){
+              //  barnabas.updateDataTable(".explore-hot-idea .explore-researcher .explore-research");
+            }
+        }
+
         this.ideaEvaluation = {
 
             setup: function()
@@ -330,18 +357,6 @@ $(document).ready(function() {
             forms.find(".summernote").code("");
         }
 
-        this.setup = function()
-        {
-            Array.prototype.diff = function(a) {
-                return this.filter(function(i) {return a.indexOf(i) < 0;});
-            };
-
-           Messenger.options = {
-               extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
-               theme: 'flat'
-           }
-        }
-
         this.displayMessage = function(message,type){
             Messenger().post({
                 message: message,
@@ -357,15 +372,30 @@ $(document).ready(function() {
         this.displayDefaultErrorMessage = function(){
             barnabas.displayErrorMessage("Oh snap! We could not process your request. If the problem persists, please contact the administrator");
         }
+
+
+        this.setup = function()
+        {
+            Array.prototype.diff = function(a) {
+                return this.filter(function(i) {return a.indexOf(i) < 0;});
+            };
+
+            Messenger.options = {
+                extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+                theme: 'flat'
+            }
+
+            barnabas.updateDataTable(".data-table");
+
+            barnabas.search.setup();
+            barnabas.ideaEvaluation.setup();
+            barnabas.submitIdea.setup();
+            barnabas.getInspired.setup();
+        }
     }
 
     window.barnabas = new Barnabas();
 
-
-
-    barnabas.search.setup();
-    barnabas.ideaEvaluation.setup();
-    barnabas.submitIdea.setup();
     barnabas.setup();
 
     console.log("loading barnabas");

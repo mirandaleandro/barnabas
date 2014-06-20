@@ -2,12 +2,13 @@ package controllers
 
 import play.api.mvc.{AnyContent, Controller}
 import models.core.Interfaces.Searchable
-import models.core.{ResourceType, Idea}
+import models.core.{SubDiscipline, ResourceType, Idea}
 import models.PostgresConnection._
 import net.fwbrasil.activate.statement.query.PaginationNavigator
 import play.api.data.Form
 import play.api.data.Forms._
 import scala.Some
+import models.User
 
 /**
  * Created with IntelliJ IDEA.
@@ -71,7 +72,12 @@ object Search extends Controller with securesocial.core.SecureSocial
 
   }
 
+  def researchers = {
+    User.findAll.sortWith( (x,y) => x.contributions > y.contributions)
+  }
 
-
+  def ideasSortedByFollowers = {
+    Idea.findAll.sortBy(_.followersCount)
+  }
 
 }

@@ -22,7 +22,10 @@ class IdeaUser(var user:User, var idea:Idea, var like:Option[Boolean] = None, va
   def likeIdea()
   {
     if (!like.isDefined)
+    {
       this.idea.voted += 1
+      this.user.evaluations += 1
+    }
 
     this.idea.votedUp += 1
 
@@ -33,7 +36,10 @@ class IdeaUser(var user:User, var idea:Idea, var like:Option[Boolean] = None, va
   def unlikeIdea()
   {
     if (!like.isDefined)
+    {
       this.idea.voted += 1
+      this.user.evaluations += 1
+    }
     else
       this.idea.votedUp -= 1
 
@@ -51,8 +57,14 @@ class IdeaUser(var user:User, var idea:Idea, var like:Option[Boolean] = None, va
   def unfollowIdea(){ this.follow = false}
   def toggleFollow(){ this.follow = !this.follow}
 
-  def interestedInCollaborateWithIdea(){ this.interestedInCollaborate = true}
-  def uninterestedInCollaborateWithIdea(){ this.interestedInCollaborate = false}
+  def interestedInCollaborateWithIdea(){
+    this.interestedInCollaborate = true
+    this.user.contributions += 1
+  }
+  def uninterestedInCollaborateWithIdea(){
+    this.interestedInCollaborate = false
+    this.user.contributions -= 1
+  }
   def toggleCollaborate(){ this.interestedInCollaborate = !this.interestedInCollaborate}
 
   def isLike:Boolean = this.like.isDefined && this.like.get
