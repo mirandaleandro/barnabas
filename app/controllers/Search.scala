@@ -2,9 +2,12 @@ package controllers
 
 import play.api.mvc.{AnyContent, Controller}
 import models.core.Interfaces.Searchable
-import models.core.Idea
+import models.core.{ResourceType, Idea}
 import models.PostgresConnection._
 import net.fwbrasil.activate.statement.query.PaginationNavigator
+import play.api.data.Form
+import play.api.data.Forms._
+import scala.Some
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,20 +24,41 @@ object Search extends Controller with securesocial.core.SecureSocial
     transactional{
       implicit val user = securedRequest.user
       implicit val request = securedRequest.request
-
       try
       {
-        val pagination = Idea.search(query,ITEMS_PER_PAGE)
 
-        val ideas: List[Idea] = pagination.page(page-1)
+        if(query.isEmpty)
+        {
+          Ok(views.html.pages.searchResultList(searchResults = List.empty[Idea],currentPageIndex = page,lastPageIndex = 0, numberOfResults = 0, query = query))
+        }else{
+          val pagination = Idea.search(query,ITEMS_PER_PAGE)
 
-        Ok(views.html.pages.searchResultList(searchResults = ideas,currentPageIndex = page,lastPageIndex = pagination.numberOfPages, numberOfResults =  pagination.numberOfResults, query = query))
+          val ideas: List[Idea] = pagination.page(page-1)
 
+          Ok(views.html.pages.searchResultList(searchResults = ideas,currentPageIndex = page,lastPageIndex = pagination.numberOfPages, numberOfResults =  pagination.numberOfResults, query = query))
+        }
       }catch{
         case e:Exception => NotFound(views.html.errors.notFound(request))
       }
 
     }
+  }
+  case class QueryForm(var query:String, var page:Option[Int] = None)
+  val queryForm = Form(
+    mapping(
+      "query" -> nonEmptyText,
+      "page"  -> optional(number)
+    )
+      (QueryForm.apply)(QueryForm.unapply)
+  )
+
+  def searchByPost = SecuredAction{  implicit securedRequest =>
+
+    queryForm.bindFromRequest.fold(
+      formWithErrors => BadRequest("Sorry, no donut for you"),
+      (form: QueryForm) => {
+          Redirect(routes.Search.search(form.query,form.page.getOrElse(1)))
+      })
   }
 
   def searchableCall(searchable:Searchable) =

@@ -12,6 +12,8 @@ GET     /submit-an-idea                             controllers.Application.subm
 GET     /get-inspired                               controllers.Application.getInspired
 GET     /search/:query                              controllers.Search.search(query,page:Int ?= 1)
 
+POST    /search/                                    controllers.Search.searchByPost
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                               controllers.Assets.at(path="/public", file)
 

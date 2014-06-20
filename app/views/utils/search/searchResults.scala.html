@@ -1,0 +1,32 @@
+@(searchResults:List[models.core.Interfaces.Searchable] = List.empty[models.core.Interfaces.Searchable], currentPageIndex:Int, lastPageIndex:Int, numberOfResults:Int, query:String)(implicit user:User, request:RequestHeader)
+@import views.html._
+
+<div class="search-results">
+
+    @if(numberOfResults > 1){
+        <h4>Search Results for <strong>"@query"</strong>
+            <span class="text-green"><small> (displaying @{currentPageIndex*10-9}-@Math.min(currentPageIndex*10,numberOfResults) of @numberOfResults results)</small></span>
+        </h4>
+
+        <br>
+        <div class="row">
+            <div class="col-lg-8">
+
+                @for(searchResult <- searchResults){
+
+                    @utils.search.searchResultItem(searchResult, url = Search.searchableCall(searchable = searchResult).map(_.absoluteURL()))
+                }
+
+                @utils.search.paginationControl(searchResults, currentPageIndex, lastPageIndex, query)
+
+            </div>
+        </div>
+    }else{
+    <h4> Sorry, no results found for <strong>"@query"</strong>
+        <span class="text-green"><small> (displaying @{currentPageIndex*10-9}-@Math.min(currentPageIndex*10,numberOfResults) of @numberOfResults results)</small></span>
+    </h4>
+
+}
+
+
+</div>

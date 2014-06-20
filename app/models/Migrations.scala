@@ -18,35 +18,11 @@ import models.core._
  * Time: 1:57 PM
  * To change this template use File | Settings | File Templates.
  */
-/*
-[error] a.a.ActorSystemImpl - Uncaught error from thread [play-akka.actor.default-dispatcher-2] shutting down JVM since 'akka.jvm-exit-on-fatal-error' is enabled
-java.lang.ExceptionInInitializerError: null
-	at models.SecureSocialToken$.deleteExpiredTokens(SecureSocialToken.scala:72) ~[classes/:na]
-	at service.SecureSocialService.deleteExpiredTokens(SecureSocialService.scala:111) ~[classes/:na]
-	at securesocial.core.UserServicePlugin$$anonfun$onStart$1.apply$mcV$sp(UserService.scala:133) ~[classes/:na]
-	at akka.actor.Scheduler$$anon$9.run(Scheduler.scala:80) ~[akka-actor_2.10.jar:2.2.0]
-	at akka.actor.LightArrayRevolverScheduler$$anon$3$$anon$2.run(Scheduler.scala:241) ~[akka-actor_2.10.jar:2.2.0]
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:42) ~[akka-actor_2.10.jar:2.2.0]
-Caused by: net.fwbrasil.activate.storage.relational.JdbcStatementException: Statement exception: INSERT INTO "Idea" ("collaboratorsCount", "createdBy", "description", "followersCount", "id", "ideaPhase", "title", "visited", "voted", "votedUp")  VALUES (:collaboratorsCount, :createdBy, :description, :followersCount, :id, :ideaPhase, :title, :visited, :voted, :votedUp). Next exception: Some(ERROR: value too long for type character varying(1000))
-	at net.fwbrasil.activate.storage.relational.JdbcRelationalStorage$class.execute(JdbcRelationalStorage.scala:162) ~[activate-jdbc_2.10-1.4.4.jar:1.4.4]
-	at models.PostgresConnection$$anon$1.execute(PostgresConnection.scala:31) ~[classes/:na]
-	at net.fwbrasil.activate.storage.relational.JdbcRelationalStorage$$anonfun$executeStatements$1$$anonfun$apply$3.apply(JdbcRelationalStorage.scala:101) ~[activate-jdbc_2.10-1.4.4.jar:1.4.4]
-	at net.fwbrasil.activate.storage.relational.JdbcRelationalStorage$$anonfun$executeStatements$1$$anonfun$apply$3.apply(JdbcRelationalStorage.scala:100) ~[activate-jdbc_2.10-1.4.4.jar:1.4.4]
-	at scala.collection.immutable.List.foreach(List.scala:318) ~[scala-library.jar:na]
-	at net.fwbrasil.activate.storage.relational.JdbcRelationalStorage$$anonfun$executeStatements$1.apply(JdbcRelationalStorage.scala:100) ~[activate-jdbc_2.10-1.4.4.jar:1.4.4]
-Caused by: org.postgresql.util.PSQLException: ERROR: value too long for type character varying(1000)
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2102) ~[postgresql-9.1-901.jdbc4.jar:na]
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1835) ~[postgresql-9.1-901.jdbc4.jar:na]
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:257) ~[postgresql-9.1-901.jdbc4.jar:na]
-	at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:500) ~[postgresql-9.1-901.jdbc4.jar:na]
-	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:388) ~[postgresql-9.1-901.jdbc4.jar:na]
-	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeUpdate(AbstractJdbc2Statement.java:334) ~[postgresql-9.1-901.jdbc4.jar:na]
 
-*/
 
 class CreateSchema extends Migration {
-//    def timestamp = 201406011240l
-    def timestamp = Platform.currentTime
+    def timestamp = 201406011240l
+//    def timestamp = Platform.currentTime
 
     def up {
         removeAllEntitiesTables
@@ -63,8 +39,8 @@ class CreateSchema extends Migration {
 }
 
 class CreateTestData extends Migration {
-//    def timestamp = 201406011241l
-    def timestamp = Platform.currentTime +100
+    def timestamp = 201406011241l
+//    def timestamp = Platform.currentTime +100
 
     def up {
        customScript
