@@ -1,8 +1,11 @@
 package models.core
 
+import Interfaces.Searchable
 import net.fwbrasil.activate.entity.Entity
 import models.User
 import models.PostgresConnection._
+import controllers.routes
+import net.fwbrasil.activate.statement.query.PaginationNavigator
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +21,7 @@ class Idea(var createdBy:User,
            var voted:Long = 0,
            var votedUp:Long = 0,
            var followersCount:Long = 0,
-           var collaboratorsCount:Long = 0) extends Entity
+           var collaboratorsCount:Long = 0) extends Entity with Searchable
 {
 
   def authors:List[User] = ???  //we will probably wish to have coauthoring of ideas. By now we will just use "createdBy"
@@ -76,10 +79,27 @@ class Idea(var createdBy:User,
       IdeaResource( idea = this, suggestedBy = suggestedBy, resource = resource)
     }
   }
+
+  def searchTitle =  title
+
+  def searchDescription:String = description.replaceAll("""<(?!\/?a(?=>|\s.*>))\/?.*?>""", "")
+
 }
 
 object Idea
 {
+//  def search(query: String):List[Idea] =
+//  {
+//    select[Idea] where( idea => (idea.title like query) :|| (idea.description like query) )
+//  }
+//
+  def search(query:String, itemsPerPage:Int ) = paginatedQuery {
+    (entity: Idea) =>
+      where(entity.title like "*"+query+"*") select (entity) orderBy (entity.title)
+    }.navigator(itemsPerPage)
+
+
+
   def apply(createdBy:User):Idea =
   {
       Idea(createdBy,"","", IdeaPhase.Inception)

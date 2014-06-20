@@ -10,6 +10,7 @@ GET     /evaluate-ideas/:ideaId                     controllers.EvaluateIdeas.ev
 
 GET     /submit-an-idea                             controllers.Application.submitIdeas
 GET     /get-inspired                               controllers.Application.getInspired
+GET     /search/:query                              controllers.Search.search(query,page:Int ?= 1)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                               controllers.Assets.at(path="/public", file)

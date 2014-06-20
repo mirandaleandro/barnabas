@@ -24,6 +24,7 @@ $(document).ready(function() {
 
             setup: function()
             {
+                barnabas.createRichTextArea('.additional-feedback-rich-textarea',{height:200});
 
                 $(document.body).on("click",".submit-add-resources-button",function(){
                     barnabas.ideaEvaluation.processResourceForm($(".add-resource-form"));
@@ -190,6 +191,7 @@ $(document).ready(function() {
                     }
                 });
 
+
                 $(".add-topic-input").autocomplete({
                     source: function (request, response) {
                         $.ajax({
@@ -276,6 +278,32 @@ $(document).ready(function() {
 
         }
 
+        this.search = {
+
+            setup: function(){
+                barnabas.search.setupPagination(".search-results-pagination");
+            },
+            setupPagination:function(selector){
+//                ul class="search-results-pagination" data-start="3" data-visible="5" data-href="/bolhas" data-total-pages="15" ></ul>
+                var paginationElement = $(selector);
+                if(paginationElement.size() > 0)
+                {
+                    var start = paginationElement.data("start");
+                    var visibleElements = paginationElement.data("visible");
+                    var href = paginationElement.data("href");
+                    var totalPages = paginationElement.data("total-pages");
+
+                    paginationElement.twbsPagination({
+                        totalPages: totalPages,
+                        visiblePages: visibleElements,
+                        href: href,
+                        startPage:start
+                    });
+                }
+
+            }
+        }
+
         this.sendFile = function (file, editor, welEditable) {
 
             data = new FormData();
@@ -333,12 +361,32 @@ $(document).ready(function() {
 
     window.barnabas = new Barnabas();
 
-    barnabas.createRichTextArea('.additional-feedback-rich-textarea',{height:200});
 
+
+    barnabas.search.setup();
     barnabas.ideaEvaluation.setup();
     barnabas.submitIdea.setup();
     barnabas.setup();
 
     console.log("loading barnabas");
 
+
+    window.teste = function(s,f)
+    {
+
+        var adjustment = 3-s > 0 ? 3-s : 0;
+
+        for(i = s-2; i < Math.min(s+3+adjustment, f) ; i++){
+            if(i > 0)
+            {
+                if(i == s)
+                {
+                    console.log(i + " - I'm s");
+                }else
+                {
+                    console.log(i);
+                }
+            }
+        }
+    }
 });

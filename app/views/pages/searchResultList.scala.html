@@ -1,0 +1,11 @@
+@(searchResults:List[models.core.Interfaces.Searchable] = List.empty[models.core.Interfaces.Searchable], currentPageIndex:Int, lastPageIndex:Int, query:String)(implicit user:User)
+@import views.html._
+
+@pageMainContainer("Search Results"){
+
+    @pageTags.searchResultList(searchResults, currentPageIndex,lastPageIndex,query)
+
+}{
+}{
+}
+
