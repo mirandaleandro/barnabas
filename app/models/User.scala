@@ -56,7 +56,10 @@ class User extends Entity with Identity
 
   def ideasFollowed:List[Idea] = IdeaUser.ideasFollowedByUser(this)
 
-  def setSubDisciplineIfEmpty() = {
+  //TODO implement user following
+  def followers:List[User] = List.empty[User]
+
+  def setSubDisciplineIfEmpty() {
 
     if (this.currentSubDiscipline == null)
     {

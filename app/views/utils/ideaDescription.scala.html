@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="portlet-footer">
-        <span>Topics:</span>
+        <h4>Topics</h4>
         <span class="divider"></span>
 
         @for( topic <- idea.topics.take(3)){
@@ -25,6 +25,22 @@
             <span class="label green">#@topic.title</span>
             <span class="label green">#@topic.title</span>
         }
+
+        <div class="media">
+            <h4>Authors</h4>
+
+            <a class="pull-left" href="@routes.Application.user(idea.createdBy.id)">
+                <img class="discussion-picture media-object img-circle" src="@idea.createdBy.avatarUrl" alt="">
+            </a>
+            <div class="media-body">
+                <a href="@routes.Application.user(idea.createdBy.id)">
+                    <h5 class="media-heading">@idea.createdBy.fullName
+                        <span class="small pull-right">Joined in @Application.defaultDateFormat.format(idea.createdBy.creationDate)</span>
+                    </h5>
+                </a>
+                <p>@idea.createdBy.ideasCreated.size ideas   @idea.createdBy.followers.size followers</p>
+            </div>
+        </div>
 
     </div>
 </div>
