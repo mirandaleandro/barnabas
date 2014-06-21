@@ -84,6 +84,10 @@ object IdeaUser
 
   def ideasFollowedByUser(user: User): List[Idea] = (select[IdeaUser] where(_.user :== user)).map(_.idea)
 
+  def followersOfIdea(idea: Idea): List[User] = (select[IdeaUser] where(_.idea :== idea, _.follow :== true)).map(_.user)
+
+  def interestedUsersInIdea(idea: Idea): List[User] = (select[IdeaUser] where(_.idea :== idea, _.interestedInCollaborate :== true)).map(_.user)
+
   def discussionsByIdea(idea:Idea): List[IdeaDiscussion] = findByIdea(idea).flatMap(_.discussion)
 
   def findByUser(user:User): List[IdeaUser] = select[IdeaUser] where(_.user :== user )

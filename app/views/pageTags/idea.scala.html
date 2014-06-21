@@ -23,9 +23,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            @*Resources*@
                             @views.html.utils.resourcesTable(evaluation)
-                            @*End Resources*@
                         </div>
                     </div>
 
@@ -33,7 +31,9 @@
 
                 <div class="col-md-4">
 
-                    <h1>Evaluations</h1>
+                    <div class="row" class="bottom-line">
+                        <h3 class="margin-topless">Evaluations</h3>
+                    </div>
 
 
                     <div class="row extra-bottom-margin">
@@ -58,6 +58,73 @@
 
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="portlet portlet-default">
+                        <div class="portlet-heading">
+                            <div class="portlet-title">
+                                <h4>Followers</h4>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-responsive">
+                                <table class="data-table table table-striped table-bordered table-hover table-green">
+                                    <thead>
+                                        <tr>
+                                            <th class="soft-hide">User</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for( follower <- evaluation.idea.followers){
+                                            <tr>
+                                                <td class="user-column">@views.html.utils.userDescription(follower)</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="portlet portlet-default">
+                        <div class="portlet-heading">
+                            <div class="portlet-title">
+                                <h4>Collaborators</h4>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-responsive">
+                                <table class="data-table table table-striped table-bordered table-hover table-green">
+                                    <thead>
+                                        <tr>
+                                            <th class="soft-hide" >User</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for( collaborator <- evaluation.idea.interestedUsers){
+                                            <tr>
+                                                <td class="user-column" >@views.html.utils.userDescription(collaborator)</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
 
     </div>

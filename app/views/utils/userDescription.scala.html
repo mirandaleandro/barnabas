@@ -1,0 +1,17 @@
+@(user:User, title:Option[String] = None)
+
+<div class="media">
+    @title.map{ title => <h4>@title</h4> }
+
+    <a class="pull-left" href="@routes.Application.user(user.id)">
+        <img class="discussion-picture media-object img-circle" src="@user.avatarUrl" alt="">
+    </a>
+    <div class="media-body">
+        <a href="@routes.Application.user(user.id)">
+            <h5 class="media-heading">@user.fullName
+                <span class="small pull-right">Joined in @Application.defaultDateFormat.format(user.creationDate)</span>
+            </h5>
+        </a>
+        <p>@user.ideasCreated.size ideas   @user.followers.size followers</p>
+    </div>
+</div>

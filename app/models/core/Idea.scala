@@ -24,11 +24,14 @@ class Idea(var createdBy:User,
            var collaboratorsCount:Long = 0) extends Entity with Searchable
 {
 
-  def authors:List[User] = ???  //we will probably wish to have coauthoring of ideas. By now we will just use "createdBy"
-  def followers:List[User] = ???
-  def interestedUsers:List[User] = ???
 
   def resources:List[IdeaResource] = IdeaResource.findByIdea(this)
+
+  def authors:List[User] = List[User](this.createdBy)  //we will probably wish to have coauthoring of ideas. By now we will just use "createdBy"
+
+  def interestedUsers:List[User] = IdeaUser.interestedUsersInIdea(idea = this)
+
+  def followers:List[User] = IdeaUser.followersOfIdea(this)
 
   def topics:List[Topic] = IdeaTopic.findByIdea(this).map(_.topic)
 

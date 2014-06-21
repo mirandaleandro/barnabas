@@ -2231,6 +2231,7 @@ input[type="checkbox"]:checked::after,
 .discussion-picture
 {
     height: 40px;
+    width: 40px;
 }
 
 .media.child{
@@ -2242,4 +2243,12 @@ input[type="checkbox"]:checked::after,
     padding: 0;
     margin: 0;
     width: 0;
+}
+
+td.user-column{
+    padding-bottom: 0;
+}
+
+.margin-topless{
+    margin-top: 0;
 }
