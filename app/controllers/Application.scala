@@ -51,12 +51,11 @@ object Application extends Controller with securesocial.core.SecureSocial{
       transactional{
         implicit val user = request.user
 
-        Idea.findById(ideaId).flatMap{ idea =>
+        Idea.findById(ideaId).map{ idea =>
 
-          IdeaUser.findByIdeaAndUser(idea = idea, user = user).map { evaluation =>
+          val evaluation = IdeaUser.findByIdeaAndUser(idea = idea, user = user).getOrElse(IdeaUser(user = user, idea = idea))
 
-            Ok(views.html.pages.idea(evaluation = evaluation))
-          }
+          Ok(views.html.pages.idea(evaluation = evaluation))
 
         }.getOrElse{
           NotFound

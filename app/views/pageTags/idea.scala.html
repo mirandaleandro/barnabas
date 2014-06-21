@@ -33,18 +33,26 @@
 
                 <div class="col-md-4">
 
+                    <h1>Evaluations</h1>
+
+
                     <div class="row extra-bottom-margin">
 
-                        <div class="evaluate-action multi-action @if(evaluation.isLike){show-first}">
-                            <a href="@routes.EvaluateIdeas.evaluateIdeasWithId(evaluation.idea.id)" class="follow-action first col-xs-12 btn btn-default ">Evaluate</a>
+                        <div class="evaluate-action multi-action @if(evaluation.discussion.isDefined){show-first}">
+                            <a href="@routes.EvaluateIdeas.evaluateIdeasWithId(evaluation.idea.id)" class="follow-action second col-xs-12 btn btn-default ">Evaluate</a>
                             <a href="@routes.EvaluateIdeas.evaluateIdeasWithId(evaluation.idea.id)" class="follow-action first col-xs-12 btn btn-default ">Edit Evaluation</a>
                         </div>
 
                     </div>
 
                     <div class="row">
-                        @for(discussion <- evaluation.idea.discussions){
-                            @views.html.utils.discussion(discussion)
+
+                        @if(evaluation.idea.discussions.isEmpty){
+                            <h3> No discussions have been created yet.</h3>
+                        }else{
+                            @for(discussion <- evaluation.idea.discussions){
+                                @views.html.utils.discussion(discussion)
+                            }
                         }
                     </div>
 
