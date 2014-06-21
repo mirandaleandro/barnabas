@@ -164,12 +164,12 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
 
           IdeaUser.findById(form.ideaUserId).map { ideaUser =>
 
-            val discussion = ideaUser.ideaDiscussion.getOrElse(IdeaDiscussion(createdBy = user))
+            val discussion = ideaUser.discussion.getOrElse(IdeaDiscussion(createdBy = user))
             discussion.description = form.description
             discussion.parentDiscussion = parentDiscussion
             discussion.isAnonymous = form.anonymous
 
-            ideaUser.ideaDiscussion = Some(discussion)
+            ideaUser.discussion = Some(discussion)
             Ok
 
             }.getOrElse{

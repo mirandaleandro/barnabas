@@ -34,6 +34,11 @@ class Idea(var createdBy:User,
 
   def subDisciplines:List[SubDiscipline] = ???
 
+  def discussions ={
+
+    IdeaUser.findByIdea(idea = this)
+  }
+
   def phase = this.ideaPhase.title
 
   def votedDown = voted - votedUp
@@ -86,6 +91,7 @@ class Idea(var createdBy:User,
     val escapedDescription = description.replaceAll("""<(?!\/?a(?=>|\s.*>))\/?.*?>""", "")
     escapedDescription.substring(0,Math.min(escapedDescription.length, 300 ))
   }
+
 
 }
 

@@ -17,7 +17,6 @@ class IdeaUser(var user:User, var idea:Idea, var like:Option[Boolean] = None, va
   var follow:Boolean = false
   var interestedInCollaborate:Boolean = false
   var author:Boolean = false
-  var ideaDiscussion:Option[IdeaDiscussion] = _
 
   def likeIdea()
   {
@@ -85,7 +84,11 @@ object IdeaUser
 
   def ideasFollowedByUser(user: User): List[Idea] = (select[IdeaUser] where(_.user :== user)).map(_.idea)
 
+  def discussionsByIdea(idea:Idea): List[IdeaDiscussion] = findByIdea(idea).flatMap(_.discussion)
+
   def findByUser(user:User): List[IdeaUser] = select[IdeaUser] where(_.user :== user )
+
+  def findByIdea(idea:Idea): List[IdeaUser] = select[IdeaUser] where(_.idea :== idea )
 
   def findByIdeaAndUser(idea:Idea, user:User): Option[IdeaUser] = {
     (select[IdeaUser] where(_.idea :== idea, _.user :== user)).headOption

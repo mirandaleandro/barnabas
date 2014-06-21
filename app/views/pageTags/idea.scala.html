@@ -1,0 +1,62 @@
+@(evaluation:models.core.IdeaUser)(implicit user:User)
+@import core.ResourceType
+<div id="wrapper">
+
+        <!-- begin MAIN PAGE CONTENT -->
+    <div id="page-wrapper">
+
+        <div class="page-content evaluate-idea">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-title">
+                        <h1>@evaluation.idea.title
+                        </h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+
+                    @views.html.utils.ideaDescription(evaluation.idea)
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            @*Resources*@
+                            @views.html.utils.resourcesTable(evaluation)
+                            @*End Resources*@
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="row extra-bottom-margin">
+
+                        <div class="evaluate-action multi-action @if(evaluation.isLike){show-first}">
+                            <a href="@routes.EvaluateIdeas.evaluateIdeasWithId(evaluation.idea.id)" class="follow-action first col-xs-12 btn btn-default ">Evaluate</a>
+                            <a href="@routes.EvaluateIdeas.evaluateIdeasWithId(evaluation.idea.id)" class="follow-action first col-xs-12 btn btn-default ">Edit Evaluation</a>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                    <div class="row">
+                        @for(discussion <- evaluation.idea.discussions.flatMap(_.discussion)){
+                            @discussion.description
+                            @views.html.utils.discussion()
+
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

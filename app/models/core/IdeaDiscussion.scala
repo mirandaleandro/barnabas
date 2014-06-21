@@ -20,7 +20,6 @@ class IdeaDiscussion(var createdBy:User,
 
 object IdeaDiscussion
 {
-  def findById(id: String) = byId[IdeaDiscussion](id)
 
   def apply(createdBy:User):IdeaDiscussion =
   {
@@ -31,4 +30,7 @@ object IdeaDiscussion
   {
       new IdeaDiscussion(createdBy = createdBy, description = description, parentDiscussion = parentDiscussion, isAnonymous = isAnonymous, likes = likes)
   }
+
+  def findById(id: String) = byId[IdeaDiscussion](id)
+
 }

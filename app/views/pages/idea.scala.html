@@ -1,0 +1,12 @@
+@(evaluation:models.core.IdeaUser)(implicit user:User)
+
+
+
+@pageMainContainer("Idea - " + evaluation.idea.title){
+
+    @pageTags.idea(evaluation = evaluation)
+
+}{
+}{
+}
+

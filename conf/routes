@@ -4,6 +4,7 @@
 
 # Main pages
 GET     /                                           controllers.Application.index
+GET     /idea/:ideaId                               controllers.Application.idea(ideaId)
 
 GET     /evaluate-ideas                             controllers.EvaluateIdeas.evaluateIdeas
 GET     /evaluate-ideas/:ideaId                     controllers.EvaluateIdeas.evaluateIdeasWithId(ideaId)
