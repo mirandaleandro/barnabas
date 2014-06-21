@@ -20,6 +20,40 @@ $(document).ready(function() {
 
         };
 
+        this.ideaPage = {
+            setup: function(){
+
+                $(document.body).on("click",".submit-discussion-reply",barnabas.ideaPage.submitDiscussionReply);
+
+                $(document.body).on("submit",".reply-discussion-form", function(e){
+                    e.preventDefault();
+                });
+            },
+            submitDiscussionReply: function(){
+                var form = $(this).closest("form");
+
+
+                var chatWidget = form.closest(".discussion-container").find(".chat-widget");
+                var descriptionInput = form.find(".reply-description");
+
+                $.ajax({
+                    type:"POST",
+                    url: "/forms/updateDiscussion",
+                    data: form.serialize(),
+                    success: function (data)
+                    {
+                        barnabas.displayMessage("The comment was updated successfully","success");
+                        chatWidget.append(data);
+                        descriptionInput.val("");
+                    },
+                    error: function (data)
+                    {
+                        barnabas.displayDefaultErrorMessage();
+                    }
+                });
+            }
+        }
+
         this.dashboard = {
             setup: function(){
             }
@@ -71,7 +105,6 @@ $(document).ready(function() {
                     var form = clickedButton.closest("form");
                     var anonymous = form.find(".anonymous-input");
                     anonymous.val(clickedButton.data("anonymous"));
-                              debugger;
                     barnabas.ideaEvaluation.submitDiscussion($(".submit-discussion-form"));
 
                 });
@@ -97,7 +130,6 @@ $(document).ready(function() {
                     },
                     error: function (data)
                     {
-                        debugger;
                         barnabas.displayDefaultErrorMessage();
                     }
                 });
@@ -387,6 +419,7 @@ $(document).ready(function() {
 
             barnabas.updateDataTable(".data-table");
 
+            barnabas.ideaPage.setup();
             barnabas.search.setup();
             barnabas.ideaEvaluation.setup();
             barnabas.submitIdea.setup();

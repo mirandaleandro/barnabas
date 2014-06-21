@@ -1,0 +1,18 @@
+@(discussion:models.core.IdeaDiscussion)(implicit user:User)
+
+<div class="row discussion-reply @discussion.id">
+    <div class="col-lg-12">
+        <div class="media @if(discussion.parentDiscussion.isDefined){child}">
+            <a class="pull-left" href="#">
+                <img class="discussion-picture media-object img-circle" src="@if(discussion.isAnonymous){@User.defaultAvatarUrl}else{@discussion.createdBy.avatarUrl}" alt="">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">@discussion.createdBy.fullName
+                    <span class="small pull-right">@Application.defaultDateFormat.format(discussion.creationDate)</span>
+                </h4>
+                <p>@discussion.description</p>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>

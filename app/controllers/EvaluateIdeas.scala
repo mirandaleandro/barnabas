@@ -9,6 +9,7 @@ import models.PostgresConnection._
 import models.core._
 import models.User
 import play.api.libs.json.Json
+import com.esotericsoftware.kryo.serializers.FieldSerializer.Optional
 
 /**
  * Created with IntelliJ IDEA.
@@ -73,6 +74,7 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
         form => {
 
           val evaluation: Option[IdeaUser] = IdeaUser.findById(form.evaluationId)
+
 
           evaluation.map{ evaluation =>
 
@@ -143,12 +145,13 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
   }
 
 
-  case class IdeaDiscussionForm(var ideaUserId:String, description:String, anonymous:Boolean,parentDiscussionId:Option[String])
+  case class IdeaDiscussionForm(discussionId:Option[String], ideaUserId:Option[String], description:String, anonymous:Option[Boolean],parentDiscussionId:Option[String])
   val ideaDiscussionForm = Form(
     mapping(
-      "ideaUserId" -> nonEmptyText,
+      "discussionId" -> optional(text),
+      "ideaUserId" -> optional(text),
       "description" -> nonEmptyText,
-      "anonymous" -> boolean,
+      "anonymous" -> optional(boolean),
       "parentDiscussionId" -> optional(text)
     )
       (IdeaDiscussionForm.apply)(IdeaDiscussionForm.unapply)
@@ -160,24 +163,20 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
         formWithErrors => BadRequest(formWithErrors.errorsAsJson),
         form => {
 
+          val discussion = form.discussionId.flatMap(IdeaDiscussion.findById(_)).getOrElse(IdeaDiscussion(createdBy = user))
           val parentDiscussion: Option[IdeaDiscussion] = form.parentDiscussionId.flatMap( IdeaDiscussion.findById(_) )
+          val ideaUser = form.ideaUserId.flatMap(IdeaUser.findById(_))
+          val anonymous = form.anonymous.getOrElse(false)
 
-          IdeaUser.findById(form.ideaUserId).map { ideaUser =>
+          discussion.description = form.description
+          discussion.isAnonymous = anonymous
+          discussion.parentDiscussion = parentDiscussion
 
-            val discussion = ideaUser.discussion.getOrElse(IdeaDiscussion(createdBy = user))
-            discussion.description = form.description
-            discussion.isAnonymous = form.anonymous
+          ideaUser.map(_.discussion = Some(discussion))
 
-            if(parentDiscussion.isDefined)
-              discussion.parentDiscussion = parentDiscussion
-            else
-              ideaUser.discussion = Some(discussion)
+          //The response below is used only by discussion replies and are never used to update anything when creating discussion from scretch
+          Ok(views.html.utils.discussionReply(discussion))
 
-            Ok
-
-            }.getOrElse{
-            BadRequest
-          }
         })
     }
   }
