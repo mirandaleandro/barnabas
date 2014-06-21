@@ -6,6 +6,7 @@ import models.PostgresConnection._
 import net.fwbrasil.activate.entity.Entity
 import securesocial.core.{IdentityId, Identity}
 import securesocialpersistence.UserIdentity
+import controllers.routes
 
 
 class User extends Entity with Identity
@@ -37,11 +38,13 @@ class User extends Entity with Identity
 
   def fullName: String = currentIdentity.fullName
   def email = currentIdentity.email
-  def avatarUrl = currentIdentity.avatarUrl
+  def avatarUrl: Option[String] = currentIdentity.avatarUrl
   def authMethod = currentIdentity.authMethod
   def oAuth1Info = currentIdentity.oAuth1Info
   def oAuth2Info = currentIdentity.oAuth2Info
   def passwordInfo = currentIdentity.passwordInfo
+
+  def avatarUrlOrDefault = currentIdentity.avatarUrl.getOrElse(User.defaultAvatarUrl)
 
   def setInfoForIdentity(identity:Identity)
   {
@@ -73,6 +76,8 @@ object User
 
     user
   }
+
+  def defaultAvatarUrl = routes.Assets.at("images/profile-placeholder.png")
 
   def findAll: List[User] = all[User]
 

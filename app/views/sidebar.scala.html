@@ -5,7 +5,7 @@
             <ul id="side" class="nav navbar-nav side-nav">
                     <!-- begin SIDE NAV USER PANEL -->
                 <li class="side-user hidden-xs">
-                    <img class="img-circle" src="@user.avatarUrl.getOrElse(routes.Assets.at("images/profile-placeholder.png"))" alt="">
+                    <img class="img-circle" src="@user.avatarUrlOrDefault" alt="">
                     <p class="welcome">
                         <i class="fa fa-key"></i> Logged in as
                     </p>

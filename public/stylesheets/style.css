@@ -2228,3 +2228,13 @@ input[type="checkbox"]:checked::after,
     margin-bottom: 5px;
 }
 
+.discussion-picture
+{
+    height: 40px;
+}
+
+.media.child{
+    padding-left: 20px;
+    border-left: 2px solid #CCC;
+}
+

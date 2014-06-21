@@ -166,10 +166,13 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
 
             val discussion = ideaUser.discussion.getOrElse(IdeaDiscussion(createdBy = user))
             discussion.description = form.description
-            discussion.parentDiscussion = parentDiscussion
             discussion.isAnonymous = form.anonymous
 
-            ideaUser.discussion = Some(discussion)
+            if(parentDiscussion.isDefined)
+              discussion.parentDiscussion = parentDiscussion
+            else
+              ideaUser.discussion = Some(discussion)
+
             Ok
 
             }.getOrElse{

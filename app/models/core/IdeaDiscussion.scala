@@ -16,6 +16,8 @@ class IdeaDiscussion(var createdBy:User,
                      var isAnonymous:Boolean = false,
                      var likes:Long = 0) extends Entity{
 
+  def children = IdeaDiscussion.childrenDiscussionsOfDiscussion(this)
+
 }
 
 object IdeaDiscussion
@@ -32,5 +34,10 @@ object IdeaDiscussion
   }
 
   def findById(id: String) = byId[IdeaDiscussion](id)
+
+  def childrenDiscussionsOfDiscussion(discussion:IdeaDiscussion) = query {
+      (dbDiscussion: IdeaDiscussion) =>
+        where(dbDiscussion :== discussion) select (dbDiscussion) orderBy (dbDiscussion.id desc)
+    }
 
 }

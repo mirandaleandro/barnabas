@@ -34,10 +34,7 @@ class Idea(var createdBy:User,
 
   def subDisciplines:List[SubDiscipline] = ???
 
-  def discussions ={
-
-    IdeaUser.findByIdea(idea = this)
-  }
+  def discussions = IdeaUser.discussionsByIdea(idea = this)
 
   def phase = this.ideaPhase.title
 

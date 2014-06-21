@@ -40,17 +40,11 @@
                             <a href="@routes.EvaluateIdeas.evaluateIdeasWithId(evaluation.idea.id)" class="follow-action first col-xs-12 btn btn-default ">Edit Evaluation</a>
                         </div>
 
-
-
-
-
-
                     </div>
-                    <div class="row">
-                        @for(discussion <- evaluation.idea.discussions.flatMap(_.discussion)){
-                            @discussion.description
-                            @views.html.utils.discussion()
 
+                    <div class="row">
+                        @for(discussion <- evaluation.idea.discussions){
+                            @views.html.utils.discussion(discussion)
                         }
                     </div>
 
