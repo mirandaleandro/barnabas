@@ -64,4 +64,21 @@ object Application extends Controller with securesocial.core.SecureSocial{
       }
     }
   }
+
+  def user(userId:String) = {
+    SecuredAction { implicit request =>
+      transactional{
+        implicit val user = request.user
+
+        User.findById(userId).map{ pageUser =>
+
+          Ok(views.html.pages.user(pageUser = pageUser))
+
+        }.getOrElse{
+          NotFound
+        }
+
+      }
+    }
+  }
 }

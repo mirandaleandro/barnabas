@@ -69,7 +69,7 @@
                                 <tbody>
                                     @for( researcher <- Search.researchers){
                                         <tr>
-                                            <td>@researcher.firstName &nbsp; @researcher.lastName</td>
+                                            <td><a href="@routes.Application.user(researcher.id)"> @researcher.firstName &nbsp; @researcher.lastName </a></td>
                                             <td>@researcher.affiliation.getOrElse("(Not provided)")</td>
                                             <td>@researcher.contributions</td>
                                             <td class="center">@researcher.evaluations</td>

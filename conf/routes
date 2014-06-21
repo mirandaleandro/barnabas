@@ -8,6 +8,7 @@ GET     /idea/:ideaId                               controllers.Application.idea
 
 GET     /evaluate-ideas                             controllers.EvaluateIdeas.evaluateIdeas
 GET     /evaluate-ideas/:ideaId                     controllers.EvaluateIdeas.evaluateIdeasWithId(ideaId)
+GET     /user/:userId                               controllers.Application.user(userId)
 
 GET     /submit-an-idea                             controllers.Application.submitIdeas
 GET     /get-inspired                               controllers.Application.getInspired

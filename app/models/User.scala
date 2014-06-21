@@ -79,6 +79,8 @@ object User
 
   def defaultAvatarUrl = routes.Assets.at("images/profile-placeholder.png")
 
+  def findById(id:String): Option[User] = byId[User](id)
+
   def findAll: List[User] = all[User]
 
   def findByIdentityId(id: IdentityId): Option[User] =

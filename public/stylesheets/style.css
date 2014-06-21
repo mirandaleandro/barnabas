@@ -2238,3 +2238,8 @@ input[type="checkbox"]:checked::after,
     border-left: 2px solid #CCC;
 }
 
+.navbar-side .side-nav > li > a.avatar-link{
+    padding: 0;
+    margin: 0;
+    width: 0;
+}
