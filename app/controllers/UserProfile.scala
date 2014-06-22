@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.mvc.Controller
+import play.api.mvc.{Action, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
 import models.PostgresConnection._
@@ -14,6 +14,11 @@ import models.User
  * To change this template use File | Settings | File Templates.
  */
 object UserProfile extends Controller with securesocial.core.SecureSocial {
+
+  val IMAGE_STORAGE_FOLDER = "public/images/custom_profile_pics/"
+  val IMAGE_ASSETS_FOLDER = "images/custom_profile_pics/"
+
+
 
   case class BasicUserInformationForm(var userId:String,
                                       var affiliation:Option[String],
@@ -102,5 +107,23 @@ object UserProfile extends Controller with securesocial.core.SecureSocial {
           }
         }
       )
+  }
+
+
+  def profilePicUpload = Action(parse.multipartFormData) { request =>
+    request.body.file("file").map { picture =>
+      val filename = CustomRandom.nextString(28)
+
+      val path = String.format("%s%s",IMAGE_STORAGE_FOLDER, filename)
+
+      val file =new java.io.File(path)
+
+      picture.ref.moveTo(file)
+
+      Ok(routes.Assets.at(IMAGE_ASSETS_FOLDER + filename).url)
+
+    }.getOrElse{
+      BadRequest("UPLOAD FAILED")
+    }
   }
 }

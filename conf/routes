@@ -49,6 +49,7 @@ POST /forms/addResource                             controllers.EvaluateIdeas.ad
 POST /forms/likeResource                            controllers.EvaluateIdeas.likeResource
 POST /forms/updateDiscussion                        controllers.EvaluateIdeas.updateDiscussion
 POST /forms/updateUserProfile                       controllers.UserProfile.updateProfile
+POST /forms/updateProfilePicture                    controllers.UserProfile.profilePicUpload
 
 GET /forms/voteIdea/:ideaUserId/:vote               controllers.EvaluateIdeas.voteIdea(ideaUserId, vote:Boolean)
 GET /forms/follow/:ideaUserId                       controllers.EvaluateIdeas.follow(ideaUserId)
