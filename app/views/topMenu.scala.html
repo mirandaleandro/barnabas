@@ -34,39 +34,64 @@
 
                     <!-- begin MESSAGES DROPDOWN -->
                     <li class="dropdown">
-                        <a href="#" class="messages-link dropdown-toggle" data-toggle="dropdown">
+                        <a href="#" data-url="@routes.TopMenu.updateMessagesCheckIn" class="messages-link dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope"></i>
-                            <span class="number">4</span> <i class="fa fa-caret-down"></i>
+                            @if(!user.newOtherDiscussionsOnMyIdeas.isEmpty){<span class="number">@user.newOtherDiscussionsOnMyIdeas.size</span>} <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-scroll dropdown-messages">
 
                             <!-- Messages Dropdown Heading -->
                             <li class="dropdown-header">
-                                <i class="fa fa-envelope"></i> 4 New Messages
+                                <i class="fa fa-envelope"></i> @user.newOtherDiscussionsOnMyIdeas.size New Messages
                             </li>
+
 
                             <!-- Messages Dropdown Body - This is contained within a SlimScroll fixed height box. You can change the height using the SlimScroll jQuery features. -->
                             <li id="messageScroll">
                                 <ul class="list-unstyled">
 
-                                    @for(discussion <- user.otherDiscussionsOnMyIdeas ){
+                                    @if(user.otherDiscussionsOnMyIdeas.isEmpty){
+                                        <li>
+                                            <div class="row">
+                                                <div class="empty-notifications col-xs-12">
+                                                    <p>
+                                                        <strong>No discussions have been found</strong>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }else{
+                                        @for(discussion <- user.otherDiscussionsOnMyIdeas ){
                                         <li>
                                             <a href="@discussion.closest.evaluation.map{ e => @routes.Application.idea(e.idea.id) }">
                                                 <div class="row">
                                                     <div class="col-xs-2">
                                                         <img class="discussion-picture img-circle" src="@discussion.creatorAvatar" alt="">
                                                     </div>
+
                                                     <div class="col-xs-10">
                                                         <p>
                                                             <strong>@discussion.creatorName</strong>: @discussion.shortenedDescription(40)
                                                         </p>
+
                                                         <p class="small">
-                                                            <i class="fa fa-clock-o"></i> @Application.defaultDateFormat.format(discussion.creationDate)
+
+                                                        @if(discussion.creationDate.after(user.lastCheckOnMessages)){
+                                                            <span>
+                                                                <i class="fa fa-circle text-green"></i> New
+                                                            </span>
+                                                        }
+
+                                                            <span>
+                                                                <i class="fa fa-clock-o"></i> @Application.defaultDateFormat.format(discussion.creationDate)
+                                                            </span>
                                                         </p>
+
                                                     </div>
                                                 </div>
                                             </a>
                                         </li>
+                                        }
                                     }
 
                                 </ul>

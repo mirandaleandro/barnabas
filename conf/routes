@@ -50,6 +50,7 @@ POST /forms/likeResource                            controllers.EvaluateIdeas.li
 POST /forms/updateDiscussion                        controllers.EvaluateIdeas.updateDiscussion
 POST /forms/updateUserProfile                       controllers.UserProfile.updateProfile
 POST /forms/updateProfilePicture                    controllers.UserProfile.profilePicUpload
+POST /forms/updateMessagesCheckIn                   controllers.TopMenu.updateMessagesCheckIn
 
 GET /forms/voteIdea/:ideaUserId/:vote               controllers.EvaluateIdeas.voteIdea(ideaUserId, vote:Boolean)
 GET /forms/follow/:ideaUserId                       controllers.EvaluateIdeas.follow(ideaUserId)

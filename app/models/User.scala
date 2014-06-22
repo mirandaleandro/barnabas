@@ -8,10 +8,12 @@ import securesocial.core.{IdentityId, Identity}
 import securesocialpersistence.UserIdentity
 import controllers.routes
 import securesocial.core.IdentityId
+import java.util.Date
 
 
 class User extends Entity with Identity
 {
+
   var currentIdentity:UserIdentity = _
   var currentSubDiscipline:SubDiscipline = _
 
@@ -37,6 +39,7 @@ class User extends Entity with Identity
   var socialProfileLinkedIn:Option[String] = _
   var socialProfileGoogle:Option[String] = _
   var socialProfileTwitter:Option[String] = _
+  var lastCheckOnMessages:Date = new Date
 
   def identities: List[UserIdentity] = List.empty[UserIdentity]
   def identityId  = currentIdentity.identityId
@@ -83,6 +86,10 @@ class User extends Entity with Identity
     this.setAvatarUrlWithCurrentIdentity()
   }
 
+  def updateMessagesCheckIn() {
+    lastCheckOnMessages = new Date
+  }
+
   def ideasCreated:List[Idea] = Idea.ideaFromUser(this)
 
   def evaluationsOfIdeasAuthored:List[IdeaUser] = {
@@ -99,6 +106,8 @@ class User extends Entity with Identity
   }
 
   def otherDiscussionsOnMyIdeas = discussionsOnMyIdeas.filter(_.createdBy != this)
+
+  def newOtherDiscussionsOnMyIdeas = otherDiscussionsOnMyIdeas.filter(_.creationDate after lastCheckOnMessages)
 
   def ideasFollowed:List[Idea] = IdeaUser.ideasFollowedByUser(this)
 

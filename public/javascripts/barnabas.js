@@ -20,6 +20,24 @@ $(document).ready(function() {
 
         };
 
+        this.topMenu = {
+            setup: function(){
+                $(document.body).on("click",".messages-link",barnabas.topMenu.updateCheckIn);
+            },
+            updateCheckIn:function(){
+                var dataURL = $(this).data("url");
+
+                $.ajax({
+                    type: "POST",
+                    url: dataURL,
+                    success: function()
+                    {
+                       console.log("Checked in" + dataURL);
+                    }
+                });
+            }
+        }
+
         this.userProfile = {
             setup:function(){
                 $(document.body).on("click",".submit-user-info",barnabas.userProfile.submitProfileUpdateForm);
@@ -480,6 +498,7 @@ $(document).ready(function() {
 
             barnabas.updateDataTable(".data-table");
 
+            barnabas.topMenu.setup();
             barnabas.userProfile.setup();
             barnabas.ideaPage.setup();
             barnabas.search.setup();

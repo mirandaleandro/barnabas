@@ -2286,3 +2286,9 @@ form.dropzone{
     color: white;
     margin: 0;
 }
+
+.empty-notifications{
+    text-align: center;
+    line-height: 180px;
+    color: #666;
+}
