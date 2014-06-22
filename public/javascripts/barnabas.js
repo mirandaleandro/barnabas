@@ -28,7 +28,7 @@ $(document).ready(function() {
                     e.preventDefault();
                 });
 
-                //barnabas.userProfile.setupFileUploader();
+                barnabas.userProfile.setupFileUploader();
             },
             submitProfileUpdateForm: function(){
                 var form = $(this).closest("form");
@@ -47,26 +47,23 @@ $(document).ready(function() {
                     }
                 });
             },
-            setupUserProfile: function(){
-                var url = "/forms/updateProfilePicture";
+            setupFileUploader: function(){
 
-                $('.upload-profile-image').fileupload({
-                    url: url,
-                    dataType: 'json',
-                    done: function (e, data) {
-                        $.each(data.result.files, function (index, file) {
-                            $('<p/>').text(file.name).appendTo('#files');
-                        });
+                Dropzone.options.myAwesomeDropzone = {
+                    init: function() {
+                        this.on("success", barnabas.userProfile.profileImageSuccessFull);
                     },
-                    progressall: function (e, data) {
-                        var progress = parseInt(data.loaded / data.total * 100, 10);
-                        $('#progress .progress-bar').css(
-                            'width',
-                            progress + '%'
-                        );
-                    }
-                }).prop('disabled', !$.support.fileInput)
-                    .parent().addClass($.support.fileInput ? undefined : 'disabled');
+                    paramName: "file", // The name that will be used to transfer the file
+                    maxFilesize: 2, // MB
+                    uploadMultiple: false,
+                    createImageThumbnails:false,
+                    acceptedFiles:"image/*",
+                    previewsContainer:""
+                };
+            },
+            profileImageSuccessFull:function(file){
+                $(".img-profile").attr("src", file.xhr.response);
+                debugger;
             }
         }
 
