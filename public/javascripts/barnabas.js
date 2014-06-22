@@ -185,8 +185,20 @@ $(document).ready(function() {
                     e.preventDefault();
                 });
 
+                $(document.body).on("keydown",barnabas.ideaEvaluation.manageKeyPressing);
+
                 barnabas.ideaEvaluation.setSlider();
 
+            },
+            manageKeyPressing: function(event){
+                if(event.which == 113) { //F2
+                    var url  = $(".next-action").attr("href");
+
+                    if(url)
+                        window.location.replace(url);
+
+                    return false;
+                }
             },
             submitDiscussion: function(form){
                 var summernoteTextarea = $('.additional-feedback-rich-textarea');
