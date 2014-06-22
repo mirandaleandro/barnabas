@@ -110,20 +110,25 @@ object UserProfile extends Controller with securesocial.core.SecureSocial {
   }
 
 
-  def profilePicUpload = Action(parse.multipartFormData) { request =>
-    request.body.file("file").map { picture =>
-      val filename = CustomRandom.nextString(28)
+  def profilePicUpload = SecuredAction(parse.multipartFormData) { request =>
+      request.request.body.file("file").map { picture =>
+        transactional{
+          implicit val user = request.user
 
-      val path = String.format("%s%s",IMAGE_STORAGE_FOLDER, filename)
+          val filename = CustomRandom.nextString(28)
 
-      val file =new java.io.File(path)
+          val path = String.format("%s%s",IMAGE_STORAGE_FOLDER, filename)
 
-      picture.ref.moveTo(file)
+          val file =new java.io.File(path)
 
-      Ok(routes.Assets.at(IMAGE_ASSETS_FOLDER + filename).url)
+          picture.ref.moveTo(file)
 
-    }.getOrElse{
-      BadRequest("UPLOAD FAILED")
+          user.avatarUrl = Some(routes.Assets.at(IMAGE_ASSETS_FOLDER + filename).url)
+
+          Ok(user.avatarUrl.get)
+        }
+      }.getOrElse{
+        BadRequest("UPLOAD FAILED")
+      }
     }
-  }
 }

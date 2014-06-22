@@ -27,6 +27,8 @@ $(document).ready(function() {
                 $(document.body).on("submit",".update-user-info-form", function(e){
                     e.preventDefault();
                 });
+
+                //barnabas.userProfile.setupFileUploader();
             },
             submitProfileUpdateForm: function(){
                 var form = $(this).closest("form");
@@ -44,8 +46,27 @@ $(document).ready(function() {
                         barnabas.displayDefaultErrorMessage();
                     }
                 });
+            },
+            setupUserProfile: function(){
+                var url = "/forms/updateProfilePicture";
 
-
+                $('.upload-profile-image').fileupload({
+                    url: url,
+                    dataType: 'json',
+                    done: function (e, data) {
+                        $.each(data.result.files, function (index, file) {
+                            $('<p/>').text(file.name).appendTo('#files');
+                        });
+                    },
+                    progressall: function (e, data) {
+                        var progress = parseInt(data.loaded / data.total * 100, 10);
+                        $('#progress .progress-bar').css(
+                            'width',
+                            progress + '%'
+                        );
+                    }
+                }).prop('disabled', !$.support.fileInput)
+                    .parent().addClass($.support.fileInput ? undefined : 'disabled');
             }
         }
 

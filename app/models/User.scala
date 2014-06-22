@@ -69,7 +69,7 @@ class User extends Entity with Identity
   def oAuth1Info = currentIdentity.oAuth1Info
   def oAuth2Info = currentIdentity.oAuth2Info
   def passwordInfo = currentIdentity.passwordInfo
-  def avatarUrlOrDefault = currentIdentity.avatarUrl.getOrElse(User.defaultAvatarUrl)
+  def avatarUrlOrDefault = avatarUrl.getOrElse(User.defaultAvatarUrl)
   def setInfoForIdentity(identity:Identity){
     val userIdentity = UserIdentity.findByIdentity(identity).getOrElse(UserIdentity(this, identity))
     userIdentity.setDisplayInfoForIdentity(identity)
