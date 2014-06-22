@@ -35,6 +35,12 @@ class CreateSchema extends Migration {
         table[Idea]
           .modifyColumnType(_.customColumn[String]("description", "TEXT"))
           .ifExists
+
+      table[IdeaDiscussion]
+          .modifyColumnType(_.customColumn[String]("description", "TEXT"))
+          .ifExists
+
+
     }
 }
 

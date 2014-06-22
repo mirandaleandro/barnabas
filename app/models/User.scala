@@ -12,9 +12,6 @@ import securesocial.core.IdentityId
 
 class User extends Entity with Identity
 {
-
-
-
   var currentIdentity:UserIdentity = _
   var currentSubDiscipline:SubDiscipline = _
 
@@ -40,7 +37,6 @@ class User extends Entity with Identity
   var socialProfileLinkedIn:Option[String] = _
   var socialProfileGoogle:Option[String] = _
   var socialProfileTwitter:Option[String] = _
-
 
   def identities: List[UserIdentity] = List.empty[UserIdentity]
   def identityId  = currentIdentity.identityId
@@ -89,9 +85,26 @@ class User extends Entity with Identity
 
   def ideasCreated:List[Idea] = Idea.ideaFromUser(this)
 
+  def evaluationsOfIdeasAuthored:List[IdeaUser] = {
+    val myIdeas = ideasCreated
+
+    myIdeas.map { IdeaUser.findByIdea(_)}.flatten.sortBy(_.creationDate).reverse
+  }
+
+  def discussionsOnMyIdeas: List[IdeaDiscussion] = {
+    val parentEvaluations = evaluationsOfIdeasAuthored.flatMap(_.discussion)
+    val children = parentEvaluations.map(_.children).flatten
+
+    (parentEvaluations ++ children).sortBy(_.creationDate).reverse
+  }
+
+  def otherDiscussionsOnMyIdeas = discussionsOnMyIdeas.filter(_.createdBy != this)
+
   def ideasFollowed:List[Idea] = IdeaUser.ideasFollowedByUser(this)
 
-  def followers:List[User] = FollowerUser.findByFollowed(this).map(_.follower)
+  def followers:List[User] = followerRelationships.map(_.follower)
+
+  def followerRelationships: List[FollowerUser] = FollowerUser.findByFollowed(this)
 
   def isFollowedBy(user: User): Boolean = followers.contains(user)
 

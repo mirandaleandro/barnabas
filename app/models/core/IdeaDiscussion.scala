@@ -16,9 +16,38 @@ class IdeaDiscussion(var createdBy:User,
                      var isAnonymous:Boolean = false,
                      var likes:Long = 0) extends Entity{
 
+
   def children = {
     IdeaDiscussion.childrenDiscussionsOfDiscussion(this).sortBy(_.creationDate)
   }
+
+  def closest = parentDiscussion.getOrElse(this)
+
+  def evaluation = IdeaUser.findByDiscussion(discussion = closest).headOption
+
+  def shortenedDescription(numberOfCharacters:Int):String = {
+    val escapedDescription = description.replaceAll("""<(?!\/?a(?=>|\s.*>))\/?.*?>""", "")
+    if (escapedDescription.length > numberOfCharacters)
+      escapedDescription.substring(0,Math.min(escapedDescription.length, numberOfCharacters )) + "..."
+    else
+      escapedDescription
+  }
+
+  def creatorName = {
+    if (isAnonymous)
+      "Anonymous"
+    else
+      createdBy.firstName + " " + createdBy.lastName
+  }
+
+  def creatorAvatar = {
+    if (isAnonymous)
+      User.defaultAvatarUrl
+    else
+      createdBy.avatarUrlOrDefault
+  }
+
+
 
 }
 

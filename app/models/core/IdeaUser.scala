@@ -72,6 +72,7 @@ class IdeaUser(var user:User, var idea:Idea, var like:Option[Boolean] = None, va
 
 object IdeaUser
 {
+
   def apply(user:User, idea:Idea, like:Option[Boolean] = None, discussion:Option[IdeaDiscussion] = None):IdeaUser =
   {
     Logger.info("IdeaUser user:"+user.fullName + " idea: "+idea.title)
@@ -89,6 +90,8 @@ object IdeaUser
   def interestedUsersInIdea(idea: Idea): List[User] = (select[IdeaUser] where(_.idea :== idea, _.interestedInCollaborate :== true)).map(_.user)
 
   def discussionsByIdea(idea:Idea): List[IdeaDiscussion] = findByIdea(idea).flatMap(_.discussion)
+
+  def findByDiscussion(discussion: IdeaDiscussion) =  select[IdeaUser] where(_.discussion :== discussion )
 
   def findByUser(user:User): List[IdeaUser] = select[IdeaUser] where(_.user :== user )
 

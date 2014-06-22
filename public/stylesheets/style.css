@@ -2281,3 +2281,8 @@ form.dropzone{
     font-size: 16px;
     text-align: center;
 }
+
+.logo-header{
+    color: white;
+    margin: 0;
+}
