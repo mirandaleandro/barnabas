@@ -1,0 +1,38 @@
+@(pageUser:models.User)(implicit user:models.User)
+
+<h3>Contact Details</h3>
+
+@pageUser.website.map{ website =>
+    <p><i class="fa fa-globe fa-muted fa-fw"></i>  <a href="@website">@website</a> </p>
+}
+@pageUser.phoneNumber.map{ phoneNumber =>
+    <p><i class="fa fa-phone fa-muted fa-fw"></i> @phoneNumber</p>
+}
+
+@pageUser.mailingAddress.map{ mailingAddress =>
+<p><i class="fa fa-building-o fa-muted fa-fw"></i> @mailingAddress
+    <br>@pageUser.mailingAddressCity, @pageUser.mailingAddressState @pageUser.mailingAddressCity</p>
+}
+
+@pageUser.email.map{ email =>
+    <p><i class="fa fa-envelope-o fa-muted fa-fw"></i>  <a href="mailto:@email">@email</a></p>
+}
+
+<ul class="list-inline">
+
+    @pageUser.socialProfileFacebook.map{ socialProfileFacebook =>
+        <li><a class="facebook-link" href="@socialProfileFacebook"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+    }
+
+    @pageUser.socialProfileTwitter.map{ socialProfileTwitter =>
+        <li><a class="twitter-link" href="@socialProfileTwitter"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+    }
+
+    @pageUser.socialProfileLinkedIn.map{ socialProfileLinkedIn =>
+        <li><a class="linkedin-link" href="@socialProfileLinkedIn"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+    }
+
+    @pageUser.socialProfileGoogle.map{ socialProfileGoogle =>
+        <li><a class="google-plus-link" href="@socialProfileGoogle"><i class="fa fa-google-plus-square fa-2x"></i></a></li>
+    }
+</ul>

@@ -86,7 +86,7 @@ object UserIdentity
         userPasswordInfo = userPasswordInfo
       )
 
-    user.currentIdentity = userIdentity
+    user.setCurrentIdentity(userIdentity)
 
     userIdentity
   }

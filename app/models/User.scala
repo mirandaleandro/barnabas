@@ -1,63 +1,92 @@
 package models
 
 
-import core.{IdeaUser, SubDiscipline, Idea}
+import core._
 import models.PostgresConnection._
 import net.fwbrasil.activate.entity.Entity
 import securesocial.core.{IdentityId, Identity}
 import securesocialpersistence.UserIdentity
 import controllers.routes
+import securesocial.core.IdentityId
 
 
 class User extends Entity with Identity
 {
-
   var currentIdentity:UserIdentity = _
   var currentSubDiscipline:SubDiscipline = _
-  var affiliation:Option[String] = _
+
   var contributions:Int = 0
   var evaluations:Int = 0
 
+  var affiliation:Option[String] = _
+  var firstName:String = _
+  var lastName:String = _
+  var fullName:String = _
+  var email:Option[String] = _
+  var avatarUrl:Option[String] = _
+  var phoneNumber:Option[String] = _
+  var mailingAddress:Option[String] = _
+  var mailingAddressCity:Option[String] = _
+  var mailingAddressState:Option[String] = _
+  var mailingAddressZipCode:Option[String] = _
+  var website:Option[String] = _
+  var about:Option[String] = _
+  var socialProfileFacebook:Option[String] = _
+  var socialProfileLinkedIn:Option[String] = _
+  var socialProfileGoogle:Option[String] = _
+  var socialProfileTwitter:Option[String] = _
+
+
   def identities: List[UserIdentity] = List.empty[UserIdentity]
-
   def identityId  = currentIdentity.identityId
-
-  def firstName: String = {
-    if(currentIdentity.firstName.isEmpty)
-      currentIdentity.fullName.split(" ").head
+  def setFirstNameWithCurrentIdentity() {
+    if(firstName == null || firstName.isEmpty)
+      firstName = currentIdentity.fullName.split(" ").head
     else
-      currentIdentity.firstName
+      firstName= currentIdentity.firstName
   }
-
-  def lastName: String ={
-    if(currentIdentity.lastName.isEmpty)
-      currentIdentity.fullName.split(" ").last
+  def setLastNameWithCurrentIdentity() {
+    if(lastName == null || lastName.isEmpty)
+      lastName = currentIdentity.fullName.split(" ").last
     else
-      currentIdentity.lastName
+      lastName = currentIdentity.lastName
   }
-
-  def fullName: String = currentIdentity.fullName
-  def email = currentIdentity.email
-  def avatarUrl: Option[String] = currentIdentity.avatarUrl
+  def setEmailWithCurrentIdentity() {
+    if(!this.email.isDefined)
+      email = currentIdentity.email
+  }
+  def setFullNameWithCurrentIdentity() {
+    if(fullName == null || fullName.isEmpty)
+      fullName = currentIdentity.fullName
+  }
+  def setAvatarUrlWithCurrentIdentity() {
+    if(!this.avatarUrl.isDefined)
+      avatarUrl = currentIdentity.avatarUrl
+  }
   def authMethod = currentIdentity.authMethod
   def oAuth1Info = currentIdentity.oAuth1Info
   def oAuth2Info = currentIdentity.oAuth2Info
   def passwordInfo = currentIdentity.passwordInfo
-
   def avatarUrlOrDefault = currentIdentity.avatarUrl.getOrElse(User.defaultAvatarUrl)
+  def setInfoForIdentity(identity:Identity){
+    val userIdentity = UserIdentity.findByIdentity(identity).getOrElse(UserIdentity(this, identity))
+    userIdentity.setDisplayInfoForIdentity(identity)
+  }
+  def setCurrentIdentity(userIdentity:UserIdentity){
+    this.currentIdentity = userIdentity
 
-  def setInfoForIdentity(identity:Identity)
-  {
-     val userIdentity = UserIdentity.findByIdentity(identity).getOrElse(UserIdentity(this, identity))
-     userIdentity.setDisplayInfoForIdentity(identity)
+    this.setFirstNameWithCurrentIdentity()
+    this.setLastNameWithCurrentIdentity()
+    this.setEmailWithCurrentIdentity()
+    this.setFullNameWithCurrentIdentity()
+    this.setAvatarUrlWithCurrentIdentity()
   }
 
   def ideasCreated:List[Idea] = Idea.ideaFromUser(this)
 
   def ideasFollowed:List[Idea] = IdeaUser.ideasFollowedByUser(this)
 
-  //TODO implement user following
-  def followers:List[User] = List.empty[User]
+  def followers:List[User] = FollowerUser.findByFollowed(this).map(_.follower)
 
   def setSubDisciplineIfEmpty() {
 
@@ -67,6 +96,7 @@ class User extends Entity with Identity
     }
   }
 
+  def subDisciplinesOfInterest = SubDisciplineInterestedUser.findByUser(user = this).map(_.subDiscipline)
 
 }
 
@@ -75,7 +105,6 @@ object User
 
   def apply() = transactional {
     val user =  new User()
-
 
     user
   }
