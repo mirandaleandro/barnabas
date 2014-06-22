@@ -1,0 +1,8 @@
+@(pageUser:User)(implicit user:User)
+
+@if(pageUser != user){
+    <div data-link="@routes.UserProfile.follow(pageUser.id)" class="relationship-action follow-user-action multi-action @if(pageUser.isFollowedBy(user)){show-first}">
+        <button class="follow-action first col-xs-12 btn btn-default ">Unfollow</button>
+        <button class="follow-action second col-xs-12 btn btn-default ">Follow</button>
+    </div>
+}

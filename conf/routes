@@ -53,6 +53,7 @@ POST /forms/updateProfilePicture                    controllers.UserProfile.prof
 
 GET /forms/voteIdea/:ideaUserId/:vote               controllers.EvaluateIdeas.voteIdea(ideaUserId, vote:Boolean)
 GET /forms/follow/:ideaUserId                       controllers.EvaluateIdeas.follow(ideaUserId)
+GET /forms/followUser/:userId                       controllers.UserProfile.follow(userId)
 GET /forms/collaborate/:ideaUserId                  controllers.EvaluateIdeas.collaborate(ideaUserId)
 
 GET  /edit/:ideaId                                  controllers.SubmitIdea.editIdea(ideaId)

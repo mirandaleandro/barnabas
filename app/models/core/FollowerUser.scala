@@ -17,8 +17,12 @@ class FollowerUser(var followed:User, var follower:User) extends Entity{
 object  FollowerUser{
 
   def apply(followed:User, follower:User) = {
-     new FollowerUser(followed = followed, follower = follower)
+    new FollowerUser(followed = followed, follower = follower)
   }
 
   def findByFollowed(followed:User) = select[FollowerUser] where(_.followed :== followed)
+
+  def findByFollowedAndFollower(followed: User, follower: User) = {
+    (select[FollowerUser] where(_.followed :== followed, _.follower :== follower) ).headOption
+  }
 }

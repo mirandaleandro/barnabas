@@ -12,6 +12,9 @@ import securesocial.core.IdentityId
 
 class User extends Entity with Identity
 {
+
+
+
   var currentIdentity:UserIdentity = _
   var currentSubDiscipline:SubDiscipline = _
 
@@ -89,6 +92,18 @@ class User extends Entity with Identity
   def ideasFollowed:List[Idea] = IdeaUser.ideasFollowedByUser(this)
 
   def followers:List[User] = FollowerUser.findByFollowed(this).map(_.follower)
+
+  def isFollowedBy(user: User): Boolean = followers.contains(user)
+
+  def toggleFollow(userToBeFollowed: User)
+  {
+    val followedRelation  = FollowerUser.findByFollowedAndFollower(followed = userToBeFollowed,follower = this)
+
+    if(followedRelation.isDefined)
+      followedRelation.get.delete
+    else
+      FollowerUser(followed = userToBeFollowed,follower = this)
+  }
 
   def setSubDisciplineIfEmpty() {
 

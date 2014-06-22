@@ -41,7 +41,7 @@
                                     </div-->
                                 </div>
                                 <div class="col-lg-7 col-md-5">
-                                    <h1>@pageUser.fullName</h1>
+                                    <h1>@pageUser.fullName <span class="pull-right">@views.html.utils.user.followUserAction(pageUser)</span></h1>
                                     <p>@pageUser.about.getOrElse("(not provided)")</p>
                                     <ul class="user-info-list">
                                         @pageUser.mailingAddressCity.map{ city =>

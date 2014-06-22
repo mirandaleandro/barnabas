@@ -5,6 +5,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.PostgresConnection._
 import models.User
+import models.core.IdeaUser
 
 /**
  * Created with IntelliJ IDEA.
@@ -131,4 +132,23 @@ object UserProfile extends Controller with securesocial.core.SecureSocial {
         BadRequest("UPLOAD FAILED")
       }
     }
+
+
+  def follow(userId:String) = SecuredAction{ implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      User.findById(userId).map { userToBeFollowed =>
+
+        user.toggleFollow(userToBeFollowed)
+
+        Ok(views.html.utils.user.followUserAction(userToBeFollowed))
+
+      }.getOrElse{
+
+        BadRequest
+
+      }
+    }
+  }
 }

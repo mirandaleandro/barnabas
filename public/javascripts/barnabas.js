@@ -29,6 +29,9 @@ $(document).ready(function() {
                 });
 
                 barnabas.userProfile.setupFileUploader();
+
+                $(document.body).on("click",".follow-user-action button",barnabas.ideaEvaluation.followOrCollaborate);
+
             },
             submitProfileUpdateForm: function(){
                 var form = $(this).closest("form");
@@ -190,7 +193,6 @@ $(document).ready(function() {
                 var clickedButton = $(this);
                 var actionContainer = clickedButton.closest(".relationship-action");
                 var url = actionContainer.data("link");
-
                 $.ajax({
                     url:url,
                     success: function(data)
