@@ -2261,3 +2261,23 @@ td.user-column{
     list-style: none;
     padding-left: 0;
 }
+
+.dz-file-preview {
+     display: none;
+}
+
+form.dropzone{
+    background-size: 250px;
+    height: 235px;
+    border: 1px solid;
+    width: 250px;
+}
+
+.dz-default.dz-message {
+    color: #FAFAFA;
+    background-color: rgba(0,0,0,0.4);
+    height: 100%;
+    line-height: 248px;
+    font-size: 16px;
+    text-align: center;
+}

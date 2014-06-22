@@ -52,18 +52,22 @@ $(document).ready(function() {
                 Dropzone.options.myAwesomeDropzone = {
                     init: function() {
                         this.on("success", barnabas.userProfile.profileImageSuccessFull);
+                        this.on("error", barnabas.userProfile.errorImageUpload);
+                        this.on("canceled", barnabas.userProfile.errorImageUpload);
                     },
                     paramName: "file", // The name that will be used to transfer the file
                     maxFilesize: 2, // MB
                     uploadMultiple: false,
                     createImageThumbnails:false,
-                    acceptedFiles:"image/*",
-                    previewsContainer:""
+                    acceptedFiles:"image/*"
                 };
             },
             profileImageSuccessFull:function(file){
                 $(".img-profile").attr("src", file.xhr.response);
-                debugger;
+                $("form.dropzone").css("backgroundImage","url("+"'"+file.xhr.response+"'"+")")
+            },
+            errorImageUpload: function(file){
+                barnabas.displayErrorMessage("Oh snap! An internal error happened while updating your picture.")
             }
         }
 

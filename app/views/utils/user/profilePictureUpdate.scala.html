@@ -4,9 +4,9 @@
 
 <div class="tab-pane fade" id="profilePicture">
     <h3>Current Picture:</h3>
-    <img class="img-responsive img-profile" src="@pageUser.avatarUrlOrDefault" alt="">
-    <br>
 
-    <form action="@routes.UserProfile.profilePicUpload" class="dropzone" id="my-awesome-dropzone"></form>
+    <form action="@routes.UserProfile.profilePicUpload" class="dropzone" id="my-awesome-dropzone"
+        style="background-image: url('@pageUser.avatarUrlOrDefault');">
+    </form>
 
 </div>
