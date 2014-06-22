@@ -122,6 +122,8 @@ class CreateTestData extends Migration {
          val user5 = User()
 
          val identity = UserIdentity(user,socialUser)
+         user.isAdmin = true
+
          val identity1 = UserIdentity(user1,socialUser1)
          val identity2 = UserIdentity(user2,socialUser2)
          val identity3 = UserIdentity(user3,socialUser3)

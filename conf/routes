@@ -44,11 +44,11 @@ GET     /not-authorized                             securesocial.controllers.Pro
 POST    /summernote/uploadImage                     controllers.SubmitIdea.richTextImageUpload
 
 #Forms
-
 POST /forms/submitIdea                              controllers.SubmitIdea.submitIdea
 POST /forms/addResource                             controllers.EvaluateIdeas.addResource
 POST /forms/likeResource                            controllers.EvaluateIdeas.likeResource
 POST /forms/updateDiscussion                        controllers.EvaluateIdeas.updateDiscussion
+POST /forms/updateUserProfile                       controllers.UserProfile.updateProfile
 
 GET /forms/voteIdea/:ideaUserId/:vote               controllers.EvaluateIdeas.voteIdea(ideaUserId, vote:Boolean)
 GET /forms/follow/:ideaUserId                       controllers.EvaluateIdeas.follow(ideaUserId)

@@ -15,6 +15,8 @@ class User extends Entity with Identity
   var currentIdentity:UserIdentity = _
   var currentSubDiscipline:SubDiscipline = _
 
+  var isAdmin: Boolean = false  //this is very primitive but we must to study users roles properly before implementing a good solution for permissions
+
   var contributions:Int = 0
   var evaluations:Int = 0
 
@@ -97,6 +99,8 @@ class User extends Entity with Identity
   }
 
   def subDisciplinesOfInterest = SubDisciplineInterestedUser.findByUser(user = this).map(_.subDiscipline)
+
+  def canEditUser(user:User) = isAdmin || user == this
 
 }
 

@@ -1,0 +1,83 @@
+@(pageUser:User)(implicit user:User)
+
+<div class="tab-pane fade in active" id="basicInformation">
+    <form class="update-user-info-form" action="@routes.UserProfile.updateProfile" method="POST" role="form">
+        <h4 class="page-header">Personal Information:</h4>
+
+        <input type="hidden" name="userId" value="@pageUser.id">
+
+        <div class="form-group">
+            <label>First Name</label>
+            <input required="true" name="firstName" type="text" class="form-control" value="@pageUser.firstName" placeholder="e.g George">
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <input required="true" name="lastName" type="text" class="form-control" value="@pageUser.lastName" placeholder="e.g Bush">
+        </div>
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input required="true" name="fullName" type="text" class="form-control" value="@pageUser.fullName" placeholder="e.g George Walker Bush">
+        </div>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input name="phoneNumber" type="tel" class="form-control" value="@pageUser.phoneNumber" placeholder="e.g +1 888 8888">
+        </div>
+        <label>Address</label>
+        <div class="col-xs-12 form-group">
+            <label>Street</label>
+            <input name="mailingAddress" type="text" class="form-control" value="@pageUser.mailingAddress" placeholder="e.g 7985 S Main Street">
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12 col-md-4 form-group">
+                <label>City</label>
+                <input name="mailingAddressCity" type="text" class="form-control" value="@pageUser.mailingAddressCity"  placeholder="e.g Salt Lake City">
+            </div>
+            <div class="col-xs-12 col-md-4 form-group">
+                <label>State</label>
+                <input name="mailingAddressState" type="text" class="form-control" value="@pageUser.mailingAddressState" placeholder="e.g UT">
+            </div>
+            <div class="col-xs-12 col-md-4 form-group">
+                <label>ZIP</label>
+                <input name="mailingAddressZipCode" type="text" class="form-control" value="@pageUser.mailingAddressZipCode" placeholder="e.g 88888">
+            </div>
+        </div>
+        <h4 class="page-header">Contact Details:</h4>
+        <div class="form-group">
+            <label><i class="fa fa-envelope-o fa-fw"></i> Email Address</label>
+            <input name="email" type="email" class="form-control" value="@pageUser.email" placeholder="e.g example@@example.com">
+        </div>
+        <div class="form-group">
+            <label><i class="fa fa-globe fa-fw"></i> Website</label>
+            <input name="website" type="url" class="form-control" value="@pageUser.website" placeholder="e.g http://www.mydomain.com">
+        </div>
+        <h4 class="page-header">Profile Information:</h4>
+        <div class="form-group">
+            <label><i class="fa fa-info fa-fw"></i> About</label>
+            <textarea name="about" class="form-control" rows="3" placeholder="Please tell us a little bit about yourself.">@pageUser.about</textarea>
+        </div>
+        <div class="form-group">
+            <label><i class="fa fa-building-o fa-fw"></i> Affiliation</label>
+            <input name="affiliation" type="text" class="form-control" value="@pageUser.affiliation" placeholder="e.g Brigham Young University">
+        </div>
+        <h4 class="page-header">Social Profiles:</h4>
+        <div class="form-group">
+            <label><i class="fa fa-facebook fa-fw"></i> Facebook Profile URL</label>
+            <input name="socialProfileFacebook" type="url" class="form-control" value="@pageUser.socialProfileFacebook" placeholder="e.g http://facebook.com/myprofile">
+        </div>
+        <div class="form-group">
+            <label><i class="fa fa-linkedin fa-fw"></i> LinkedIn Profile URL</label>
+            <input name="socialProfileLinkedIn" type="url" class="form-control" value="@pageUser.socialProfileLinkedIn" placeholder="e.g http://www.linkedin.com/in/myprofile">
+        </div>
+        <div class="form-group">
+            <label><i class="fa fa-google-plus fa-fw"></i> Google+ Profile URL</label>
+            <input name="socialProfileGoogle" type="url" class="form-control" value="@pageUser.socialProfileGoogle" placeholder="e.g http://plus.google.com/userid">
+        </div>
+        <div class="form-group">
+            <label><i class="fa fa-twitter fa-fw"></i> Twitter Username</label>
+            <input name="socialProfileTwitter" type="text" class="form-control" value="@pageUser.socialProfileTwitter" placeholder="e.g http://twitter.com/myprofile">
+        </div>
+        <button type="submit" class="submit-user-info btn btn-default">Update Profile</button>
+        <button class="btn btn-green">Cancel</button>
+    </form>
+</div>

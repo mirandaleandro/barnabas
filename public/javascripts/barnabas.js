@@ -20,6 +20,35 @@ $(document).ready(function() {
 
         };
 
+        this.userProfile = {
+            setup:function(){
+                $(document.body).on("click",".submit-user-info",barnabas.userProfile.submitProfileUpdateForm);
+
+                $(document.body).on("submit",".update-user-info-form", function(e){
+                    e.preventDefault();
+                });
+            },
+            submitProfileUpdateForm: function(){
+                var form = $(this).closest("form");
+
+                $.ajax({
+                    type:"POST",
+                    url: "/forms/updateUserProfile",
+                    data: form.serialize(),
+                    success: function (data)
+                    {
+                        barnabas.displayMessage("Profile updated success fully","success");
+                    },
+                    error: function (data)
+                    {
+                        barnabas.displayDefaultErrorMessage();
+                    }
+                });
+
+
+            }
+        }
+
         this.ideaPage = {
             setup: function(){
 
@@ -405,6 +434,14 @@ $(document).ready(function() {
             barnabas.displayErrorMessage("Oh snap! We could not process your request. If the problem persists, please contact the administrator");
         }
 
+        this.validateForm = function(form){
+           var response;
+           response.valid = true;
+
+
+
+           return response;
+        }
 
         this.setup = function()
         {
@@ -419,6 +456,7 @@ $(document).ready(function() {
 
             barnabas.updateDataTable(".data-table");
 
+            barnabas.userProfile.setup();
             barnabas.ideaPage.setup();
             barnabas.search.setup();
             barnabas.ideaEvaluation.setup();
@@ -433,23 +471,4 @@ $(document).ready(function() {
 
     console.log("loading barnabas");
 
-
-    window.teste = function(s,f)
-    {
-
-        var adjustment = 3-s > 0 ? 3-s : 0;
-
-        for(i = s-2; i < Math.min(s+3+adjustment, f) ; i++){
-            if(i > 0)
-            {
-                if(i == s)
-                {
-                    console.log(i + " - I'm s");
-                }else
-                {
-                    console.log(i);
-                }
-            }
-        }
-    }
 });

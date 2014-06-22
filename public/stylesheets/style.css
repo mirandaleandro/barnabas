@@ -2252,3 +2252,12 @@ td.user-column{
 .margin-topless{
     margin-top: 0;
 }
+
+.user-page .img-profile{
+    width: 250px;
+}
+
+.user-info-list{
+    list-style: none;
+    padding-left: 0;
+}
