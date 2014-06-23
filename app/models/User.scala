@@ -14,6 +14,7 @@ import java.util.Date
 class User extends Entity with Identity
 {
 
+
   var currentIdentity:UserIdentity = _
   var currentSubDiscipline:SubDiscipline = _
 
@@ -138,6 +139,8 @@ class User extends Entity with Identity
   def subDisciplinesOfInterest = SubDisciplineInterestedUser.findByUser(user = this).map(_.subDiscipline)
 
   def canEditUser(user:User) = isAdmin || user == this
+
+  def canEditIdea(idea: Idea): Boolean = isAdmin || idea.createdBy == this
 
 }
 

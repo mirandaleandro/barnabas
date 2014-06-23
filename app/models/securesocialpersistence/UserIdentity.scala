@@ -56,6 +56,7 @@ class UserIdentity (
     this.fullName = identity.fullName
     this.email = identity.email
     this.avatarUrl = identity.avatarUrl
+    this.userPasswordInfo = identity.passwordInfo.map(UserPasswordInfo(_))
   }
 }
 
@@ -104,7 +105,7 @@ object UserIdentity
 
   def findByEmailAndProvider(email: String, provider: String):Option[UserIdentity] =
   {
-    (select[UserIdentity] where( _.email :== email, _.authMethod :== provider )).headOption
+      (select[UserIdentity] where( _.email :== email, _.userPasswordInfo isNotNull )).headOption
   }
 }
 

@@ -66,28 +66,34 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
 
             val idea =  form.idea.getOrElse{Idea(createdBy = user)}
 
-            idea.title = form.title
-            idea.ideaPhase = IdeaPhase.Inception
-            idea.description = form.description
-
-            idea.addSubDiscipline(user.currentSubDiscipline)
-
-            for(topicTitle <- form.topics)
+            if(user.canEditIdea(idea))
             {
-              val cleanTitle = topicTitle.trim()
+              idea.title = form.title
+              idea.ideaPhase = IdeaPhase.Inception
+              idea.description = form.description
 
-              if( !cleanTitle.isEmpty )
+              idea.addSubDiscipline(user.currentSubDiscipline)
+
+              for(topicTitle <- form.topics)
               {
-                val topic = Topic.findBySubDisciplineAndTitle(user.currentSubDiscipline,cleanTitle).getOrElse{
-                  Topic( createdBy = user, title = cleanTitle, subDiscipline = user.currentSubDiscipline)
+                val cleanTitle = topicTitle.trim()
+
+                if( !cleanTitle.isEmpty )
+                {
+                  val topic = Topic.findBySubDisciplineAndTitle(user.currentSubDiscipline,cleanTitle).getOrElse{
+                    Topic( createdBy = user, title = cleanTitle, subDiscipline = user.currentSubDiscipline)
+                  }
+
+                  idea.addTopic(topic = topic)
                 }
 
-                idea.addTopic(topic = topic)
               }
 
+              Ok(views.html.pages.submitIdea()).flashing("message" -> "Idea Submitted!")
+            }else
+            {
+              BadRequest("Permission Denied")
             }
-
-           Ok(views.html.pages.submitIdea()).flashing("message" -> "Idea Submitted!")
           }
         }
       )
@@ -98,9 +104,13 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
     {
       implicit val user = request.user
 
-      Idea.findById(ideaId).map {
+      Idea.findById(ideaId).flatMap {
         idea =>
-          Ok(views.html.pages.submitIdea(Some(idea)))
+          if(user.canEditIdea(idea))
+            Some(Ok(views.html.pages.submitIdea(Some(idea))))
+          else
+            None
+
       }.getOrElse{
           NotFound(views.html.errors.notFound(request.request))
       }

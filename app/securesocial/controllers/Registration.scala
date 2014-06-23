@@ -221,6 +221,7 @@ object Registration extends Controller {
   }
 
   private def executeForToken(token: String, isSignUp: Boolean, f: Token => Result): Result = {
+
     UserService.findToken(token) match {
       case Some(t) if !t.isExpired && t.isSignUp == isSignUp => {
         f(t)
@@ -279,7 +280,9 @@ object Registration extends Controller {
   }
 
   def startResetPassword = Action { implicit request =>
-    Ok(use[TemplatesPlugin].getStartResetPasswordPage(request, startForm ))
+    transactional{
+      Ok(use[TemplatesPlugin].getStartResetPasswordPage(request, startForm ))
+    }
   }
 
   def handleStartResetPassword = Action { implicit request =>
@@ -288,24 +291,28 @@ object Registration extends Controller {
         BadRequest(use[TemplatesPlugin].getStartResetPasswordPage(request , errors))
       },
       email => {
-        UserService.findByEmailAndProvider(email, UsernamePasswordProvider.UsernamePassword) match {
-          case Some(user) => {
-            val token = createToken(email, isSignUp = false)
-            Mailer.sendPasswordResetEmail(user, token._1)
+        transactional{
+          UserService.findByEmailAndProvider(email, UsernamePasswordProvider.UsernamePassword) match {
+            case Some(user) => {
+              val token = createToken(email, isSignUp = false)
+              Mailer.sendPasswordResetEmail(user, token._1)
+            }
+            case None => {
+              Mailer.sendUnkownEmailNotice(email)
+            }
           }
-          case None => {
-            Mailer.sendUnkownEmailNotice(email)
-          }
+          Redirect(onHandleStartResetPasswordGoTo).flashing(Success -> Messages(ThankYouCheckEmail))
         }
-        Redirect(onHandleStartResetPasswordGoTo).flashing(Success -> Messages(ThankYouCheckEmail))
       }
     )
   }
 
   def resetPassword(token: String) = Action { implicit request =>
-    executeForToken(token, false, { t =>
-      Ok(use[TemplatesPlugin].getResetPasswordPage(request, changePasswordForm, token))
-    })
+    transactional{
+      executeForToken(token, false, { t =>
+        Ok(use[TemplatesPlugin].getResetPasswordPage(request, changePasswordForm, token))
+      })
+    }
   }
 
   def handleResetPassword(token: String) = Action { implicit request =>
