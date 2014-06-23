@@ -15,7 +15,7 @@ object PostgresConnection extends ActivateContext
     val jdbcDriver = "org.postgresql.Driver"
     val user = "kavafnpqoymcry"
     val password = "FZOKl0ExcsqMgCRkxbyWK1_CHR"
-    val url = "jdbc:postgresql://ec2-184-73-194-196.compute-1.amazonaws.com/dbc4t576sli53u"
+    val url = "jdbc:postgresql://ec2-54-204-21-178.compute-1.amazonaws.com/dbc4t576sli53u"
     val dialect = postgresqlDialect
   }
 }
