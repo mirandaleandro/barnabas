@@ -15,10 +15,24 @@ object PostgresConnection extends ActivateContext
     val jdbcDriver = "org.postgresql.Driver"
     val user = "kavafnpqoymcry"
     val password = "FZOKl0ExcsqMgCRkxbyWK1_CHR"
-    val url = "postgres://kavafnpqoymcry:FZOKl0ExcsqMgCRkxbyWK1_CHR@ec2-54-204-21-178.compute-1.amazonaws.com:5432/dbc4t576sli53u"
+    val url = "jdbc:postgresql://ec2-184-73-194-196.compute-1.amazonaws.com/dbc4t576sli53u"
     val dialect = postgresqlDialect
   }
 }
+
+/*
+ ANGRA
+ object PostgresConnection extends ActivateContext {
+  override val storage = new PooledJdbcRelationalStorage {
+    val jdbcDriver = "org.postgresql.Driver"
+    val user = "ibibjyxukawtqo"
+    val password = "y9YH2xFG2hfTzJKbytiRspSXAr"
+    val url = "jdbc:postgresql://ec2-184-73-194-196.compute-1.amazonaws.com/d2fsoa6nldt0du"
+    val dialect = postgresqlDialect
+  }
+}
+*
+ */
 
 /*
 HEROKU
