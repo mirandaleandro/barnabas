@@ -2292,3 +2292,8 @@ form.dropzone{
     line-height: 180px;
     color: #666;
 }
+
+.floating-action{
+    display: inline-block;
+    vertical-align: middle;
+}

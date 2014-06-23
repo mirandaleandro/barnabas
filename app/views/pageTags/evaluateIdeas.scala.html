@@ -8,8 +8,8 @@
     <div class="page-content evaluate-idea">
 
         <div class="page-fixed-menu">
-            <button class="btn btn-default">Flag as inappropriate </button>
-            <a href="@routes.EvaluateIdeas.evaluateIdeas" class="btn btn-default next-action">Next(F2)</a>
+            @views.html.utils.flagInappropriate(evaluation)
+            <a href="@routes.EvaluateIdeas.evaluateIdeas" class="btn btn-default next-action floating-action">Next(F2)</a>
         </div>
 
 

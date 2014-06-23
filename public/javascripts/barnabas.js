@@ -167,7 +167,7 @@ $(document).ready(function() {
 
                 $(document.body).on("click",".voter-thumb",barnabas.ideaEvaluation.processVote);
 
-                $(document.body).on("click",".collaborate-action button, .follow-action button",barnabas.ideaEvaluation.followOrCollaborate);
+                $(document.body).on("click",".collaborate-action button, .follow-action button, .flag-action button",barnabas.ideaEvaluation.followOrCollaborate);
 
                 $(document.body).on("submit",".submit-discussion-form", function(e){
                     e.preventDefault();

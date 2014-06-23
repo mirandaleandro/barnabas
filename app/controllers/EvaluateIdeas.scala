@@ -216,4 +216,23 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
       }
     }
   }
+
+
+  def flagInappropriate(ideaUserId:String) = SecuredAction{ implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      IdeaUser.findById(ideaUserId).map { ideaUser =>
+
+        ideaUser.toggleFlagInappropriate()
+
+        Ok(views.html.utils.flagInappropriate(ideaUser))
+
+      }.getOrElse{
+
+        BadRequest
+
+      }
+    }
+  }
 }
