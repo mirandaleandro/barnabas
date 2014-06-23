@@ -13,8 +13,6 @@ import java.util.Date
 
 class User extends Entity with Identity
 {
-
-
   var currentIdentity:UserIdentity = _
   var currentSubDiscipline:SubDiscipline = _
 
