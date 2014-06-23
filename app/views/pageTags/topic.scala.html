@@ -1,0 +1,118 @@
+@(topic:models.core.Topic)(implicit user:User)
+
+<div id="wrapper">
+
+    <div id="page-wrapper">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-title">
+                        <h1>@topic.title
+                            <small>Find more about this topic!</small>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+                <!-- begin DASHBOARD CIRCLE TILES -->
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="circle-tile">
+                        <a href="@routes.Application.user(topic.createdBy.id)">
+                            <div class="circle-tile-heading dark-blue">
+                                <i class="fa fa-user fa-fw fa-3x"></i>
+                            </div>
+                        </a>
+                        <div class="circle-tile-content dark-blue">
+                            <div class="circle-tile-description text-faded">
+                                    Author
+                            </div>
+                            <div class="circle-tile-number text-faded">
+                                <a href="@routes.Application.user(topic.createdBy.id)">
+                                    @topic.createdBy.firstName
+                                    @topic.createdBy.lastName
+                                </a>
+                                <span id="sparklineA"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-6">
+                    <div class="circle-tile">
+                        <div class="circle-tile-heading green">
+                            <i class="fa fa-tasks fa-fw fa-3x"></i>
+                        </div>
+                        <div class="circle-tile-content green">
+                            <div class="circle-tile-description text-faded">
+                                    Sub Discipline
+                            </div>
+                            <div class="circle-tile-number text-faded">
+                                    @topic.subDiscipline.title
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="circle-tile">
+                        <div class="circle-tile-heading orange">
+                            <i class="fa fa-users fa-fw fa-3x"></i>
+                        </div>
+                        <div class="circle-tile-content orange">
+                            <div class="circle-tile-description text-faded">
+                                    Popularity
+                            </div>
+                            <div class="circle-tile-number text-faded">
+                                    @topic.popularity
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                <!-- end DASHBOARD CIRCLE TILES -->
+            <div class="row">
+                <div class="col-lg-12">
+
+
+                    <div class="portlet portlet-default">
+                        <div class="portlet-heading">
+                            <div class="portlet-title">
+                                <h4>Ideas regarding to topic <strong>@topic.title</strong></h4>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-responsive">
+                                <table class="data-table table table-striped table-bordered table-hover table-green">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Submission Date</th>
+                                            <th>Phase</th>
+                                            <th>Author</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            @for( idea <- topic.ideas){
+                                                <tr>
+                                                    <td><a href="@routes.Application.idea(idea.id)">@idea.title</a></td>
+                                                    <td>@Application.defaultDateFormat.format(idea.creationDate)</td>
+                                                    <td>@idea.phase</td>
+                                                    <td>@views.html.utils.userDescription(idea.createdBy)</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

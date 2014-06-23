@@ -18,7 +18,9 @@ import models.PostgresConnection._
 
 class Topic(var createdBy:User, var title:String, var subDiscipline:SubDiscipline, var popularity:Long = 0) extends Entity
 {
+  def ideasRelationships = IdeaTopic.findByTopic(this)
 
+  def ideas = ideasRelationships.map(_.idea)
 }
 
 object Topic

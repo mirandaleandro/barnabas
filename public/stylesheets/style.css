@@ -2297,3 +2297,6 @@ form.dropzone{
     display: inline-block;
     vertical-align: middle;
 }
+.circle-tile-number a{
+    color: inherit;
+}

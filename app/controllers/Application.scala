@@ -12,7 +12,7 @@ import models.User
 import reflect.io.File
 import util.Random
 import java.io
-import models.core.{IdeaUser, Idea}
+import models.core.{Topic, IdeaUser, Idea}
 
 object Application extends Controller with securesocial.core.SecureSocial{
 
@@ -56,6 +56,23 @@ object Application extends Controller with securesocial.core.SecureSocial{
           val evaluation = IdeaUser.findByIdeaAndUser(idea = idea, user = user).getOrElse(IdeaUser(user = user, idea = idea))
 
           Ok(views.html.pages.idea(evaluation = evaluation))
+
+        }.getOrElse{
+          NotFound(views.html.errors.notFound(request.request))
+        }
+
+      }
+    }
+  }
+
+  def topic(topicId:String) = {
+    SecuredAction { implicit request =>
+      transactional{
+        implicit val user = request.user
+
+        Topic.findById(topicId).map{ topic =>
+
+          Ok(views.html.pages.topic(topic))
 
         }.getOrElse{
           NotFound(views.html.errors.notFound(request.request))

@@ -1,0 +1,12 @@
+@(topic:models.core.Topic)(implicit user:User)
+@import views.html._
+
+@pageMainContainer("Topic - " + topic.title){
+
+    @pageTags.topic(topic = topic)
+
+}{
+
+}{
+
+}
