@@ -58,7 +58,7 @@ object Application extends Controller with securesocial.core.SecureSocial{
           Ok(views.html.pages.idea(evaluation = evaluation))
 
         }.getOrElse{
-          NotFound
+          NotFound(views.html.errors.notFound(request.request))
         }
 
       }

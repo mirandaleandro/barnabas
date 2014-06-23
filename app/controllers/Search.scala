@@ -39,7 +39,8 @@ object Search extends Controller with securesocial.core.SecureSocial
           Ok(views.html.pages.searchResultList(searchResults = ideas,currentPageIndex = page,lastPageIndex = pagination.numberOfPages, numberOfResults =  pagination.numberOfResults, query = query))
         }
       }catch{
-        case e:Exception => NotFound(views.html.errors.notFound(request))
+        case e:Exception =>
+          Ok(views.html.pages.searchResultList(searchResults = List.empty[Idea],currentPageIndex = page,lastPageIndex = 0, numberOfResults = 0, query = query))
       }
 
     }
@@ -56,7 +57,7 @@ object Search extends Controller with securesocial.core.SecureSocial
   def searchByPost = SecuredAction{  implicit securedRequest =>
 
     queryForm.bindFromRequest.fold(
-      formWithErrors => BadRequest("Sorry, no donut for you"),
+      formWithErrors =>Redirect(routes.Search.search("",1)),
       (form: QueryForm) => {
           Redirect(routes.Search.search(form.query,form.page.getOrElse(1)))
       })

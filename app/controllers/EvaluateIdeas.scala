@@ -32,7 +32,7 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
         IdeaUser(idea = idea, user = user)
         Redirect(routes.EvaluateIdeas.evaluateIdeasWithId(idea.id))
       }.getOrElse{
-          NotFound
+        NotFound(views.html.errors.notFound(request.request))
       }
     }
   }
@@ -50,7 +50,7 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
           Ok(views.html.pages.evaluateIdeas(evaluation = ideaUser))
 
       }.getOrElse{
-        NotFound
+        NotFound(views.html.errors.notFound(request.request))
       }
     }
   }

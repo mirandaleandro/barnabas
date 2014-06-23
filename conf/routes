@@ -12,7 +12,9 @@ GET     /user/:userId                               controllers.Application.user
 
 GET     /submit-an-idea                             controllers.Application.submitIdeas
 GET     /get-inspired                               controllers.Application.getInspired
+
 GET     /search/:query                              controllers.Search.search(query,page:Int ?= 1)
+GET     /search/                                     controllers.Search.search(query:String ?= "",page:Int ?= 1)
 
 POST    /search/                                    controllers.Search.searchByPost
 
