@@ -138,13 +138,29 @@ class CreateTestData extends Migration {
 
          val template = Template(title=true,description = true,topics = true)
          val discipline = Discipline("Information Systems",user)
+         val discipline2 = Discipline("Discipline 2",user)
+         val discipline3 = Discipline("Discipline 3",user)
          val subDiscipline = SubDiscipline("Distributed Systems", template, discipline)
+         val subDiscipline2 = SubDiscipline("Sub discipline 2", template, discipline)
+         val subDiscipline3 = SubDiscipline("Sub discipline 3", template, discipline)
+         val subDiscipline4 = SubDiscipline("Sub discipline 4", template, discipline2)
+         val subDiscipline5 = SubDiscipline("Sub discipline 5", template, discipline2)
+         val subDiscipline6 = SubDiscipline("Sub discipline 6", template, discipline2)
+         val subDiscipline7 = SubDiscipline("Sub discipline 7", template, discipline3)
+         val subDiscipline8 = SubDiscipline("Sub discipline 8", template, discipline3)
+         val subDiscipline9 = SubDiscipline("Sub discipline 9", template, discipline3)
 
          user.currentSubDiscipline = subDiscipline
          user2.currentSubDiscipline = subDiscipline
          user3.currentSubDiscipline = subDiscipline
          user4.currentSubDiscipline = subDiscipline
          user5.currentSubDiscipline = subDiscipline
+
+         SubDisciplineInterestedUser(user = user, subDiscipline = subDiscipline)
+         SubDisciplineInterestedUser(user = user2, subDiscipline = subDiscipline)
+         SubDisciplineInterestedUser(user = user3, subDiscipline = subDiscipline)
+         SubDisciplineInterestedUser(user = user4, subDiscipline = subDiscipline)
+         SubDisciplineInterestedUser(user = user5, subDiscipline = subDiscipline)
 
          val topic1 = Topic(user,"topic 1",subDiscipline = subDiscipline, popularity = 87)
          val topic2 = Topic(user,"topic 2",subDiscipline = subDiscipline, popularity = 54)

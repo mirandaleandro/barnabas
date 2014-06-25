@@ -81,4 +81,7 @@ object Search extends Controller with securesocial.core.SecureSocial
     Idea.findAll.sortBy(_.followersCount)
   }
 
+  def subDisciplines = SubDiscipline.findAll
+
+
 }

@@ -15,10 +15,11 @@ class SubDisciplineInterestedUser(var user:User, var subDiscipline:SubDiscipline
 
 }
 
-object SubDisciplineInterestedUser{
+object SubDisciplineInterestedUser
+{
+  def findByUserAndSubDiscipline(user: User, subDiscipline: SubDiscipline) =  (select[SubDisciplineInterestedUser] where(_.user :== user, _.subDiscipline :== subDiscipline)).headOption
 
   def apply(user:User, subDiscipline:SubDiscipline) = new SubDisciplineInterestedUser(user = user,subDiscipline = subDiscipline)
 
   def findByUser(user:User) = select[SubDisciplineInterestedUser] where(_.user :== user)
-
 }

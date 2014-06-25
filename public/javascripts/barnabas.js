@@ -50,6 +50,8 @@ $(document).ready(function() {
 
                 $(document.body).on("click",".follow-user-action button",barnabas.ideaEvaluation.followOrCollaborate);
 
+                $(document.body).on("click",".sub-discipline-action button",barnabas.userProfile.favoriteSubDiscipline);
+
             },
             submitProfileUpdateForm: function(){
                 var form = $(this).closest("form");
@@ -89,6 +91,29 @@ $(document).ready(function() {
             },
             errorImageUpload: function(file){
                 barnabas.displayErrorMessage("Oh snap! An internal error happened while updating your picture.")
+            },
+            favoriteSubDiscipline: function(){
+                var clickedButton = $(this);
+                var actionContainer = clickedButton.closest(".relationship-action");
+                var url = actionContainer.data("link");
+                $.ajax({
+                    url:url,
+                    success: function(data)
+                    {
+                        debugger;
+                        actionContainer.replaceWith(data);
+                    },
+                    error: function(data) {
+                        debugger;
+                        if(data.error){
+                            barnabas.displayErrorMessage(data.responseJSON.error)
+                        }else
+                        {
+                            barnabas.displayDefaultErrorMessage();
+                        }
+                    }
+                });
+
             }
         }
 

@@ -1,0 +1,43 @@
+@( pageUser:User)(implicit user:User)
+
+<div class="tab-pane fade in" id="updateSubdiscipline">
+<h3>Sub Discipline</h3>
+    <div class="col-md-12">
+        <div class="portlet portlet-default">
+            <div class="portlet-heading">
+                <div class="portlet-title">
+                    <h4>Sub Disciplines</h4>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                    <table class="explore-researcher data-table table table-striped table-bordered table-hover table-green">
+                        <thead>
+                            <tr>
+                                <th>Sub Discipline</th>
+                                <th>Discipline</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                @for( subDiscipline <- Search.subDisciplines){
+                                    <tr>
+                                        <td>@subDiscipline.title</td>
+                                        <td>@subDiscipline.discipline.title</td>
+                                        <td>@if(user.currentSubDiscipline == subDiscipline){
+                                            <i class="fa fa-star"></i>
+                                            }
+                                            @views.html.utils.user.favoriteSubDiscipline(subDiscipline,pageUser)
+
+                                        </td>
+                                    </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

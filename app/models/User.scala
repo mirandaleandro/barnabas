@@ -134,6 +134,17 @@ class User extends Entity with Identity
     }
   }
 
+  def toggleSubDisciplineInterest(subDiscipline: SubDiscipline) {
+
+    val evaluation = SubDisciplineInterestedUser.findByUserAndSubDiscipline(user = this, subDiscipline = subDiscipline)
+    if (evaluation.isDefined)
+      evaluation.get.delete
+    else
+      SubDisciplineInterestedUser(user = this, subDiscipline = subDiscipline)
+  }
+
+  def isInterestedInSubDiscipline(subDiscipline:SubDiscipline) = subDisciplinesOfInterest.contains(subDiscipline)
+
   def subDisciplinesOfInterest = SubDisciplineInterestedUser.findByUser(user = this).map(_.subDiscipline)
 
   def canEditUser(user:User) = isAdmin || user == this

@@ -17,7 +17,6 @@ class SubDiscipline(var title:String, var template:Template, var discipline:Disc
 
 object SubDiscipline
 {
-
   def apply(title:String, template:Template, discipline:Discipline, popularity:Long = 0):SubDiscipline =
   {
     new SubDiscipline(title = title, template = template, discipline = discipline, popularity = popularity)
@@ -25,4 +24,7 @@ object SubDiscipline
 
   def defaultSubDiscipline: SubDiscipline = all[SubDiscipline].head
 
+  def findAll = all[SubDiscipline]
+
+  def findById(id: String) = byId[SubDiscipline](id)
 }

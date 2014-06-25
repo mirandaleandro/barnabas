@@ -8,8 +8,10 @@
                 </li>
                 <li><a href="#profilePicture" data-toggle="tab"><i class="fa fa-picture-o fa-fw"></i> Profile Picture</a>
                 </li>
-                <!--li><a href="#changePassword" data-toggle="tab"><i class="fa fa-lock fa-fw"></i> Change Password</a>
-                </li-->
+                <li><a href="#updateSubdiscipline" data-toggle="tab"><i class="fa fa-code-fork"></i> Profile Sub Disciplines</a>
+                </li>
+                <li><a href="#changePassword" data-toggle="tab"><i class="fa fa-lock fa-fw"></i> Change Password</a>
+                </li>
             </ul>
         </div>
         <div class="col-sm-9">
@@ -17,7 +19,8 @@
 
                 @views.html.utils.user.basicInformation(pageUser = pageUser)
                 @views.html.utils.user.profilePictureUpdate(pageUser = pageUser)
-                @*@views.html.utils.user.passwordChange(pageUser = pageUser)*@
+                @views.html.utils.user.subdiscipline(pageUser = pageUser)
+                @views.html.utils.user.passwordChange(pageUser = pageUser)
 
             </div>
         </div>

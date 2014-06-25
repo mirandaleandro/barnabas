@@ -5,7 +5,9 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.PostgresConnection._
 import models.User
-import models.core.IdeaUser
+import models.core.{SubDisciplineInterestedUser, SubDiscipline, IdeaUser}
+import play.api.libs.json.Json
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -147,6 +149,39 @@ object UserProfile extends Controller with securesocial.core.SecureSocial {
       }.getOrElse{
 
         BadRequest
+
+      }
+    }
+  }
+
+  def favoriteSubDiscipline(subDisciplineId:String) = SecuredAction{ implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      SubDiscipline.findById(subDisciplineId).map { subDiscipline =>
+
+        val evaluation = SubDisciplineInterestedUser.findByUserAndSubDiscipline(user = user,subDiscipline = subDiscipline)
+
+        if(evaluation.isDefined)
+        {
+          if(user.currentSubDiscipline == subDiscipline)
+          {
+
+            BadRequest(Json.obj("error" -> "Sorry, you cannot un-favorite your current discipline."))
+          }else{
+            evaluation.get.delete
+            Ok(views.html.utils.user.favoriteSubDiscipline(subDiscipline = subDiscipline, pageUser = user))
+          }
+
+        }else
+        {
+          SubDisciplineInterestedUser(user = user,subDiscipline = subDiscipline)
+          Ok(views.html.utils.user.favoriteSubDiscipline(subDiscipline = subDiscipline, pageUser = user))
+        }
+
+      }.getOrElse{
+
+        BadRequest("Could not process request.")
 
       }
     }
