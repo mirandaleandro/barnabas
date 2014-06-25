@@ -22,14 +22,11 @@
                         </thead>
                         <tbody>
                                 @for( subDiscipline <- Search.subDisciplines){
-                                    <tr>
+                                    <tr class="@if(user.currentSubDiscipline == subDiscipline){success }">
                                         <td>@subDiscipline.title</td>
                                         <td>@subDiscipline.discipline.title</td>
-                                        <td>@if(user.currentSubDiscipline == subDiscipline){
-                                            <i class="fa fa-star"></i>
-                                            }
+                                        <td>
                                             @views.html.utils.user.favoriteSubDiscipline(subDiscipline,pageUser)
-
                                         </td>
                                     </tr>
                                 }

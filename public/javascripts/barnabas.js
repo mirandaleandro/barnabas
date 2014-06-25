@@ -100,11 +100,9 @@ $(document).ready(function() {
                     url:url,
                     success: function(data)
                     {
-                        debugger;
                         actionContainer.replaceWith(data);
                     },
                     error: function(data) {
-                        debugger;
                         if(data.error){
                             barnabas.displayErrorMessage(data.responseJSON.error)
                         }else
