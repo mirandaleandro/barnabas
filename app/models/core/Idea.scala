@@ -92,6 +92,9 @@ class Idea(var createdBy:User,
     escapedDescription.substring(0,Math.min(escapedDescription.length, 300 ))
   }
 
+  def searchAuthors:List[User] = List(createdBy)
+
+  def searchCreationDate = this.creationDate
 
 }
 

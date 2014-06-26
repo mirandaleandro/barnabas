@@ -8,5 +8,8 @@
 
     <span class="text-green">@url<i class="fa fa-caret-down"></i></span>
     <br>@searchResult.searchDescription
-
+    <ul class="user-info-list">
+        <li><i class="fa fa-user fa-muted"></i> Author: @searchResult.searchAuthors.map(_.fullName)</li>
+        <li><i class="fa fa-calendar fa-muted"></i> Added On: @Application.defaultDateFormat.format(searchResult.searchCreationDate)</li>
+    </ul>
 </div>

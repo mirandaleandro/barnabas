@@ -1,5 +1,8 @@
 package models.core.Interfaces
 
+import models.User
+import java.util.Date
+
 /**
  * Created with IntelliJ IDEA.
  * User: leo
@@ -11,5 +14,6 @@ trait Searchable {
 
   def searchTitle:String
   def searchDescription:String
-
+  def searchAuthors:List[User]
+  def searchCreationDate:Date
 }
