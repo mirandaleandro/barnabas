@@ -58,7 +58,7 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
   def submitIdea = SecuredAction{
     implicit request =>
       ideaSubmitionForm.bindFromRequest.fold(
-        formWithErrors => BadRequest,
+        formWithErrors => BadRequest(formWithErrors.errorsAsJson),
         (form: IdeaSubmissionForm) => {
           transactional{
 
@@ -89,7 +89,7 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
 
               }
 
-              Ok(views.html.pages.submitIdea()).flashing("message" -> "Idea Submitted!")
+              Redirect(routes.Application.index())
             }else
             {
               BadRequest("Permission Denied")

@@ -403,25 +403,8 @@ $(document).ready(function() {
 
             },
             submitForm: function(e){
-                e.preventDefault();
-
-                var form = $(".submit-idea-form");
-
                 var summernoteTextarea = $('.submit-idea-form .submit-idea-rich-textarea');
                 summernoteTextarea.html(summernoteTextarea.code());
-
-                var data = form.serialize();
-
-                $.ajax({
-                    type: "POST",
-                    url: form.attr("action"),
-                    data: data,
-                    success: function()
-                    {
-                        barnabas.displayMessage("Idea submitted successfully.","success");
-                        barnabas.clearForms(".submit-idea-form");
-                    }
-                });
             },
             addTopic: function(topicValue)
             {
