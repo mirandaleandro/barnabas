@@ -59,14 +59,17 @@
                                 <textarea name="description" class="additional-feedback-rich-textarea">
                                         @evaluation.discussion.map(_.description)
                                 </textarea>
-                                <div class="appendable-btn-group btn-group">
-                                    <button type="submit" data-anonymous="false" class="submit-discussion btn btn-green btn-sm btn-small">
-                                        <i class="fa fa-save"></i> Submit Comments</button>
+                                <div class="note-toolbar btn-toolbar bottom-toolbar">
+                                    <div class="appendable-btn-group btn-group pull-right">
+                                        <button type="submit" data-anonymous="false" class="submit-discussion btn btn-green btn-sm btn-small">
+                                            <i class="fa fa-save"></i> Submit Comments</button>
+                                    </div>
+                                    <div class="appendable-btn-group btn-group pull-right">
+                                        <button type="submit" data-anonymous="true" class="submit-discussion btn btn-dark-blue btn-sm btn-small">
+                                            <i class="fa fa-save"></i> Submit Comments Anonymously</button>
+                                    </div>
                                 </div>
-                                <div class="appendable-btn-group btn-group">
-                                    <button type="submit" data-anonymous="true" class="submit-discussion btn btn-dark-blue btn-sm btn-small">
-                                        <i class="fa fa-save"></i> Submit Comments Anonymously</button>
-                                </div>
+
                             </div>
 
                         </form>

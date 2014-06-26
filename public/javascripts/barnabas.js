@@ -14,9 +14,9 @@ $(document).ready(function() {
 
             summerText.summernote(options);
 
-            var buttons = summerText.closest(".summernote").find(".appendable-btn-group");
+            var buttons = summerText.closest(".summernote").find(".bottom-toolbar");
 
-            summerText.next().find(".note-toolbar").append(buttons);
+            summerText.next().find(".note-statusbar").append(buttons);
 
         };
 
