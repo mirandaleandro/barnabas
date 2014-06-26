@@ -68,7 +68,7 @@
                                             </div>
                                         </li>
                                     }else{
-                                        @for(discussion <- user.otherDiscussionsOnMyIdeas ){
+                                        @for(discussion <- user.otherDiscussionsOnMyIdeas.take(20) ){
                                         <li>
                                             <a href="@discussion.closest.evaluation.map{ e => @routes.Application.idea(e.idea.id) }">
                                                 <div class="row">

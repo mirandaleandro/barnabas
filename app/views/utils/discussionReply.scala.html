@@ -7,7 +7,7 @@
                 <img class="discussion-picture media-object img-circle" src="@if(discussion.isAnonymous){@User.defaultAvatarUrl}else{@discussion.createdBy.avatarUrl}" alt="">
             </a>
             <div class="media-body">
-                <h4 class="media-heading">@discussion.createdBy.fullName
+                <h4 class="media-heading">@if(discussion.isAnonymous){Anonymous}else{@discussion.createdBy.fullName}
                     <span class="small pull-right">@Application.defaultDateFormat.format(discussion.creationDate)</span>
                 </h4>
                 <p>@Html(discussion.description)</p>
