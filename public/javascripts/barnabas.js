@@ -356,6 +356,11 @@ $(document).ready(function() {
                     }
                 });
 
+                $('.idea-phase-selection').multiselect({
+                    maxHeight: 250,
+                    buttonClass: 'btn btn-default btn-lg'});
+
+
 
                 $(".add-topic-input").autocomplete({
                     source: function (request, response) {

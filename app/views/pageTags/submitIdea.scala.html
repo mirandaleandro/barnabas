@@ -1,4 +1,5 @@
 @(idea:Option[models.core.Idea] = None)(implicit user:User)
+@import core.IdeaPhase
 <div id="wrapper">
 
     <!-- begin MAIN PAGE CONTENT -->
@@ -67,6 +68,19 @@
                             </div>
 
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row  extra-bottom-margin">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4 class="bottom-line">Inform in which phase is your idea </h4>
+                        <select name="phaseId" class="idea-phase-selection col-md-6">
+                            @for(phase <- IdeaPhase.findAll){
+                                <option value="@phase.id" @if(idea.map(_.ideaPhase == phase).getOrElse(false)){selected}>@phase.title</option>
+                            }
+                        </select>
                     </div>
                 </div>
             </div>

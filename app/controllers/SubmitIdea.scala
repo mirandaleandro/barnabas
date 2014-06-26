@@ -40,7 +40,7 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
     }
   }
 
-  case class IdeaSubmissionForm(var ideaId:String, var title:String, description:String, topics:List[String])
+  case class IdeaSubmissionForm(var ideaId:String, var phaseId:String, var title:String, description:String, topics:List[String])
   {
     def idea:Option[Idea] = Idea.findById(ideaId)
   }
@@ -48,6 +48,7 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
   val ideaSubmitionForm = Form(
     mapping(
       "ideaId" -> text,
+      "phaseId" -> text,
       "title" -> text.verifying("title must be shorter than 140 characters", text => text.length <= 140),
       "description" -> text.verifying("Description cannot be empty", description => description.length > 0),
       "topics" -> list(text)
@@ -69,7 +70,7 @@ object SubmitIdea extends Controller with securesocial.core.SecureSocial
             if(user.canEditIdea(idea))
             {
               idea.title = form.title
-              idea.ideaPhase = IdeaPhase.Inception
+              idea.ideaPhase = IdeaPhase.findById(form.phaseId).getOrElse(IdeaPhase.Inception)
               idea.description = form.description
 
               idea.addSubDiscipline(user.currentSubDiscipline)

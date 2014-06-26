@@ -138,9 +138,6 @@ class IdeaPhase(var createdBy:User, var title:String ) extends Entity
 
 object IdeaPhase
 {
-
-
-
   def apply(createdBy:User, title:String):IdeaPhase =
   {
     new IdeaPhase(createdBy = createdBy, title = title)
@@ -154,9 +151,9 @@ object IdeaPhase
 
   def findIdeaByTitleForce(title:String) = findIdeaByTitle(title).get
 
+  def findById(id: String) = byId[IdeaPhase](id)
+
   def Inception = findIdeaByTitleForce("Inception")
   def DataAnalysis = findIdeaByTitleForce("DataAnalysis")
   def Article = findIdeaByTitleForce("Article")
-
-
 }
