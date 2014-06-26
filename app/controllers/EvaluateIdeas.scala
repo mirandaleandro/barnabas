@@ -32,7 +32,7 @@ object EvaluateIdeas extends Controller with securesocial.core.SecureSocial
         IdeaUser(idea = idea, user = user)
         Redirect(routes.EvaluateIdeas.evaluateIdeasWithId(idea.id))
       }.getOrElse{
-        NotFound(views.html.errors.notFound(request.request))
+        NotFound(views.html.errors.noMoreIdeasToEvaluate(request.request))
       }
     }
   }

@@ -127,7 +127,10 @@ object Idea
   {
     val ideasForSubDiscipline: List[Idea] = IdeaSubDiscipline.findBySubDiscipline(subDiscipline = user.currentSubDiscipline).map(_.idea)
     val ideasEvaluatedByUser: List[Idea] = IdeaUser.findByUser(user = user).map(_.idea)
-    ideasForSubDiscipline.filterNot(ideasEvaluatedByUser.toSet).headOption
+    ideasForSubDiscipline
+      .filterNot(ideasEvaluatedByUser.toSet)
+      .filterNot(_.createdBy == user)
+      .headOption
   }
 }
 
