@@ -107,7 +107,7 @@
                                             <td><a href="@routes.Application.idea(idea.id)">@idea.title</a></td>
                                             <td>@idea.phase</td>
                                             <td> @idea.topics.map{ topic =>
-                                                <span class="label green">#@topic.title</span>
+                                                <a class="no-decoration" href="@routes.Application.topic(topic.id)" rel="@topic.popularity"><span class="label green">#@topic.title</span></a>
                                             }
                                             </td>
                                         </tr>

@@ -2311,3 +2311,8 @@ form.dropzone{
 {
     color: white;
 }
+
+.no-decoration:hover
+{
+    text-decoration: none;
+}

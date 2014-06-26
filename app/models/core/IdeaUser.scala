@@ -56,9 +56,21 @@ class IdeaUser(var user:User, var idea:Idea, var like:Option[Boolean] = None, va
   def unflagInappropriateIdea(){ this.flaggedAsInappropriate = false}
   def toggleFlagInappropriate(){this.flaggedAsInappropriate = !this.flaggedAsInappropriate}
 
-  def followIdea(){ this.follow = true}
-  def unfollowIdea(){ this.follow = false}
-  def toggleFollow(){ this.follow = !this.follow}
+  def followIdea(){
+    follow = true
+    idea.followersCount += 1
+  }
+  def unfollowIdea(){
+    follow = false
+    idea.followersCount -= 1
+  }
+
+  def toggleFollow(){
+   if(follow)
+     unfollowIdea()
+   else
+     followIdea()
+  }
 
   def interestedInCollaborateWithIdea(){
     this.interestedInCollaborate = true

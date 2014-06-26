@@ -21,7 +21,7 @@
         <span class="divider"></span>
 
         @for( topic <- idea.topics.take(3)){
-            <span class="label green">#@topic.title</span>
+            <a class="no-decoration" href="@routes.Application.topic(topic.id)" rel="@topic.popularity"><span class="label green">#@topic.title</span></a>
         }
 
         @views.html.utils.userDescription(idea.createdBy, title = Some("Authors"))

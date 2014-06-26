@@ -75,7 +75,7 @@
                                                                 <td>@subDiscipline.title</td>
                                                                 <td>@subDiscipline.discipline.title</td>
                                                                 <td>@subDiscipline.topics.map{topic =>
-                                                                    <span class="label green">#@topic.title</span>
+                                                                    <a class="no-decoration" href="@routes.Application.topic(topic.id)" rel="@topic.popularity"><span class="label green">#@topic.title</span></a>
                                                                 }
                                                                 </td>
                                                             </tr>
@@ -110,8 +110,8 @@
                                                             <tr>
                                                             <td>@idea.title</td>
                                                             <td>@idea.phase</td>
-                                                            <td> @idea.topics.map{ topic =>
-                                                                <span class="label green">#@topic.title</span>
+                                                            <td>@idea.topics.map{ topic =>
+                                                                <a class="no-decoration" href="@routes.Application.topic(topic.id)" rel="@topic.popularity"><span class="label green">#@topic.title</span></a>
                                                             }
                                                             </td>
                                                             </tr>
