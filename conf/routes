@@ -61,6 +61,7 @@ GET /forms/followUser/:userId                       controllers.UserProfile.foll
 GET /forms/collaborate/:ideaUserId                  controllers.EvaluateIdeas.collaborate(ideaUserId)
 GET /forms/flagInappropriate/:ideaUserId            controllers.EvaluateIdeas.flagInappropriate(ideaUserId)
 GET /forms/subDisciplineInterest/:subDisciplineId   controllers.UserProfile.favoriteSubDiscipline(subDisciplineId)
+GET /forms/updateSubDiscipline/:subDisciplineId     controllers.UserProfile.updateSubDiscipline(subDisciplineId)
 
 GET  /edit/:ideaId                                  controllers.SubmitIdea.editIdea(ideaId)
 GET  /topicsList                                    controllers.SubmitIdea.topics(term)

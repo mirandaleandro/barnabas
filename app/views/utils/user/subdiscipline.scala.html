@@ -1,12 +1,25 @@
 @( pageUser:User)(implicit user:User)
 
 <div class="tab-pane fade in" id="updateSubdiscipline">
-<h3>Sub Discipline</h3>
-    <div class="col-md-12">
+    <div class="row">
+        <h3>Sub Discipline</h3>
+    </div>
+
+    <div class="row extra-bottom-margin">
+
+        <h4>Current Sub Discipline</h4>
+        <select class="sub-discipline-selection">
+            @for(subDiscipline <- user.subDisciplinesOfInterest){
+                <option data-url="@routes.UserProfile.updateSubDiscipline(subDiscipline.id)" value="@subDiscipline.id" @if(subDiscipline == user.currentSubDiscipline){selected}>@subDiscipline.title</option>
+            }
+        </select>
+    </div>
+
+    <div class="row">
         <div class="portlet portlet-default">
             <div class="portlet-heading">
                 <div class="portlet-title">
-                    <h4>Sub Disciplines</h4>
+                    <h4>Select your favorite sub disciplines</h4>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -35,6 +48,6 @@
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>

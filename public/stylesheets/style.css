@@ -2300,3 +2300,9 @@ form.dropzone{
 .circle-tile-number a{
     color: inherit;
 }
+
+.top-menu .multiselect
+{
+    line-height: 38px;
+    border-radius: 0;
+}

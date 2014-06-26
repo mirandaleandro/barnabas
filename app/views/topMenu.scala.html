@@ -1,7 +1,7 @@
 @()(implicit user:User)
 
 <!-- begin TOP NAVIGATION -->
-        <nav class="navbar-top" role="navigation">
+        <nav class="navbar-top top-menu" role="navigation">
 
             <!-- begin BRAND HEADING -->
             <div class="navbar-header">
@@ -32,6 +32,13 @@
                 <!-- begin MESSAGES/ALERTS/TASKS/USER ACTIONS DROPDOWNS -->
                 <ul class="nav navbar-right">
 
+                   <li>
+                    <select class="sub-discipline-selection soft-hide">
+                        @for(subDiscipline <- user.subDisciplinesOfInterest){
+                            <option data-url="@routes.UserProfile.updateSubDiscipline(subDiscipline.id)" value="@subDiscipline.id" @if(subDiscipline == user.currentSubDiscipline){selected}>@subDiscipline.title</option>
+                        }
+                    </select>
+                    </li>
                     <!-- begin MESSAGES DROPDOWN -->
                     <li class="dropdown">
                         <a href="#" data-url="@routes.TopMenu.updateMessagesCheckIn" class="messages-link dropdown-toggle" data-toggle="dropdown">

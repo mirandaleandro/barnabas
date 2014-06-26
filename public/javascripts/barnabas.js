@@ -511,13 +511,32 @@ $(document).ready(function() {
             barnabas.displayErrorMessage("Oh snap! We could not process your request. If the problem persists, please contact the administrator");
         }
 
-        this.validateForm = function(form){
-           var response;
-           response.valid = true;
+        this.setupSubDisciplineSelection = function(){
 
+            $('.sub-discipline-selection').multiselect({
+                type:"GET",
+                maxHeight: 250,
+                buttonClass: 'btn btn-orange',
+                onChange : function(option, checked) {
+                    var url = $(option).data("url");
 
-
-           return response;
+                    $.ajax({
+                        url:url,
+                        success: function(data)
+                        {
+                            location.reload(false);
+                        },
+                        error: function(data) {
+                            if(data.error){
+                                barnabas.displayErrorMessage(data.responseJSON.error)
+                            }else
+                            {
+                                barnabas.displayDefaultErrorMessage();
+                            }
+                        }
+                    });
+                }
+            });
         }
 
         this.setup = function()
@@ -530,6 +549,8 @@ $(document).ready(function() {
                 extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
                 theme: 'flat'
             }
+
+            barnabas.setupSubDisciplineSelection();
 
             barnabas.updateDataTable(".data-table");
 

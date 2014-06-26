@@ -186,4 +186,26 @@ object UserProfile extends Controller with securesocial.core.SecureSocial {
       }
     }
   }
+
+  def updateSubDiscipline(subDisciplineId:String) = SecuredAction{ implicit request =>
+    transactional{
+      implicit val user = request.user
+
+      SubDiscipline.findById(subDisciplineId).map { subDiscipline =>
+
+        if(user.isInterestedInSubDiscipline(subDiscipline))
+        {
+            user.currentSubDiscipline = subDiscipline
+            Ok
+        }
+        else
+        {
+          BadRequest(Json.obj("error" -> "Sorry, you cannot un-favorite your current discipline."))
+        }
+
+      }.getOrElse{
+         BadRequest
+      }
+    }
+  }
 }
