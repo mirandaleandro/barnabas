@@ -9,7 +9,8 @@
 
         <div class="page-fixed-menu">
             @views.html.utils.flagInappropriate(evaluation)
-            <a href="@routes.EvaluateIdeas.evaluateIdeas" class="btn btn-default next-action floating-action">Next(F2)</a>
+            <a href="@routes.Application.idea(evaluation.idea.id)" class="btn btn-default floating-action"><i class="fa fa-lightbulb-o"></i> Idea Page</a>
+            <a href="@routes.EvaluateIdeas.evaluateIdeas" class="btn btn-default next-action floating-action"><i class="fa fa-fast-forward"></i> Next(F2)</a>
         </div>
 
 

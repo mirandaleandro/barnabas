@@ -1,6 +1,6 @@
 @(evaluation:models.core.IdeaUser)(implicit user:User)
 
 <div data-link="@routes.EvaluateIdeas.flagInappropriate(evaluation.id)" class="floating-action relationship-action flag-action multi-action @if(!evaluation.flaggedAsInappropriate){show-first}">
-    <button class="first col-xs-12 btn btn-green">Flag as inappropriate</button>
+    <button class="first col-xs-12 btn btn-green"><i class="fa fa-flag"></i> Flag as inappropriate</button>
     <button class="second col-xs-12 btn btn-green">Undo flag</button>
 </div>
