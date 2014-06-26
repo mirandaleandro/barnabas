@@ -2306,3 +2306,8 @@ form.dropzone{
     line-height: 38px;
     border-radius: 0;
 }
+
+.note-editor .btn-group > .submit-discussion:hover
+{
+    color: white;
+}
