@@ -410,6 +410,12 @@ $(document).ready(function() {
             submitForm: function(e){
                 var summernoteTextarea = $('.submit-idea-form .submit-idea-rich-textarea');
                 summernoteTextarea.html(summernoteTextarea.code());
+
+                if(summernoteTextarea.val().length < 1){
+                    e.preventDefault();
+                    barnabas.displayErrorMessage("Error. Description cannot be empty. ");
+                }
+
             },
             addTopic: function(topicValue)
             {
