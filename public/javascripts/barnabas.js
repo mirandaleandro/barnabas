@@ -328,13 +328,15 @@ $(document).ready(function() {
 
                 var sliderValue = slider.data("value");
 
-                slider.slider({
-                    range: "min",
-                    min: 0,
-                    max: 100,
-                    value: sliderValue,
-                    animate: true
-                });
+                if(slider.size() > 0){
+                    slider.slider({
+                        range: "min",
+                        min: 0,
+                        max: 100,
+                        value: sliderValue,
+                        animate: true
+                    });
+                }
             }
         }
 
